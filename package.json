@@ -1,0 +1,26 @@
+{
+  "name": "js13k-2015",
+  "version": "0.0.0",
+  "description": "Entry for the js13k compo 2015",
+  "main": "game.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/satanas/#.git"
+  },
+  "author": "Wil Alvarez",
+  "license": "MIT",
+  "homepage": "https://github.com/satanas/#",
+  "devDependencies": {
+    "glob": "^4.0.5",
+    "gulp": "^3.8.7",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.3.5",
+    "gulp-minify-css": "^0.3.8",
+    "gulp-minify-html": "^0.1.5",
+    "gulp-uglify": "^1.0.1",
+    "gulp-zip": "^2.0.1"
+  }
+}

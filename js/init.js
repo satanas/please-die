@@ -38,6 +38,7 @@ $.init = function(c, w, h) {
 
   $.vw = $.c.width  = w;
   $.vh = $.c.height = h;
+  $.input = new Input();
 };
 
 // Gets a DOM element by id

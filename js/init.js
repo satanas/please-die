@@ -19,10 +19,15 @@ var $ = {},
     rnd = Math.random,
     now = Date.now;
 
+var black = 'rgb(0,0,0)';
+
 // Initialize all variables
 // c: canvas id
 // w: width
 // h: height
+//
+// $.x = Canvas context
+// $.i = Input
 $.init = function(c, w, h) {
   // Get canvas
   $.c = $.byId(c);
@@ -33,12 +38,18 @@ $.init = function(c, w, h) {
   $.x.r = $.x.restore;
   $.x.fr = $.x.fillRect;
   $.x.ft = $.x.fillText;
+  $.x.fs = $.x.fillStyle;
+  $.x.cr = $.x.clearRect;
   $.x.d = $.x.drawImage;
   $.x.sc = $.x.scale;
+  $.x.clr = function(c) {
+    $.x.cr(0, 0, $.vw, $.vh);
+    $.x.fs = c || black;
+    $.x.fr(0, 0, $.vw, $.vh);
+  };
 
   $.vw = $.c.width  = w;
   $.vh = $.c.height = h;
-  $.input = new Input();
 };
 
 // Gets a DOM element by id

@@ -30,26 +30,33 @@ var black = 'rgb(0,0,0)';
 // $.i = Input
 $.init = function(c, w, h) {
   // Get canvas
-  $.c = $.byId(c);
+  c = $.byId(c);
   // Get canvas context
-  $.x = $.c.getContext('2d');
+  $.x = c.getContext('2d');
   // Rename common used methods
+  // FIXME: use a local var until the end (to avoid repeating $.x)
   $.x.s = $.x.save;
   $.x.r = $.x.restore;
   $.x.fr = $.x.fillRect;
   $.x.ft = $.x.fillText;
-  $.x.fs = $.x.fillStyle;
   $.x.cr = $.x.clearRect;
+  $.x.mt = $.x.measureText;
   $.x.d = $.x.drawImage;
   $.x.sc = $.x.scale;
   $.x.clr = function(c) {
     $.x.cr(0, 0, $.vw, $.vh);
-    $.x.fs = c || black;
+    $.x.fillStyle = c || black;
     $.x.fr(0, 0, $.vw, $.vh);
   };
+  $.x.ct = function(t, s, y, f) {
+    $.x.fillStyle = f || "#000";
+    $.x.font = String(s) + "px serif";
+    var x = $.x.mt(t);
+    $.x.ft(t, ($.vw - x.width) / 2, y);
+  };
 
-  $.vw = $.c.width  = w;
-  $.vh = $.c.height = h;
+  $.vw = c.width = w;
+  $.vh = c.height = h;
 };
 
 // Gets a DOM element by id

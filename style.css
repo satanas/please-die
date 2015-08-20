@@ -12,49 +12,7 @@ canvas {
   width: 640px;
   height: 480px;
   position: relative;
-  border: 1px solid red;
 }
 #ts {
   display: none;
-}
-
-@-webkit-keyframes shaky {
-  0%, 33% {
-    padding-top: 4px;
-    margin-left: 5px;
-    font-family: serif;
-    /*font-stretch: ultra-condensed;*/
-    font-style: normal;
-    letter-spacing: 0px;
-    font-weight: 100;
-  }
-  33.0001%, 66% {
-    padding-top: 0;
-    margin-left: 1px;
-    font-family: cursive;
-    font-stretch: normal;
-    font-style: italic;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-  }
-  66.0001%, 100% {
-    padding-top: -4px;
-    margin-left: 3px;
-    font-style: normal;
-    font-family: sans-serif;
-    /*font-stretch: ultra-expanded;*/
-    font-weight: 300;
-    letter-spacing: 0.5px;
-  }
-}
-
-#t {
-  position: absolute;
-  top: 35%;
-  font-size: 48px;
-  text-align: center;
-  width: 600px;
-  height: 30px;
-  -webkit-animation: shaky 3s infinite;
-  animation: shaky 0.25s infinite;
 }

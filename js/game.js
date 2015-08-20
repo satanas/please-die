@@ -10,23 +10,24 @@ $.start = function() {
   $.menu = new MenuScene();
   $.game = new GameScene();
 
-  $.menu.loop();
+  $.aid = $.menu.loop();
 };
 
 var MenuScene = function() {
   var _ = this;
   _.loop = function() {
-    $.x.clr();
+    $.x.clr('#fff');
 
     $.x.s();
-    //$.x.font = "35px serif";
-    $.x.fs = "rgb(255,255,255)";
-    $.x.ft('Die Fast', 200, 200);
+    $.x.ct('Die Fast', 75, 210);
+    $.x.ct('Press Enter to play', 25, 350);
     $.x.r();
 
     if ($.i.p(13)) {
-      console.log('Enter');
+      console.log('Enter 1');
+      //$.i.u();
       $.game.loop();
+      return;
     }
     raf(_.loop.bind(_));
   };
@@ -39,7 +40,7 @@ var GameScene = function() {
     $.x.clr();
 
     if ($.i.p(13)) {
-      console.log('Enter');
+      console.log('Enter 2');
     }
     raf(_.loop.bind(_));
   };

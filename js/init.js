@@ -7,6 +7,7 @@ window.caf = window.cancelAnimationFrame ||
   window.mozCancelAnimationFrame;
 
 var $ = {},
+    dbg = true,
     abs = Math.abs,
     cos = Math.cos,
     sin = Math.sin,
@@ -25,8 +26,6 @@ var $ = {},
       return n;
     };
 
-var black = 'rgb(0,0,0)';
-
 // Initialize all variables
 // c: canvas id
 // w: width
@@ -36,7 +35,6 @@ var black = 'rgb(0,0,0)';
 // $.i = Input
 // $.c = Collisions System
 // $.g = Groups
-//
 $.init = function(c, w, h) {
   // Get canvas
   c = $.byId(c);
@@ -48,6 +46,7 @@ $.init = function(c, w, h) {
   $.x.r = $.x.restore;
   $.x.fr = $.x.fillRect;
   $.x.ft = $.x.fillText;
+  $.x.sr = $.x.strokeRect;
   $.x.cr = $.x.clearRect;
   $.x.mt = $.x.measureText;
   $.x.d = $.x.drawImage;
@@ -56,10 +55,14 @@ $.init = function(c, w, h) {
   $.x.fs = function(c) {
     $.x.fillStyle = c;
   };
+  // Set strokeStyle
+  $.x.ss = function(c) {
+    $.x.strokeStyle = c;
+  };
   // Clear screen
   $.x.clr = function(c) {
     $.x.cr(0, 0, $.vw, $.vh);
-    $.x.fs(c || black);
+    $.x.fs(c || "black");
     $.x.fr(0, 0, $.vw, $.vh);
   };
   // Render centered text

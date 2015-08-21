@@ -6,12 +6,13 @@ var Player = function(x, y) {
   _.h = 32;
   _.dx = 0;
   _.dy = 0;
-  _.s = 0.23; // Speed
-  _.mxs = 6; // Max x speed
+  _.s = 0.53; // Speed
+  _.mxs = 5; // Max x speed
   _.mys = 15; // Max y speed
 
   // e: Elapsed time between frames
   _.u = function(e) {
+    // Side movement
     if ($.i.p(37)) {
       _.dx -= _.s;
     } else if ($.i.p(39)) {
@@ -21,6 +22,12 @@ var Player = function(x, y) {
     _.dx = iir(_.dx, -_.mxs, _.mxs);
     if (!$.i.p(37) && !$.i.p(39)) {
       _.dx = 0;
+    }
+
+    // Jump
+    if (_.dy === 0 && $.i.p(38)) {
+      console.log('jumping');
+      _.dy = -8;
     }
 
     _.dy += 19.8 * (e / 1000);

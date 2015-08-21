@@ -18,6 +18,12 @@ var $ = {},
     round = Math.round,
     rnd = Math.random,
     now = Date.now;
+    // Check if a number Is In Range
+    iir = function(n, l, h) {
+      if (n < l) return l;
+      if (n > h) return h;
+      return n;
+    };
 
 var black = 'rgb(0,0,0)';
 
@@ -43,13 +49,19 @@ $.init = function(c, w, h) {
   $.x.mt = $.x.measureText;
   $.x.d = $.x.drawImage;
   $.x.sc = $.x.scale;
+  // Set fillStyle
+  $.x.fs = function(c) {
+    $.x.fillStyle = c;
+  };
+  // Clear screen
   $.x.clr = function(c) {
     $.x.cr(0, 0, $.vw, $.vh);
-    $.x.fillStyle = c || black;
+    $.x.fs(c || black);
     $.x.fr(0, 0, $.vw, $.vh);
   };
+  // Render centered text
   $.x.ct = function(t, s, y, f) {
-    $.x.fillStyle = f || "#000";
+    $.x.fs(f || "#000");
     $.x.font = String(s) + "px serif";
     var x = $.x.mt(t);
     $.x.ft(t, ($.vw - x.width) / 2, y);

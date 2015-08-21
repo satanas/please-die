@@ -28,12 +28,8 @@ var Player = function(x, y) {
 
     _.x += _.dx;
     _.y += _.dy;
-    _.b = {
-      b: _.y + _.h,
-      t: _.y,
-      l: _.x,
-      r: _.x + _.w
-    };
+    // Recalculate bounds after movement
+    _.rb();
 
     // Check collisions with blocks
     $.g.b.forEach(function(w) {
@@ -50,7 +46,9 @@ var Player = function(x, y) {
         }
       }
     });
-    console.log(_.dy);
+
+    // Recalculate bounds after collisions
+    _.rb();
   };
 
   _.r = function() {
@@ -58,5 +56,15 @@ var Player = function(x, y) {
     $.x.fs("white");
     $.x.fr(_.x, _.y, _.w, _.h);
     $.x.r();
+  };
+
+  // Recalculate bounds
+  _.rb = function() {
+    _.b = {
+      b: _.y + _.h,
+      t: _.y,
+      l: _.x,
+      r: _.x + _.w
+    };
   };
 };

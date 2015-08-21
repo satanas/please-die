@@ -46,9 +46,15 @@ var GameScene = function() {
   _.b1 = new Block(200, 400);
   _.b2 = new Block(232, 400);
   _.b3 = new Block(264, 400);
+  _.b4 = new Block(296, 400);
+  _.b5 = new Block(328, 400);
+  _.b6 = new Block(360, 400);
   $.g.b.push(_.b1);
   $.g.b.push(_.b2);
   $.g.b.push(_.b3);
+  $.g.b.push(_.b4);
+  $.g.b.push(_.b5);
+  $.g.b.push(_.b6);
 
   _.loop = function() {
     _.t.n = new Date();
@@ -63,6 +69,9 @@ var GameScene = function() {
     _.b1.r();
     _.b2.r();
     _.b3.r();
+    _.b4.r();
+    _.b5.r();
+    _.b6.r();
     _.t.s = new Date();
     raf(_.loop.bind(_));
   };

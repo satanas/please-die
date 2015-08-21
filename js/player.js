@@ -23,11 +23,34 @@ var Player = function(x, y) {
       _.dx = 0;
     }
 
-    _.dy += $.g * (e / 1000);
+    _.dy += 19.8 * (e / 1000);
     _.dy = iir(_.dy, -_.mys, _.mys);
 
     _.x += _.dx;
     _.y += _.dy;
+    _.b = {
+      b: _.y + _.h,
+      t: _.y,
+      l: _.x,
+      r: _.x + _.w
+    };
+
+    // Check collisions with blocks
+    $.g.b.forEach(function(w) {
+      if ($.c.rect(_, w)) {
+        if ($.c.bottom(_, w)){
+          _.y = w.b.t - _.h;
+          _.dy = 0;
+        } else if ($.c.top(_, w)) {
+          _.y = w.b.b;
+        } else if ($.c.right(_, w)) {
+          _.x = w.b.l - _.w;
+        } else if ($.c.left(_, w)) {
+          _.x = w.b.r;
+        }
+      }
+    });
+    console.log(_.dy);
   };
 
   _.r = function() {

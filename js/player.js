@@ -48,7 +48,7 @@ var Player = function(x, y) {
     });
 
     // Recalculate bounds after collisions
-    _.rb();
+    //_.rb();
   };
 
   _.r = function() {

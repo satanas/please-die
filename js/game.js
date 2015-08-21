@@ -40,6 +40,7 @@ var GameScene = function() {
     e: 0 // Elapsed time
   };
   _.p = new Player(200, 200);
+  _.b = new Block(200, 400);
 
   _.loop = function() {
     _.t.n = new Date();
@@ -51,6 +52,7 @@ var GameScene = function() {
     }
     _.p.u(_.t.e);
     _.p.r();
+    _.b.r();
     _.t.s = new Date();
     raf(_.loop.bind(_));
   };

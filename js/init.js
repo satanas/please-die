@@ -34,7 +34,7 @@ var black = 'rgb(0,0,0)';
 //
 // $.x = Canvas context
 // $.i = Input
-$.init = function(c, w, h) {
+$.init = function(c, w, h, g) {
   // Get canvas
   c = $.byId(c);
   // Get canvas context
@@ -69,6 +69,8 @@ $.init = function(c, w, h) {
 
   $.vw = c.width = w;
   $.vh = c.height = h;
+  // Gravity
+  $.g = g;
 };
 
 // Gets a DOM element by id

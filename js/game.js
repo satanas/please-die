@@ -4,7 +4,7 @@ window.addEventListener('load', function() {
 });
 
 $.start = function() {
-  $.init('c', 640, 480);
+  $.init('c', 640, 480, 19.8);
   $.i = new Input();
   $.i.b([13, 65, 37, 38, 39, 40, 49, 50, 51, 52]);
   $.menu = new MenuScene();
@@ -33,16 +33,25 @@ var MenuScene = function() {
 
 var GameScene = function() {
   var _ = this;
+  // Time associated variables and methods
+  _.t = {
+    s: 0, // Start time
+    n: 0, // End time
+    e: 0 // Elapsed time
+  };
   _.p = new Player(200, 200);
 
   _.loop = function() {
+    _.t.n = new Date();
+    _.t.e = (_.t.s !== 0) ? _.t.n - _.t.s : 0;
     $.x.clr();
 
     if ($.i.p(13)) {
       console.log('Enter 2');
     }
-    _.p.u();
+    _.p.u(_.t.e);
     _.p.r();
+    _.t.s = new Date();
     raf(_.loop.bind(_));
   };
 };

@@ -34,7 +34,10 @@ var black = 'rgb(0,0,0)';
 //
 // $.x = Canvas context
 // $.i = Input
-$.init = function(c, w, h, g) {
+// $.c = Collisions System
+// $.g = Groups
+//
+$.init = function(c, w, h) {
   // Get canvas
   c = $.byId(c);
   // Get canvas context
@@ -69,8 +72,10 @@ $.init = function(c, w, h, g) {
 
   $.vw = c.width = w;
   $.vh = c.height = h;
-  // Gravity
-  $.g = g;
+  // Collision groups
+  $.g = {};
+  // Collisions System
+  $.c = new Collisions();
 };
 
 // Gets a DOM element by id

@@ -10,7 +10,7 @@ $.start = function() {
   $.menu = new MenuScene();
   $.game = new GameScene();
 
-  $.aid = $.menu.loop();
+  $.menu.loop();
 };
 
 var MenuScene = function() {
@@ -23,11 +23,9 @@ var MenuScene = function() {
     $.x.ct('Press Enter to play', 25, 350);
     $.x.r();
 
-    if ($.i.p(13)) {
+    if ($.i.r(13)) {
       console.log('Enter 1');
-      //$.i.u();
-      $.game.loop();
-      return;
+      return $.game.loop();
     }
     raf(_.loop.bind(_));
   };
@@ -35,13 +33,15 @@ var MenuScene = function() {
 
 var GameScene = function() {
   var _ = this;
-  console.log('laaskldjalksdj');
+  _.p = new Player(200, 200);
+
   _.loop = function() {
     $.x.clr();
 
     if ($.i.p(13)) {
       console.log('Enter 2');
     }
+    _.p.r();
     raf(_.loop.bind(_));
   };
 };

@@ -16,6 +16,10 @@ var Block = function(x, y) {
     $.x.s();
     $.x.fs("white");
     $.x.fr(_.x, _.y, _.w, _.h);
+    if (dbg) {
+      $.x.ss("red");
+      $.x.sr(_.b.l, _.b.t, _.b.r - _.x, _.b.b - _.y);
+    }
     $.x.r();
   };
 };

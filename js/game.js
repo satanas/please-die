@@ -41,6 +41,7 @@ var GameScene = function() {
     if ($.i.p(13)) {
       console.log('Enter 2');
     }
+    _.p.u();
     _.p.r();
     raf(_.loop.bind(_));
   };

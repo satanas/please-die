@@ -40,15 +40,15 @@ var Player = function(x, y) {
 
     // Check collisions with blocks
     $.g.b.forEach(function(w) {
-      if ($.c.rect(_, w)) {
-        if ($.c.bottom(_, w)){
+      if ($.o.rect(_, w)) {
+        if ($.o.bottom(_, w)){
           _.y = w.b.t - _.h;
           _.dy = 0;
-        } else if ($.c.top(_, w)) {
+        } else if ($.o.top(_, w)) {
           _.y = w.b.b;
-        } else if ($.c.right(_, w)) {
+        } else if ($.o.right(_, w)) {
           _.x = w.b.l - _.w;
-        } else if ($.c.left(_, w)) {
+        } else if ($.o.left(_, w)) {
           _.x = w.b.r;
         }
       }

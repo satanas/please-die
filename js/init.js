@@ -33,7 +33,7 @@ var $ = {},
 //
 // $.x = Canvas context
 // $.i = Input
-// $.c = Collisions System
+// $.o = Collisions System
 // $.g = Groups
 $.init = function(c, w, h) {
   // Get canvas
@@ -78,7 +78,7 @@ $.init = function(c, w, h) {
   // Collision groups
   $.g = {};
   // Collisions System
-  $.c = new Collisions();
+  $.o = new Collisions();
 };
 
 // Gets a DOM element by id

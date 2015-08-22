@@ -12,13 +12,14 @@ var Block = function(x, y) {
       r: _.x + _.w
     };
 
-  _.r = function() {
+  // Render with relative coordinates. The r object has x, y, r and b
+  _.r = function(r) {
     $.x.s();
     $.x.fs("white");
-    $.x.fr(_.x, _.y, _.w, _.h);
+    $.x.fr(r.x, r.y, _.w, _.h);
     if (dbg) {
       $.x.ss("red");
-      $.x.sr(_.b.l, _.b.t, _.b.r - _.x, _.b.b - _.y);
+      $.x.sr(r.x, r.y, _.w, _.h);
     }
     $.x.r();
   };

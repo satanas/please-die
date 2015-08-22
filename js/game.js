@@ -44,6 +44,7 @@ var GameScene = function() {
   };
   _.p = new Player(200, 200);
 
+  $.g.b.push(new Block(100, 50));
   for (var i=0; i<30; i++) {
     $.g.b.push(new Block(200 + (i * 32), 400));
   }

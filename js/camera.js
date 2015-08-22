@@ -45,12 +45,18 @@ var Camera = function(w, h, ww, wh) {
         mw = _.w / 2,
         mh = _.h / 2;
     if (_.ww <= _.w) {
+      // If world width is smaller than viewport width, then tx = target.x so offset x is zero
       tx = _.tg.x;
     } else if (_.tg.x <= (mw)) {
+      // If target.x is before the middle of the viewport, offset x is zero
       tx = _.tg.x;
     } else if ((_.tg.x > mw) && (_.tg.x + mw <= _.ww)) {
+      // If target x is after the middle of the viewport and still not in the end of the world,
+      // offset x is the middle viewport
       tx = mw;
     } else if ((_.tg.x > mw) && (_.tg.x + mw > _.ww)) {
+      // If target x is after the middle of the viewport and reached the end of the world,
+      // offset x is the difference between the world width and the target.x
       tx = _.w - (_.ww - _.tg.x);
     }
 
@@ -75,7 +81,7 @@ var Camera = function(w, h, ww, wh) {
     k.forEach(function(o) {
       if (_.iv(o)) {
         var t = _.xc(o);
-        o.r(t.x, t.y);
+        o.r(t);
       }
     });
   };

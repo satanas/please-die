@@ -30,6 +30,7 @@ var Camera = function(w, h, ww, wh) {
   };
 
   // In view: indicates if the object is inside the viewport
+  // Used to avoid rendering objects outside the view
   _.iv = function(o) {
     var t = _.xc(o);
     return ((t.r >= 0 && t.r <= _.w) || (t.x >= 0 && t.x <= _.w)) &&
@@ -66,6 +67,7 @@ var Camera = function(w, h, ww, wh) {
     _.ofy = _.tg.y - ty;
   };
 
+  // Render
   _.r = function(k) {
     if (!k) return;
     if (!(k instanceof Array)) k = [k];

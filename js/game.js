@@ -43,18 +43,12 @@ var GameScene = function() {
     e: 0 // Elapsed time
   };
   _.p = new Player(200, 200);
-  _.b1 = new Block(200, 400);
-  _.b2 = new Block(232, 400);
-  _.b3 = new Block(264, 400);
-  _.b4 = new Block(296, 400);
-  _.b5 = new Block(328, 400);
-  _.b6 = new Block(360, 400);
-  $.g.b.push(_.b1);
-  $.g.b.push(_.b2);
-  $.g.b.push(_.b3);
-  $.g.b.push(_.b4);
-  $.g.b.push(_.b5);
-  $.g.b.push(_.b6);
+
+  for (var i=0; i<30; i++) {
+    $.g.b.push(new Block(200 + (i * 32), 400));
+  }
+  $.c.sw(1000, 1000);
+  $.c.st(_.p);
 
   _.loop = function() {
     _.t.n = new Date();
@@ -65,13 +59,12 @@ var GameScene = function() {
       console.log('Enter 2');
     }
     _.p.u(_.t.e);
-    _.p.r();
-    _.b1.r();
-    _.b2.r();
-    _.b3.r();
-    _.b4.r();
-    _.b5.r();
-    _.b6.r();
+    // Update camera. Always the last one
+    $.c.u();
+
+    // Render objects with camera
+    $.c.r(_.p);
+    $.c.r($.g.b);
     _.t.s = new Date();
     raf(_.loop.bind(_));
   };

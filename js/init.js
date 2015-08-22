@@ -35,6 +35,7 @@ var $ = {},
 // $.i = Input
 // $.o = Collisions System
 // $.g = Groups
+// $.c = Camera
 $.init = function(c, w, h) {
   // Get canvas
   c = $.byId(c);
@@ -77,8 +78,10 @@ $.init = function(c, w, h) {
   $.vh = c.height = h;
   // Collision groups
   $.g = {};
-  // Collisions System
+  // Collisions system
   $.o = new Collisions();
+  // Camera system
+  $.c = new Camera(w, h);
 };
 
 // Gets a DOM element by id

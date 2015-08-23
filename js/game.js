@@ -41,7 +41,6 @@ var GameScene = function() {
   // Time associated variables and methods
   _.t = {
     s: 0, // Start time
-    n: 0, // End time
     e: 0 // Elapsed time
   };
   _.p = new Player(200, 200);
@@ -54,8 +53,7 @@ var GameScene = function() {
   $.c.st(_.p);
 
   _.loop = function() {
-    _.t.n = new Date();
-    $.e = (_.t.s !== 0) ? _.t.n - _.t.s : 0;
+    $.e = (_.t.s !== 0) ? new Date() - _.t.s : 0;
 
     // This is to avoid wormholes:
     // https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/

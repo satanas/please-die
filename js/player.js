@@ -10,6 +10,12 @@ var Player = function(x, y) {
   _.mxs = 5; // Max x speed
   _.mys = 15; // Max y speed
 
+  $.g.p.push(new Particle(_.x, _.y));
+  $.g.p.push(new Particle(_.x, _.y));
+  $.g.p.push(new Particle(_.x, _.y));
+  $.g.p.push(new Particle(_.x, _.y));
+  $.g.p.push(new Particle(_.x, _.y));
+
   // e: Elapsed time between frames
   _.u = function(e) {
     // Side movement

@@ -16,8 +16,7 @@ var Player = function(x, y) {
   $.g.p.push(new Particle(_.x, _.y));
   $.g.p.push(new Particle(_.x, _.y));
 
-  // e: Elapsed time between frames
-  _.u = function(e) {
+  _.u = function() {
     // Side movement
     if ($.i.p(37)) {
       _.dx -= _.s;
@@ -36,7 +35,7 @@ var Player = function(x, y) {
       _.dy = -8;
     }
 
-    _.dy += 19.8 * (e / 1000);
+    _.dy += 19.8 * ($.e / 1000);
     _.dy = iir(_.dy, -_.mys, _.mys);
 
     _.x += _.dx;

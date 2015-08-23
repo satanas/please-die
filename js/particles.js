@@ -18,7 +18,6 @@ var Particle = function(x, y) {
   _.mxs = 5; // Max x speed
   _.mys = 15; // Max y speed
 
-  // e: Elapsed time between frames
   _.u = function() {
     // Side movement
     _.dx = iir(_.dx, -_.mxs, _.mxs);

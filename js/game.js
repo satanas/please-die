@@ -55,17 +55,15 @@ var GameScene = function() {
 
   _.loop = function() {
     _.t.n = new Date();
-    // FIXME: Remove _.t.e and make it global with $.e
-    _.t.e = (_.t.s !== 0) ? _.t.n - _.t.s : 0;
-    $.e = _.t.e;
+    $.e = (_.t.s !== 0) ? _.t.n - _.t.s : 0;
 
     // This is to avoid wormholes:
     // https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
-    if (_.t.e < 160) {
+    if ($.e < 160) {
       $.x.clr();
 
       // Update stuff
-      _.p.u(_.t.e);
+      _.p.u();
       $.g.p.forEach(function(k) {
         k.u();
       });

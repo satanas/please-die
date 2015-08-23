@@ -9,6 +9,8 @@ $.start = function() {
   $.i.b([13, 65, 37, 38, 39, 40, 49, 50, 51, 52]);
   // Blocks group
   $.g.b = [];
+  // Particles group
+  $.g.p = [];
   // Scenes
   $.menu = new MenuScene();
   $.game = new GameScene();
@@ -53,7 +55,10 @@ var GameScene = function() {
 
   _.loop = function() {
     _.t.n = new Date();
+    // FIXME: Remove _.t.e and make it global with $.e
     _.t.e = (_.t.s !== 0) ? _.t.n - _.t.s : 0;
+    $.e = _.t.e;
+
     // This is to avoid wormholes:
     // https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
     if (_.t.e < 160) {
@@ -61,12 +66,16 @@ var GameScene = function() {
 
       // Update stuff
       _.p.u(_.t.e);
+      $.g.p.forEach(function(k) {
+        k.u();
+      });
       // Update camera. Always at the end of all updates
       $.c.u();
 
       // Render objects with camera. Order defines who paints first
       $.c.r(_.p);
       $.c.r($.g.b);
+      $.c.r($.g.p);
     }
 
     _.t.s = new Date();

@@ -18,12 +18,16 @@ var $ = {},
     sqrt = Math.sqrt,
     round = Math.round,
     rnd = Math.random,
-    now = Date.now;
+    now = Date.now,
     // Check if a number Is In Range
     iir = function(n, l, h) {
       if (n < l) return l;
       if (n > h) return h;
       return n;
+    },
+    // Generate random integer in a (min, max) range
+    rndr = function(a, b) {
+      return floor(rnd() * (b - a)) + a;
     };
 
 // Initialize all variables
@@ -36,7 +40,9 @@ var $ = {},
 // $.o = Collisions System
 // $.g = Groups
 // $.c = Camera
+// $.e = Elapsed time since previous frame
 $.init = function(c, w, h) {
+  $.e = 0;
   // Get canvas
   c = $.byId(c);
   // Get canvas context

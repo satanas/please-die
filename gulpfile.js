@@ -6,8 +6,6 @@ var replace = require('gulp-replace');
 var minifyCSS = require('gulp-minify-css');
 var minifyHTML = require('gulp-minify-html');
 var clean = require('gulp-clean');
-var glob = require('glob');
-var exec = require('child_process').exec;
 var zip = require('gulp-zip');
 
 var appName = 'die-fast-js13k-2015';

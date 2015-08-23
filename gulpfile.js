@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
+var replace = require('gulp-replace');
 var minifyCSS = require('gulp-minify-css');
 var minifyHTML = require('gulp-minify-html');
 var clean = require('gulp-clean');
@@ -47,7 +48,14 @@ gulp.task('clean', function() {
 });
 
 gulp.task('build', ['minify'], function() {
-  gulp.src(['min/all.min.js', 'index.html', 'min/style.min.css'])
+  var pattern = /<!-- Begin imports -->([\s\S]*)<!-- End imports -->/;
+
+  gulp.src(['index.html'])
+  .pipe(replace(pattern, '<script src="all.min.js"></script>'))
+  .pipe(replace(/style.css/, 'style.min.css'))
+  .pipe(gulp.dest('min'))
+
+  gulp.src(['min/all.min.js', 'min/index.html', 'min/style.min.css'])
   .pipe(zip(appName + '.zip'))
   .pipe(gulp.dest('min'));
 });
@@ -58,9 +66,4 @@ gulp.task('closure', function() {
   files.map(function(file) {
     exec('java -jar compiler.jar --language_in ECMASCRIPT5 --js ' + file + ' --js_output_file min/' + file + '.min');
   });
-
-  //gulp.src('js/*.js')
-  //.pipe(concat('all.min.js'))
-  //.pipe(uglify())
-  //.pipe(gulp.dest('min'));
 });

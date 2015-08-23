@@ -54,18 +54,25 @@ var GameScene = function() {
   _.loop = function() {
     _.t.n = new Date();
     _.t.e = (_.t.s !== 0) ? _.t.n - _.t.s : 0;
-    $.x.clr();
+    // This is to avoid wormholes:
+    // https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
+    if (_.t.e < 160) {
+      $.x.clr();
 
-    if ($.i.p(13)) {
-      console.log('Enter 2');
+      if ($.i.p(13)) {
+        console.log('Enter 2');
+      }
+
+      // Update stuff
+      _.p.u(_.t.e);
+      // Update camera. Always at the end of all updates
+      $.c.u();
+
+      // Render objects with camera. Order defines who paints first
+      $.c.r(_.p);
+      $.c.r($.g.b);
     }
-    _.p.u(_.t.e);
-    // Update camera. Always the last one
-    $.c.u();
 
-    // Render objects with camera
-    $.c.r(_.p);
-    $.c.r($.g.b);
     _.t.s = new Date();
     raf(_.loop.bind(_));
   };

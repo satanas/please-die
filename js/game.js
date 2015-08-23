@@ -59,10 +59,6 @@ var GameScene = function() {
     if (_.t.e < 160) {
       $.x.clr();
 
-      if ($.i.p(13)) {
-        console.log('Enter 2');
-      }
-
       // Update stuff
       _.p.u(_.t.e);
       // Update camera. Always at the end of all updates

@@ -13,9 +13,7 @@ var zip = require('gulp-zip');
 var appName = 'die-fast-js13k-2015';
 
 gulp.task('default', function() {
-  gulp.src('index.html')
-  .pipe(minifyHTML())
-  .pipe(gulp.dest('min'));
+  
 });
 
 gulp.task('minify', function() {
@@ -45,6 +43,8 @@ gulp.task('clean', function() {
   .pipe(clean());
   gulp.src('min/*.js', {read: false})
   .pipe(clean());
+  gulp.src('min/*.html', {read: false})
+  .pipe(clean());
 });
 
 gulp.task('build', ['minify'], function() {
@@ -55,15 +55,19 @@ gulp.task('build', ['minify'], function() {
   .pipe(replace(/style.css/, 'style.min.css'))
   .pipe(gulp.dest('min'))
 
+  gulp.src('min/index.html')
+  .pipe(minifyHTML())
+  .pipe(gulp.dest('min'));
+
   gulp.src(['min/all.min.js', 'min/index.html', 'min/style.min.css'])
   .pipe(zip(appName + '.zip'))
   .pipe(gulp.dest('min'));
 });
 
-gulp.task('closure', function() {
-  var files = glob.sync('js/*.js');
-
-  files.map(function(file) {
-    exec('java -jar compiler.jar --language_in ECMASCRIPT5 --js ' + file + ' --js_output_file min/' + file + '.min');
-  });
-});
+//gulp.task('closure', function() {
+//  var files = glob.sync('js/*.js');
+//
+//  files.map(function(file) {
+//    exec('java -jar compiler.jar --language_in ECMASCRIPT5 --js ' + file + ' --js_output_file min/' + file + '.min');
+//  });
+//});

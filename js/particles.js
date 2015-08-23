@@ -13,8 +13,8 @@ var Particle = function(x, y) {
   _.y = y;
   _.w = 4;
   _.h = 4;
-  _.dx = rndr(2, 6);
-  _.dy = -rndr(5, 8);
+  _.dx = rndr(-5, 5);
+  _.dy = -rndr(4, 8);
   _.mxs = 5; // Max x speed
   _.mys = 15; // Max y speed
 

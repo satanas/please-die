@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
+var rename = require('gulp-rename');
 var minifyCSS = require('gulp-minify-css');
 var minifyHTML = require('gulp-minify-html');
 var clean = require('gulp-clean');
@@ -8,43 +9,45 @@ var glob = require('glob');
 var exec = require('child_process').exec;
 var zip = require('gulp-zip');
 
-var appName = 'js13k-2015';
+var appName = 'die-fast-js13k-2015';
 
 gulp.task('default', function() {
-  //gulp.src('js/*.js')
-  gulp.src(['js/constants.js', 'js/rect.js', 'js/util.js', 'js/input.js', 'js/camera.js', 'js/collisions.js', 'js/powers.js',
-    'js/items.js', 'js/switches.js', 'js/hero.js', 'js/enemies.js', 'js/wall.js', 'js/doors.js', 'js/fow.js', 'js/hud.js',
-    'js/scene.js', 'js/deco.js', 'js/level.js', 'js/textpop.js', 'js/ai.js', 'js/game.js' ])
+  gulp.src('index.html')
+  .pipe(minifyHTML())
+  .pipe(gulp.dest('min'));
+});
+
+gulp.task('minify', function() {
+  gulp.src([
+    'js/input.js',
+    'js/player.js',
+    'js/objects.js',
+    'js/collisions.js',
+    'js/camera.js',
+    'js/init.js',
+    'js/game.js',
+  ])
   .pipe(concat('all.min.js'))
   .pipe(uglify())
   .pipe(gulp.dest('min'));
 
   gulp.src('style.css')
   .pipe(minifyCSS())
-  .pipe(gulp.dest('min'));
-
-  gulp.src('index.html')
-  .pipe(minifyHTML())
+  .pipe(rename('style.min.css'))
   .pipe(gulp.dest('min'));
 });
 
 gulp.task('clean', function() {
-  gulp.src('style.min.css')
+  gulp.src('min/*.zip', {read: false})
   .pipe(clean());
-  gulp.src('*.zip')
+  gulp.src('min/*.css', {read: false})
   .pipe(clean());
-  gulp.src('all.min.js')
+  gulp.src('min/*.js', {read: false})
   .pipe(clean());
 });
 
-gulp.task('uglify', function() {
-  gulp.src('js/*.js')
-  .pipe(uglify())
-  .pipe(gulp.dest('min'));
-});
-
-gulp.task('build', function() {
-  gulp.src(['min/all.min.js', 'min/index.html', 'min/style.css', 'min/t.gif'])
+gulp.task('build', ['minify'], function() {
+  gulp.src(['min/all.min.js', 'index.html', 'min/style.min.css'])
   .pipe(zip(appName + '.zip'))
   .pipe(gulp.dest('min'));
 });

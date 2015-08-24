@@ -9,12 +9,9 @@ var Player = function(x, y) {
   _.s = 0.53; // Speed
   _.mxs = 5; // Max x speed
   _.mys = 15; // Max y speed
+  _.e = new Emitter(); // Particles emitter
 
-  $.g.p.push(new Particle(_.x, _.y));
-  $.g.p.push(new Particle(_.x, _.y));
-  $.g.p.push(new Particle(_.x, _.y));
-  $.g.p.push(new Particle(_.x, _.y));
-  $.g.p.push(new Particle(_.x, _.y));
+  _.e.e(_.x, _.y);
 
   _.u = function() {
     // Side movement
@@ -59,6 +56,8 @@ var Player = function(x, y) {
       }
     });
 
+    // Update emitter
+    _.e.u();
     // Recalculate bounds after collisions
     //_.rb();
   };
@@ -73,6 +72,9 @@ var Player = function(x, y) {
       $.x.sr(r.x, r.y, _.w, _.h);
     }
     $.x.r();
+
+    // Render emitter
+    _.e.r();
   };
 
   // Recalculate bounds

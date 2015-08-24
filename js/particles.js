@@ -1,22 +1,65 @@
 var Emitter = function() {
-    // Check collisions with blocks
-    $.g.b.forEach(function(w) {
-      if ($.o.rect(_, w)) {
-        console.log('kill me');
-      }
+  var _ = this;
+  // Particle references
+  _.p = [];
+
+  // Emit
+  // x: x coordinate
+  // y: y coordinate
+  // n: number of particles
+  // m: mode of emission
+  _.e = function(x, y, n, m) {
+    _.p.push(new Particle(x, y));
+    _.p.push(new Particle(x, y));
+    _.p.push(new Particle(x, y));
+    _.p.push(new Particle(x, y));
+    _.p.push(new Particle(x, y));
+  };
+
+  // Update
+  _.u = function() {
+    var d = [];
+    for(i = _.p.length; i--;) {
+      _.p[i].u();
+      if (!_.p[i].a) d.push(i);
+    }
+
+    d.forEach(function(i) {
+      console.log('killed', i);
+      _.p.splice(i, 1);
     });
+    console.log('len', _.p.length);
+    //_.p.forEach(function(k) {
+    //  k.u();
+    //});
+  };
+
+  // Render particles
+  _.r = function() {
+    if (_.p.length === 0) return;
+
+    $.c.r(_.p);
+  };
+
+  // Length of particles array
+  _.l = function() {
+    return _.p.length;
+  };
 };
 
-var Particle = function(x, y) {
+// Pasar padre como referencia para remover del arreglo
+var Particle = function(x, y, c) {
   var _ = this;
   _.x = x;
   _.y = y;
-  _.w = 4;
-  _.h = 4;
+  _.w = rndr(3, 7);
+  _.h = _.w;
   _.dx = rndr(-5, 5);
   _.dy = -rndr(4, 8);
   _.mxs = 5; // Max x speed
   _.mys = 15; // Max y speed
+  _.a = 1; // Alive
+  _.c = c || "red";
 
   _.u = function() {
     // Side movement
@@ -29,12 +72,19 @@ var Particle = function(x, y) {
     _.y += _.dy;
     // Recalculate bounds after movement
     _.rb();
+
+    // Check collisions with blocks
+    $.g.b.forEach(function(w) {
+      if ($.o.rect(_, w)) _.a = 0;
+    });
+    // Check boundaries
+    if (_.x < 0 || _.x > $.c.ww || _.y < 0 || _.y > $.c.wh) _.a = 0;
   };
 
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
     $.x.s();
-    $.x.fs("red");
+    $.x.fs(_.c);
     $.x.fr(r.x, r.y, _.w, _.h);
     $.x.r();
   };

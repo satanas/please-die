@@ -88,7 +88,11 @@ var Particle = function(x, y, dx, dy, c, l, g, d) {
 
     // Check collisions with blocks
     $.g.b.forEach(function(w) {
-      if ($.o.rect(_, w)) _.a = 0;
+      if ($.o.rect(_, w)) {
+        _.a = 0;
+        // Taint blocks
+        w.t(_.x, _.w);
+      }
     });
     // Check boundaries
     if (_.x < 0 || _.x > $.c.ww || _.y < 0 || _.y > $.c.wh) _.a = 0;

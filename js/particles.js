@@ -7,13 +7,16 @@ var Emitter = function() {
   // x: x coordinate
   // y: y coordinate
   // n: number of particles
-  // m: mode of emission
-  _.e = function(x, y, n, m) {
-    _.p.push(new Particle(x, y));
-    _.p.push(new Particle(x, y));
-    _.p.push(new Particle(x, y));
-    _.p.push(new Particle(x, y));
-    _.p.push(new Particle(x, y));
+  // t: type of emission
+  //   blood = 1
+  _.e = function(x, y, n, t) {
+    if (t === 1) {
+      var n = n || 5,
+          i = n;
+      for(i; i--;) {
+        _.p.push(new Particle(x, y, rndr(-5, 5), -rndr(4, 8)));
+      }
+    }
   };
 
   // Update
@@ -48,24 +51,26 @@ var Emitter = function() {
 };
 
 // Pasar padre como referencia para remover del arreglo
-var Particle = function(x, y, c) {
+var Particle = function(x, y, dx, dy, c, g) {
   var _ = this;
   _.x = x;
   _.y = y;
   _.w = rndr(3, 7);
   _.h = _.w;
-  _.dx = rndr(-5, 5);
-  _.dy = -rndr(4, 8);
+  _.dx = dx;
+  _.dy = dy;
   _.mxs = 5; // Max x speed
   _.mys = 15; // Max y speed
   _.a = 1; // Alive
   _.c = c || "red";
+  _.g = g || 1; // Apply gravity
 
   _.u = function() {
     // Side movement
     _.dx = iir(_.dx, -_.mxs, _.mxs);
 
-    _.dy += 19.8 * ($.e / 1000);
+    // Apply gravity if _.g is true
+    if (_.g) _.dy += 19.8 * ($.e / 1000);
     _.dy = iir(_.dy, -_.mys, _.mys);
 
     _.x += _.dx;

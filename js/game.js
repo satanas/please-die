@@ -7,8 +7,9 @@ $.start = function() {
   $.init('c', 640, 480);
   $.i = new Input();
   $.i.b([13, 65, 37, 38, 39, 40, 49, 50, 51, 52]);
-  // Blocks group
-  $.g.b = [];
+  // Groups
+  $.g.b = []; // Blocks
+  $.g.t = []; // Traps
   // Scenes
   $.menu = new MenuScene();
   $.game = new GameScene();
@@ -47,6 +48,7 @@ var GameScene = function() {
   for (var i=0; i<30; i++) {
     $.g.b.push(new Block(200 + (i * 32), 400));
   }
+  $.g.t.push(new Fire(260, 368));
   $.c.sw(1000, 1000);
   $.c.st(_.p);
 
@@ -66,6 +68,7 @@ var GameScene = function() {
       // Render objects with camera. Order defines who paints first
       $.c.r(_.p);
       $.c.r($.g.b);
+      $.c.r($.g.t);
     }
 
     _.t.s = new Date();

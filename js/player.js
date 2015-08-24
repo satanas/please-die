@@ -56,6 +56,18 @@ var Player = function(x, y) {
       }
     });
 
+    // Check collisions with traps
+    $.g.t.forEach(function(w) {
+      if ($.o.rect(_, w)) {
+        _.e.e(_.x, _.y, 5, 1);
+        if ($.o.bottom(_, w)){
+        } else if ($.o.top(_, w)) {
+        } else if ($.o.right(_, w)) {
+        } else if ($.o.left(_, w)) {
+        }
+      }
+    });
+
     // Update emitter
     _.e.u();
     // Recalculate bounds after collisions

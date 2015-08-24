@@ -51,13 +51,17 @@ $.init = function(c, w, h) {
   // FIXME: use a local var until the end (to avoid repeating $.x)
   $.x.s = $.x.save;
   $.x.r = $.x.restore;
-  $.x.fr = $.x.fillRect;
   $.x.ft = $.x.fillText;
   $.x.sr = $.x.strokeRect;
   $.x.cr = $.x.clearRect;
   $.x.mt = $.x.measureText;
   $.x.d = $.x.drawImage;
   $.x.sc = $.x.scale;
+  // fillRect
+  $.x.fr = function(x, y, w, h) {
+    // To avoid anti-aliasing
+    $.x.fillRect(floor(x), floor(y), w, h);
+  }
   // Set fillStyle
   $.x.fs = function(c) {
     $.x.fillStyle = c;

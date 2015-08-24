@@ -56,7 +56,8 @@ var Emitter = function() {
 // c: color (default: red)
 // l: lifetime (default: 2000ms)
 // g: apply gravity (default. true)
-var Particle = function(x, y, dx, dy, c, l, g) {
+// d: apply alpha until the particle disappear (default: true)
+var Particle = function(x, y, dx, dy, c, l, g, d) {
   var _ = this;
   _.x = x;
   _.y = y;
@@ -70,6 +71,7 @@ var Particle = function(x, y, dx, dy, c, l, g) {
   _.c = c || "red";
   _.l = l || 2000;
   _.g = g || 1; // Apply gravity
+  _.d = d || 1; // Disappear
 
   _.u = function() {
     // Side movement

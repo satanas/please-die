@@ -21,20 +21,19 @@ var Emitter = function() {
 
   // Update
   _.u = function() {
+    if (_.p.length === 0) return;
+
     var d = [];
     for(i = _.p.length; i--;) {
       _.p[i].u();
+      // Mark dead particles for deletion
       if (!_.p[i].a) d.push(i);
     }
 
+    // Remove references to dead particles
     d.forEach(function(i) {
-      console.log('killed', i);
       _.p.splice(i, 1);
     });
-    console.log('len', _.p.length);
-    //_.p.forEach(function(k) {
-    //  k.u();
-    //});
   };
 
   // Render particles

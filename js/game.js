@@ -9,8 +9,6 @@ $.start = function() {
   $.i.b([13, 65, 37, 38, 39, 40, 49, 50, 51, 52]);
   // Blocks group
   $.g.b = [];
-  // Particles group
-  $.g.p = [];
   // Scenes
   $.menu = new MenuScene();
   $.game = new GameScene();
@@ -60,18 +58,14 @@ var GameScene = function() {
     if ($.e < 160) {
       $.x.clr();
 
-      // Update stuff
+      // Update player
       _.p.u();
-      $.g.p.forEach(function(k) {
-        k.u();
-      });
       // Update camera. Always at the end of all updates
       $.c.u();
 
       // Render objects with camera. Order defines who paints first
       $.c.r(_.p);
       $.c.r($.g.b);
-      $.c.r($.g.p);
     }
 
     _.t.s = new Date();

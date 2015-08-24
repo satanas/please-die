@@ -11,7 +11,7 @@ var Player = function(x, y) {
   _.mys = 15; // Max y speed
   _.e = new Emitter(); // Particles emitter
 
-  _.e.e(_.x, _.y);
+  _.e.e(_.x, _.y, 5, 1);
 
   _.u = function() {
     // Side movement

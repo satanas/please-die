@@ -49,8 +49,14 @@ var Emitter = function() {
   };
 };
 
-// Pasar padre como referencia para remover del arreglo
-var Particle = function(x, y, dx, dy, c, g) {
+// x: x coordinate
+// y: y coordinate
+// dx: x speed
+// dy: y speed
+// c: color (default: red)
+// l: lifetime (default: 2000ms)
+// g: apply gravity (default. true)
+var Particle = function(x, y, dx, dy, c, l, g) {
   var _ = this;
   _.x = x;
   _.y = y;
@@ -62,6 +68,7 @@ var Particle = function(x, y, dx, dy, c, g) {
   _.mys = 15; // Max y speed
   _.a = 1; // Alive
   _.c = c || "red";
+  _.l = l || 2000;
   _.g = g || 1; // Apply gravity
 
   _.u = function() {
@@ -83,6 +90,10 @@ var Particle = function(x, y, dx, dy, c, g) {
     });
     // Check boundaries
     if (_.x < 0 || _.x > $.c.ww || _.y < 0 || _.y > $.c.wh) _.a = 0;
+
+    // Check lifetime
+    _.l -= $.e;
+    if (_.l <= 0) _.a = 0;
   };
 
   // Render with relative coordinates. The r object has x, y, r and b

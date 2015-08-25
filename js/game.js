@@ -47,6 +47,7 @@ var GameScene = function() {
   $.g.b.push(new Block(100, 50));
   for (var i=0; i<30; i++) {
     $.g.b.push(new Block(200 + (i * 32), 400));
+    $.g.b.push(new Block(230 + (i * 32), 300));
   }
   $.g.t.push(new Fire(260, 368));
   $.g.t.push(new Saw(360, 384));

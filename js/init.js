@@ -51,6 +51,8 @@ $.init = function(c, w, h) {
   // FIXME: use a local var until the end (to avoid repeating $.x)
   $.x.s = $.x.save;
   $.x.r = $.x.restore;
+  $.x.tn = $.x.translate;
+  $.x.ro = $.x.rotate;
   $.x.ft = $.x.fillText;
   $.x.sr = $.x.strokeRect;
   $.x.cr = $.x.clearRect;

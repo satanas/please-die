@@ -49,6 +49,8 @@ var GameScene = function() {
     $.g.b.push(new Block(200 + (i * 32), 400));
   }
   $.g.t.push(new Fire(260, 368));
+  $.g.t.push(new Saw(360, 384));
+  $.g.t.push(new Saw(396, 384));
   $.c.sw(1000, 1000);
   $.c.st(_.p);
 
@@ -62,6 +64,9 @@ var GameScene = function() {
 
       // Update player
       _.p.u();
+      $.g.t.forEach(function(t) {
+        t.u();
+      });
       // Update camera. Always at the end of all updates
       $.c.u();
 

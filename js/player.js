@@ -6,14 +6,20 @@ var Player = function(x, y) {
   _.h = 32;
   _.dx = 0;
   _.dy = 0;
+  _.hu = 0; // Hurt. 1: bleeding, 2: burning, 3: electrocuting
+  _.it = 80; // Invisibility time
+  _.ic = 0; // Invisibility counter
+  _.a = 1; // Alive
   _.s = 0.53; // Speed
   _.mxs = 5; // Max x speed
   _.mys = 15; // Max y speed
   _.e = new Emitter(); // Particles emitter
 
-  _.e.e(_.x, _.y, 5, 1);
-
   _.u = function() {
+    //var hs; // Speed when hurt
+    //if (_.hu === $.B) hs = _.s / 2;
+    //if (_.hu === $.U) hs = _.s * 2;
+
     // Side movement
     if ($.i.p(37)) {
       _.dx -= _.s;
@@ -48,6 +54,7 @@ var Player = function(x, y) {
           _.dy = 0;
         } else if ($.o.top(_, w)) {
           _.y = w.b.b;
+          _.dy = 0;
         } else if ($.o.right(_, w)) {
           _.x = w.b.l - _.w;
         } else if ($.o.left(_, w)) {
@@ -57,16 +64,27 @@ var Player = function(x, y) {
     });
 
     // Check collisions with traps
-    $.g.t.forEach(function(w) {
-      if ($.o.rect(_, w)) {
-        _.e.e(_.x, _.y, 5, 1);
-        if ($.o.bottom(_, w)){
-        } else if ($.o.top(_, w)) {
-        } else if ($.o.right(_, w)) {
-        } else if ($.o.left(_, w)) {
+    // If not hurt, HURT
+    if (_.hu === 0) {
+      $.g.t.forEach(function(w) {
+        if ($.o.rect(_, w)) {
+          if (w.t === $.B) {
+            console.log('hurting');
+            _.e.e(_.x, _.y, 5, 1);
+            _.hu = $.B;
+            _.ic = _.it;
+          }
         }
+      });
+    // If hurt, then recover
+    } else {
+      console.log('recovering');
+      _.ic -= $.e;
+      if (_.ic <= 0) {
+        _.ic = 0;
+        _.hu = 0;
       }
-    });
+    }
 
     // Update emitter
     _.e.u();

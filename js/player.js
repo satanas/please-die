@@ -18,8 +18,9 @@ var Player = function(x, y) {
   _.e = new Emitter(); // Particles emitter
 
   _.u = function() {
-    console.log(_.hu, _.blc);
+    console.log('hu', _.hu, 'blc', _.blc, 'ic', _.ic);
     // If invincible, decrease counter
+    //_.ic = dcz(_.ic, $.e);
     if (_.ic !== 0) {
       _.ic -= $.e;
       if (_.ic <= 0) _.ic = 0;
@@ -31,6 +32,15 @@ var Player = function(x, y) {
       if (_.blc <= 0) {
         _.blc = 0;
         _.hu -= $.BL.v;
+      }
+    }
+
+    // If burning, recover
+    if (_.buc !== 0) {
+      _.buc -= $.e;
+      if (_.buc <= 0) {
+        _.buc = 0;
+        _.hu -= $.BU.v;
       }
     }
 
@@ -89,6 +99,10 @@ var Player = function(x, y) {
           if (!(_.hu & $.BL.v)) _.hu += $.BL.v;
           _.ic = _.it;
           _.blc = $.BL.t
+        } else if (w.t === $.BU.v && _.ic === 0) {
+          if (!(_.hu & $.BU.v)) _.hu += $.BU.v;
+          _.ic = _.it;
+          _.buc = $.BU.t
         }
       }
     });

@@ -6,9 +6,11 @@ var Player = function(x, y) {
   _.h = 32;
   _.dx = 0;
   _.dy = 0;
-  _.hu = 0; // Hurt. 1: bleeding, 2: burning, 3: electrocuting
+  _.hu = 0; // Hurt. Accumulative variable to hold bleeding, burning, etc
   _.it = 80; // Invisibility time
   _.ic = 0; // Invisibility counter
+  _.blc = 0; // Bleeding counter
+  _.buc = 0; // Burning counter
   _.a = 1; // Alive
   _.s = 0.53; // Speed
   _.mxs = 5; // Max x speed
@@ -16,9 +18,25 @@ var Player = function(x, y) {
   _.e = new Emitter(); // Particles emitter
 
   _.u = function() {
+    console.log(_.hu, _.blc);
+    // If invincible, decrease counter
+    if (_.ic !== 0) {
+      _.ic -= $.e;
+      if (_.ic <= 0) _.ic = 0;
+    }
+
+    // If bleeding, recover
+    if (_.blc !== 0) {
+      _.blc -= $.e;
+      if (_.blc <= 0) {
+        _.blc = 0;
+        _.hu -= $.BL.v;
+      }
+    }
+
     var mxs = _.mxs; // Speed when hurt
-    if (_.hu === $.B) mxs = _.mxs / 3;
-    if (_.hu === $.U) mxs = _.mxs * 2;
+    if (_.hu & $.BL.v) mxs = _.mxs / 3;
+    if (_.hu & $.BU.v) mxs = _.mxs * 2;
 
     // Side movement
     if ($.i.p(37)) {
@@ -32,7 +50,6 @@ var Player = function(x, y) {
       _.dx = 0;
     }
 
-    console.log(_.hu);
     // Jump
     if (_.dy === 0 && $.i.p(38) && _.hu !== $.B) {
       console.log('jumping');
@@ -65,25 +82,16 @@ var Player = function(x, y) {
     });
 
     // Check collisions with traps
-    // If not hurt, HURT
-    if (_.hu === 0) {
-      $.g.t.forEach(function(w) {
-        if ($.o.rect(_, w)) {
-          if (w.t === $.B) {
-            _.e.e(_.x, _.y, 5, 1);
-            _.hu = $.B;
-            _.ic = _.it;
-          }
+    $.g.t.forEach(function(w) {
+      if ($.o.rect(_, w)) {
+        if (w.t === $.BL.v && _.ic === 0) {
+          _.e.e(_.x, _.y, 5, 1);
+          if (!(_.hu & $.BL.v)) _.hu += $.BL.v;
+          _.ic = _.it;
+          _.blc = $.BL.t
         }
-      });
-    // If hurt, then recover
-    } else {
-      _.ic -= $.e;
-      if (_.ic <= 0) {
-        _.ic = 0;
-        _.hu = 0;
       }
-    }
+    });
 
     // Update emitter
     _.e.u();

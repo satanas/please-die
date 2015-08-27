@@ -4,7 +4,7 @@ var Fire = function(x, y) {
   _.y = y;
   _.w = 16; // Width
   _.h = 32; // Height
-  _.t = $.U;
+  _.t = $.BU.v;
   // Bounds
   _.b = {
     b: _.y + _.h,
@@ -35,7 +35,7 @@ var Saw = function(x, y) {
   _.y = y;
   _.w = 32; // Width
   _.h = 32; // Height
-  _.t = $.B;
+  _.t = $.BL.v;
   _.a = 0; // Angle
   _.as = 920; // Angular speed
   // Bounds

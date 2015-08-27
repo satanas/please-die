@@ -11,6 +11,7 @@ var Player = function(x, y) {
   _.ic = 0; // Invisibility counter
   _.blc = 0; // Bleeding counter
   _.buc = 0; // Burning counter
+  _.elc = 0; // Electrocuting counter
   _.a = 1; // Alive
   _.s = 0.53; // Speed
   _.mxs = 5; // Max x speed
@@ -18,7 +19,7 @@ var Player = function(x, y) {
   _.e = new Emitter(); // Particles emitter
 
   _.u = function() {
-    console.log('hu', _.hu, 'blc', _.blc, 'ic', _.ic);
+    console.log('hu', _.hu, 'blc', _.blc, 'elc', _.elc, 'ic', _.ic);
     // If invincible, decrease counter
     //_.ic = dcz(_.ic, $.e);
     if (_.ic !== 0) {
@@ -44,9 +45,19 @@ var Player = function(x, y) {
       }
     }
 
+    // If electrocuting, recover
+    if (_.elc !== 0) {
+      _.elc -= $.e;
+      if (_.elc <= 0) {
+        _.elc = 0;
+        _.hu -= $.EL.v;
+      }
+    }
+
     var mxs = _.mxs; // Speed when hurt
     if (_.hu & $.BL.v) mxs = _.mxs / 3;
-    if (_.hu & $.BU.v) mxs = _.mxs * 2;
+    if (_.hu & $.BU.v) mxs = _.mxs * 1.5;
+    if (_.hu & $.EL.v) mxs = 0;
 
     // Side movement
     if ($.i.p(37)) {
@@ -103,6 +114,11 @@ var Player = function(x, y) {
           if (!(_.hu & $.BU.v)) _.hu += $.BU.v;
           _.ic = _.it;
           _.buc = $.BU.t
+        } else if (w.t === $.EL.v && _.ic === 0) {
+          w.a = 0;
+          if (!(_.hu & $.EL.v)) _.hu += $.EL.v;
+          _.ic = _.it;
+          _.elc = $.EL.t
         }
       }
     });

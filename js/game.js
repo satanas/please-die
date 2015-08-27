@@ -52,6 +52,7 @@ var GameScene = function() {
   $.g.t.push(new Fire(260, 368));
   $.g.t.push(new Saw(360, 384));
   $.g.t.push(new Saw(396, 384));
+  $.g.t.push(new Electricity(640, 384));
   $.c.sw(1000, 1000);
   $.c.st(_.p);
 
@@ -68,6 +69,19 @@ var GameScene = function() {
       $.g.t.forEach(function(t) {
         t.u();
       });
+
+      var d = [];
+      for(i = $.g.t.length; i--;) {
+        $.g.t[i].u();
+        // Mark dead traps for deletion
+        if (!$.g.t[i].a) d.push(i);
+      }
+      // Remove references to dead traps
+      d.forEach(function(i) {
+        $.g.t.splice(i, 1);
+      });
+
+
       // Update camera. Always at the end of all updates
       $.c.u();
 

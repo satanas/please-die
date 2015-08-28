@@ -23,7 +23,7 @@ var MenuScene = function() {
     $.x.clr('#fff');
 
     $.x.s();
-    $.x.ct('Die Fast', 75, 210);
+    $.x.ct('Please, die', 75, 200);
     $.x.ct('Press Enter to play', 25, 350);
     $.x.r();
 

@@ -14,6 +14,7 @@ var Emitter = function() {
   // t: type of emission
   //   blood = 1
   //   fire = 2
+  //   sparkles = 3
   _.e = function(x, y, n, t) {
     var n = n || 5,
         i = n;

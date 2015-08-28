@@ -48,7 +48,7 @@ var Player = function(x, y) {
 
     // If electrocuting, recover
     if (_.elc !== 0) {
-      _.e.e(_.x, _.y, 20, 3);
+      _.e.e(_.x, _.y + (_.h / 2), 20, 3);
       _.elc -= $.e;
       if (_.elc <= 0) {
         _.elc = 0;
@@ -108,21 +108,21 @@ var Player = function(x, y) {
     // Check collisions with traps
     $.g.t.forEach(function(w) {
       if ($.o.rect(_, w)) {
-        if (w.t === $.BL.v && _.ic === 0) {
-          _.e.e(_.x, _.y, 5, 1);
-          if (!(_.hu & $.BL.v)) _.hu += $.BL.v;
+        if (_.ic === 0) {
           _.ic = _.it;
-          _.blc = $.BL.t
-        } else if (w.t === $.BU.v && _.ic === 0) {
-          if (!(_.hu & $.BU.v)) _.hu += $.BU.v;
-          _.ic = _.it;
-          _.buc = $.BU.t
-        } else if (w.t === $.EL.v && _.ic === 0 && w.dc === 0) {
-          // Discharge trap
-          w.d();
-          if (!(_.hu & $.EL.v)) _.hu += $.EL.v;
-          _.ic = _.it;
-          _.elc = $.EL.t
+          if (w.t === $.BL.v) {
+            _.e.e(_.x, _.y, 5, 1);
+            if (!(_.hu & $.BL.v)) _.hu += $.BL.v;
+            _.blc = $.BL.t
+          } else if (w.t === $.BU.v) {
+            if (!(_.hu & $.BU.v)) _.hu += $.BU.v;
+            _.buc = $.BU.t
+          } else if (w.t === $.EL.v && w.dc === 0) {
+            // Discharge trap
+            w.d();
+            if (!(_.hu & $.EL.v)) _.hu += $.EL.v;
+            _.elc = $.EL.t
+          }
         }
       }
     });

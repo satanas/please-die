@@ -19,6 +19,7 @@ var $ = {},
     round = Math.round,
     rnd = Math.random,
     now = Date.now,
+    PI = Math.PI,
     // Check if a number Is In Range
     iir = function(n, l, h) {
       if (n < l) return l;

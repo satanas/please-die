@@ -2,6 +2,8 @@ var Emitter = function() {
   var _ = this;
   // Particle references
   _.p = [];
+  _.ff = 200; // Fire particles frequency
+  _.fc = 0; // Fire counter
 
   // Emit
   // x: x coordinate
@@ -9,19 +11,24 @@ var Emitter = function() {
   // n: number of particles
   // t: type of emission
   //   blood = 1
+  //   fire = 2
   _.e = function(x, y, n, t) {
+    var n = n || 5,
+        i = n;
     if (t === 1) {
-      var n = n || 5,
-          i = n;
-      for(i; i--;) {
-        _.p.push(new Particle(x, y, rndr(-5, 5), -rndr(4, 8)));
-      }
+      for(i; i--;)
+        _.p.push(new Particle(x, y, rndr(-5, 5), -rndr(4, 8), "red", 2000, 1));
+    } else if (t === 2 && _.fc <= 0) {
+      _.fc = _.ff;
+      for(i; i--;)
+        _.p.push(new Particle(x - rndr(-8, 8), y, rndr(3, 5), -rndr(1, 4), "orange", rndr(600, 1200), 0, 1, 1));
     }
   };
 
   // Update
   _.u = function() {
     if (_.p.length === 0) return;
+    if (_.fc > 0) _.fc -= $.e;
 
     var d = [];
     for(i = _.p.length; i--;) {
@@ -57,7 +64,8 @@ var Emitter = function() {
 // l: lifetime (default: 2000ms)
 // g: apply gravity (default. true)
 // d: apply alpha until the particle disappear (default: true)
-var Particle = function(x, y, dx, dy, c, l, g, d) {
+// sx: sinusoidal speed for x
+var Particle = function(x, y, dx, dy, c, l, g, d, sx) {
   var _ = this;
   _.x = x;
   _.y = y;
@@ -70,11 +78,13 @@ var Particle = function(x, y, dx, dy, c, l, g, d) {
   _.a = 1; // Alive
   _.c = c || "red";
   _.l = l || 2000;
-  _.g = g || 1; // Apply gravity
+  _.g = g; // Apply gravity
   _.d = d || 1; // Disappear
+  _.sx = sx || 0; // Sinusoidal x speed
 
   _.u = function() {
     // Side movement
+    if (_.sx) _.dx = _.dx * cos(_.l / 180 * PI);
     _.dx = iir(_.dx, -_.mxs, _.mxs);
 
     // Apply gravity if _.g is true

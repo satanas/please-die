@@ -2,9 +2,9 @@ var Emitter = function() {
   var _ = this;
   // Particle references
   _.p = [];
-  _.ff = 200; // Fire particles frequency
+  _.ff = 110; // Fire particles frequency
   _.fc = 0; // Fire counter
-  _.sf = 100; // Sparkles frequency
+  _.sf = 80; // Sparkles frequency
   _.sc = 0; // Sparkles counter
   _.af = 50;
   _.ac = 0;

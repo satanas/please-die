@@ -56,7 +56,7 @@ var Saw = function(x, y) {
   _.r = function(r) {
     $.x.s();
     $.x.tn(r.x + (_.w/2), r.y + (_.h/2));
-    $.x.ro(_.a / 180 * Math.PI);
+    $.x.ro(_.a / 180 * PI);
     $.x.fs("gray");
     $.x.fr(_.w / -2, _.h / -2, _.w, _.h);
     if (dbg) {

@@ -4,6 +4,8 @@ var Emitter = function() {
   _.p = [];
   _.ff = 200; // Fire particles frequency
   _.fc = 0; // Fire counter
+  _.sf = 200; // Sparkles frequency
+  _.sc = 0; // Sparkles counter
 
   // Emit
   // x: x coordinate
@@ -17,18 +19,23 @@ var Emitter = function() {
         i = n;
     if (t === 1) {
       for(i; i--;)
-        _.p.push(new Particle(x, y, rndr(-5, 5), -rndr(4, 8), "red", 2000, 1));
+        _.p.push(new Particle(x, y, rndr(-5, 5), -rndr(4, 8), "red", 2000, 1, 0, 0, 1));
     } else if (t === 2 && _.fc <= 0) {
       _.fc = _.ff;
       for(i; i--;)
-        _.p.push(new Particle(x - rndr(-8, 8), y, rndr(3, 5), -rndr(1, 4), "orange", rndr(600, 1200), 0, 1, 1));
+        _.p.push(new Particle(x + rndr(-8, 8), y, rndr(3, 5), -rndr(1, 4), "orange", rndr(600, 1200), 0, 1, 1, 0));
+    } else if (t === 3 && _.sc <= 0) {
+      _.sc = _.sf;
+      for(i; i--;)
+        _.p.push(new Particle(x + rndr(-3, 3), y + rndr(-8, 8), rndr(-8, 8), rndr(-8, 8), "lightblue", rndr(100, 300), 1, 0, 0, 0));
     }
   };
 
   // Update
   _.u = function() {
-    if (_.p.length === 0) return;
     if (_.fc > 0) _.fc -= $.e;
+    if (_.sc > 0) _.sc -= $.e;
+    if (_.p.length === 0) return;
 
     var d = [];
     for(i = _.p.length; i--;) {
@@ -65,7 +72,8 @@ var Emitter = function() {
 // g: apply gravity (default. true)
 // d: apply alpha until the particle disappear (default: true)
 // sx: sinusoidal speed for x
-var Particle = function(x, y, dx, dy, c, l, g, d, sx) {
+// t: taint the blocks?
+var Particle = function(x, y, dx, dy, c, l, g, d, sx, t) {
   var _ = this;
   _.x = x;
   _.y = y;
@@ -78,9 +86,10 @@ var Particle = function(x, y, dx, dy, c, l, g, d, sx) {
   _.a = 1; // Alive
   _.c = c || "red";
   _.l = l || 2000;
-  _.g = g; // Apply gravity
-  _.d = d || 1; // Disappear
+  _.g = g || 0; // Apply gravity
+  _.d = d || 0; // Disappear
   _.sx = sx || 0; // Sinusoidal x speed
+  _.t = t || 0;
 
   _.u = function() {
     // Side movement
@@ -101,7 +110,7 @@ var Particle = function(x, y, dx, dy, c, l, g, d, sx) {
       if ($.o.rect(_, w)) {
         _.a = 0;
         // Taint blocks
-        w.t(_.x, _.w);
+        if (_.t) w.t(_.x, _.w);
       }
     });
     // Check boundaries

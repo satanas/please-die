@@ -38,6 +38,7 @@ var Player = function(x, y) {
 
     // If burning, recover
     if (_.buc !== 0) {
+      _.e.e(_.x, _.y, 6, 2);
       _.buc -= $.e;
       if (_.buc <= 0) {
         _.buc = 0;
@@ -47,6 +48,7 @@ var Player = function(x, y) {
 
     // If electrocuting, recover
     if (_.elc !== 0) {
+      _.e.e(_.x, _.y, 20, 3);
       _.elc -= $.e;
       if (_.elc <= 0) {
         _.elc = 0;

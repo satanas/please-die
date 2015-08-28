@@ -6,6 +6,8 @@ var Emitter = function() {
   _.fc = 0; // Fire counter
   _.sf = 200; // Sparkles frequency
   _.sc = 0; // Sparkles counter
+  _.af = 50;
+  _.ac = 0;
 
   // Emit
   // x: x coordinate
@@ -15,6 +17,7 @@ var Emitter = function() {
   //   blood = 1
   //   fire = 2
   //   sparkles = 3
+  //   acid cloud = 4
   _.e = function(x, y, n, t) {
     var n = n || 5,
         i = n;
@@ -29,6 +32,10 @@ var Emitter = function() {
       _.sc = _.sf;
       for(i; i--;)
         _.p.push(new Particle(x + rndr(-3, 3), y + rndr(-8, 8), rndr(-8, 8), rndr(-8, 8), "lightblue", rndr(100, 300), 1, 0, 0, 0));
+    } else if (t === 4 && _.ac <= 0) {
+      _.ac = _.af;
+      for(i; i--;)
+        _.p.push(new Particle(x + rndr(-5, 5), y + rndr(-16, 16), 0, 0, "green", rndr(800, 1200), 0, 1, 0, 0));
     }
   };
 
@@ -36,6 +43,7 @@ var Emitter = function() {
   _.u = function() {
     if (_.fc > 0) _.fc -= $.e;
     if (_.sc > 0) _.sc -= $.e;
+    if (_.ac > 0) _.ac -= $.e;
     if (_.p.length === 0) return;
 
     var d = [];

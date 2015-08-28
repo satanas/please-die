@@ -38,7 +38,8 @@ var Player = function(x, y) {
 
     // If burning, recover
     if (_.buc !== 0) {
-      _.e.e(_.x, _.y, 6, 2);
+      //_.e.e(_.x, _.y, 6, 2);
+      _.e.e(_.x, _.y, 5, 4);
       _.buc -= $.e;
       if (_.buc <= 0) {
         _.buc = 0;

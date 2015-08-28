@@ -70,18 +70,6 @@ var GameScene = function() {
         t.u();
       });
 
-      var d = [];
-      for(i = $.g.t.length; i--;) {
-        $.g.t[i].u();
-        // Mark dead traps for deletion
-        if (!$.g.t[i].a) d.push(i);
-      }
-      // Remove references to dead traps
-      d.forEach(function(i) {
-        $.g.t.splice(i, 1);
-      });
-
-
       // Update camera. Always at the end of all updates
       $.c.u();
 

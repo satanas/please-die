@@ -76,6 +76,7 @@ var Electricity = function(x, y) {
   _.h = 16; // Height
   _.dt = 5000; // Discharge cooldown time
   _.dc = 0; // Discharge counter
+  _.bc = 0; // Blink counter
   _.bk = 0; // Blink when discharging
   _.t = $.EL.v;
   // Bounds
@@ -93,11 +94,17 @@ var Electricity = function(x, y) {
 
   _.u = function() {
     // TODO: Check for dcz
-    if (_.dc !== 0) {
+    if (_.dc > 0) {
       _.dc -= $.e;
-      if (_.dc < 0) _.dc = 0;
-      if (_.dc % 150 === 0) _.bk = _.bk === 0 ? 1 : 0;
-      console.log('dc', _.dc, _.bk);
+      _.bc += $.e;
+      if (_.bc >= 50) {
+        _.bk = !_.bk;
+        _.bc = 0;
+      }
+    } else {
+      _.dc = 0;
+      _.bk = 0;
+      _.bc = 0;
     }
   };
 

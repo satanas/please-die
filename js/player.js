@@ -19,7 +19,7 @@ var Player = function(x, y) {
   _.e = new Emitter(); // Particles emitter
 
   _.u = function() {
-    console.log('hu', _.hu, 'blc', _.blc, 'elc', _.elc, 'ic', _.ic);
+    //console.log('hu', _.hu, 'blc', _.blc, 'elc', _.elc, 'ic', _.ic);
     // If invincible, decrease counter
     //_.ic = dcz(_.ic, $.e);
     if (_.ic !== 0) {
@@ -54,10 +54,11 @@ var Player = function(x, y) {
       }
     }
 
-    var mxs = _.mxs; // Speed when hurt
+    var mxs = _.mxs; // Max x speed that will be affected by traps
+    var mys = _.mys; // May y speed that will be affected by traps
     if (_.hu & $.BL.v) mxs = _.mxs / 3;
     if (_.hu & $.BU.v) mxs = _.mxs * 1.5;
-    if (_.hu & $.EL.v) mxs = 0;
+    if (_.hu & $.EL.v) { mxs = 0; mys = 0}
 
     // Side movement
     if ($.i.p(37)) {
@@ -78,7 +79,7 @@ var Player = function(x, y) {
     }
 
     _.dy += 19.8 * ($.e / 1000);
-    _.dy = iir(_.dy, -_.mys, _.mys);
+    _.dy = iir(_.dy, -mys, mys);
 
     _.x += _.dx;
     _.y += _.dy;

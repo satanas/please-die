@@ -12,6 +12,8 @@ var Player = function(x, y) {
   _.blc = 0; // Bleeding counter
   _.buc = 0; // Burning counter
   _.elc = 0; // Electrocuting counter
+  _.bk = 0; // Blink
+  _.bkc = 0; // Blink counter
   _.a = 1; // Alive
   _.s = 0.53; // Speed
   _.mxs = 5; // Max x speed
@@ -38,8 +40,7 @@ var Player = function(x, y) {
 
     // If burning, recover
     if (_.buc !== 0) {
-      //_.e.e(_.x, _.y, 6, 2);
-      _.e.e(_.x, _.y, 5, 4);
+      _.e.e(_.x, _.y, 6, 2);
       _.buc -= $.e;
       if (_.buc <= 0) {
         _.buc = 0;
@@ -49,12 +50,22 @@ var Player = function(x, y) {
 
     // If electrocuting, recover
     if (_.elc !== 0) {
-      _.e.e(_.x, _.y + (_.h / 2), 20, 3);
+      _.e.e(_.x, _.y + (_.h / 2), 10, 3);
       _.elc -= $.e;
       if (_.elc <= 0) {
         _.elc = 0;
         _.hu -= $.EL.v;
       }
+    }
+
+    if (_.hu > 0) {
+      _.bkc += $.e;
+      if (_.bkc > 150) {
+        _.bkc = 0;
+        _.bk = !_.bk;
+      }
+    } else {
+      _.bk = 0;
     }
 
     var mxs = _.mxs; // Max x speed that will be affected by traps
@@ -137,7 +148,11 @@ var Player = function(x, y) {
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
     $.x.s();
-    $.x.fs("white");
+    if (_.bk) {
+      $.x.fs("red");
+    } else {
+      $.x.fs("white");
+    }
     $.x.fr(r.x, r.y, _.w, _.h);
     if (dbg) {
       $.x.ss("red");

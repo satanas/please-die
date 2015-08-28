@@ -114,8 +114,9 @@ var Player = function(x, y) {
           if (!(_.hu & $.BU.v)) _.hu += $.BU.v;
           _.ic = _.it;
           _.buc = $.BU.t
-        } else if (w.t === $.EL.v && _.ic === 0) {
-          w.a = 0;
+        } else if (w.t === $.EL.v && _.ic === 0 && w.dc === 0) {
+          // Discharge trap
+          w.d();
           if (!(_.hu & $.EL.v)) _.hu += $.EL.v;
           _.ic = _.it;
           _.elc = $.EL.t

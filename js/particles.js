@@ -119,7 +119,7 @@ var Particle = function(x, y, dx, dy, c, l, g, d, sx, t) {
       if ($.o.rect(_, w)) {
         _.a = 0;
         // Taint blocks
-        if (_.t) w.t(_.x, _.w);
+        if (_.t) w.t('t', _.x, _.w);
       }
     });
     // Check boundaries

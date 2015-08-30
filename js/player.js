@@ -56,6 +56,7 @@ var Player = function(x, y) {
       $.s.p('el');
       _.e.e(_.x, _.y + (_.h / 2), 10, 3);
       _.elc -= $.e;
+      _.hl -= $.EL.d;
       if (_.elc <= 0) {
         _.elc = 0;
         _.hu -= $.EL.v;
@@ -127,6 +128,7 @@ var Player = function(x, y) {
         if (_.ic === 0) {
           _.ic = _.it;
           if (w.t === $.BL.v) {
+            _.hl -= $.BL.d;
             _.e.e(_.x, _.y, 5, 1);
             $.s.p('bl');
             if (!(_.hu & $.BL.v)) _.hu += $.BL.v;

@@ -80,8 +80,12 @@ $.init = function(c, w, h) {
     $.x.fr(0, 0, $.vw, $.vh);
   };
   // Render centered text
-  $.x.ct = function(t, s, y, f) {
-    $.x.fs(f || "#000");
+  // t: text
+  // s: size
+  // y: y coordinate
+  // c: font color
+  $.x.ct = function(t, s, y, c) {
+    $.x.fs(c || "#000");
     $.x.font = String(s) + "px serif";
     var x = $.x.mt(t);
     $.x.ft(t, ($.vw - x.width) / 2, y);

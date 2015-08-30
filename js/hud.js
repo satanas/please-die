@@ -6,7 +6,7 @@ var HUD = function(p) {
   // Render
   _.r = function() {
     $.x.s();
-    $.x.ct('HEALTH: ' + String(_.p.hl), 20, 20, "#fff");
+    $.x.ct('HEALTH: ' + String(floor(_.p.hl)), 20, 20, "#fff");
     $.x.r();
   };
 };

@@ -18,6 +18,7 @@ var Player = function(x, y) {
   _.s = 0.53; // Speed
   _.mxs = 5; // Max x speed
   _.mys = 15; // Max y speed
+  _.hl = 1000; // Health
   _.e = new Emitter(); // Particles emitter
 
   _.u = function() {

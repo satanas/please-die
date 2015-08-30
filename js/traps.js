@@ -36,7 +36,7 @@ var Saw = function(x, y) {
   _.w = 32; // Width
   _.h = 32; // Height
   _.t = $.BL.v;
-  _.a = 0; // Angle
+  _.ng = 0; // Angle
   _.as = 920; // Angular speed
   // Bounds
   _.b = {
@@ -48,15 +48,15 @@ var Saw = function(x, y) {
 
   // Update
   _.u = function() {
-    _.a += ($.e / 1000) * _.as;
-    if (_.a > 360) _.a = _.a - 360;
+    _.ng += ($.e / 1000) * _.as;
+    if (_.ng > 360) _.ng = _.ng - 360;
   };
 
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
     $.x.s();
     $.x.tn(r.x + (_.w/2), r.y + (_.h/2));
-    $.x.ro(_.a / 180 * PI);
+    $.x.ro(_.ng / 180 * PI);
     $.x.fs("gray");
     $.x.fr(_.w / -2, _.h / -2, _.w, _.h);
     if (dbg) {

@@ -89,8 +89,8 @@ var Player = function(x, y) {
     }
 
     // Jump
-    if (_.dy === 0 && $.i.p(38) && _.hu !== $.B) {
-      console.log('jumping');
+    if (_.dy === 0 && $.i.p(38) && !(_.hu & $.EL.v)) {
+      $.s.p('j');
       _.dy = -8;
     }
 

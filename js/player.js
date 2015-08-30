@@ -44,6 +44,7 @@ var Player = function(x, y) {
       $.s.p('bu');
       _.e.e(_.x, _.y, 6, 2);
       _.buc -= $.e;
+      _.hl -= ($.e * $.BU.ds) / 1000;
       if (_.buc <= 0) {
         _.buc = 0;
         _.hu -= $.BU.v;
@@ -134,6 +135,7 @@ var Player = function(x, y) {
             if (!(_.hu & $.BU.v)) _.hu += $.BU.v;
             _.buc = $.BU.t
           } else if (w.t === $.EL.v && w.dc === 0) {
+            _.hl -= $.EL.d;
             // Discharge trap
             w.d();
             if (!(_.hu & $.EL.v)) _.hu += $.EL.v;

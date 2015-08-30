@@ -1,6 +1,6 @@
 // Sound Manager
 // This sound manager is a wrapper done to work along with https://github.com/mneubrand/jsfxr.
-// All sounds strings should be in the format used by jsfxr
+// All sounds should be in the format used by jsfxr
 var Sounds = function() {
   var _ = this;
   // Sounds array

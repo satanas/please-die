@@ -40,6 +40,7 @@ var Player = function(x, y) {
 
     // If burning, recover
     if (_.buc !== 0) {
+      $.s.p('bu');
       _.e.e(_.x, _.y, 6, 2);
       _.buc -= $.e;
       if (_.buc <= 0) {
@@ -50,6 +51,7 @@ var Player = function(x, y) {
 
     // If electrocuting, recover
     if (_.elc !== 0) {
+      $.s.p('el');
       _.e.e(_.x, _.y + (_.h / 2), 10, 3);
       _.elc -= $.e;
       if (_.elc <= 0) {
@@ -124,6 +126,7 @@ var Player = function(x, y) {
           _.ic = _.it;
           if (w.t === $.BL.v) {
             _.e.e(_.x, _.y, 5, 1);
+            $.s.p('bl');
             if (!(_.hu & $.BL.v)) _.hu += $.BL.v;
             _.blc = $.BL.t
           } else if (w.t === $.BU.v) {

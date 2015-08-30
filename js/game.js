@@ -19,6 +19,8 @@ $.start = function() {
 
 var MenuScene = function() {
   var _ = this;
+  $.s.a('s', [0,,0.0989,0.3295,0.2402,0.4314,,,,,,0.4986,0.5758,,,,,,1,,,,,0.5]);
+
   _.loop = function() {
     $.x.clr('#fff');
 
@@ -29,6 +31,7 @@ var MenuScene = function() {
 
     if ($.i.r(13)) {
       console.log('Enter 1');
+      $.s.p('s');
       return $.game.loop();
     }
     raf(_.loop.bind(_));

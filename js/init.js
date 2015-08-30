@@ -95,6 +95,8 @@ $.init = function(c, w, h) {
   $.o = new Collisions();
   // Camera system
   $.c = new Camera(w, h);
+  // Sound manager
+  $.s = new Sounds();
 };
 
 // Gets a DOM element by id

@@ -91,6 +91,8 @@ $.init = function(c, w, h) {
   $.vh = c.height = h;
   // Collision groups
   $.g = {};
+  // Input
+  $.i = new Input();
   // Collisions system
   $.o = new Collisions();
   // Camera system

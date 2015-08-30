@@ -5,11 +5,16 @@ window.addEventListener('load', function() {
 
 $.start = function() {
   $.init('c', 640, 480);
-  $.i = new Input();
+  // Bind keyboard
   $.i.b([13, 65, 37, 38, 39, 40, 49, 50, 51, 52]);
+
   // Groups
   $.g.b = []; // Blocks
   $.g.t = []; // Traps
+
+  // Sounds
+  $.s.a('s', [0,,0.0989,0.3295,0.2402,0.4314,,,,,,0.4986,0.5758,,,,,,1,,,,,0.5]);
+
   // Scenes
   $.menu = new MenuScene();
   $.game = new GameScene();
@@ -19,7 +24,6 @@ $.start = function() {
 
 var MenuScene = function() {
   var _ = this;
-  $.s.a('s', [0,,0.0989,0.3295,0.2402,0.4314,,,,,,0.4986,0.5758,,,,,,1,,,,,0.5]);
 
   _.loop = function() {
     $.x.clr('#fff');

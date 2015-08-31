@@ -98,10 +98,28 @@ var GameScene = function() {
       $.c.r(_.p);
       $.c.r($.g.b);
       $.c.r($.g.t);
+
+      if (!_.p.a) {
+        _.game_over();
+      }
+      // Render HUD
       _.h.r();
     }
 
     _.t.s = new Date();
     raf(_.loop.bind(_));
+  };
+
+  // Game Over
+  _.game_over = function() {
+    $.x.s();
+    _.mo();
+    $.x.r();
+  };
+
+  // Modal
+  _.mo = function() {
+    $.x.fs("rgba(0,0,0,0.4)");
+    $.x.fr(0, 0, $.vw, $.vh);
   };
 };

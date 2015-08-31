@@ -150,7 +150,12 @@ var Player = function(x, y) {
       }
     });
 
-    if (_.hl <= 0) _.a = 0;
+    if (_.hl <= 0 && _.a) {
+      _.a = 0;
+      _.y += 24;
+      _.h = 8;
+      $.s.p('d');
+    }
 
     // Update emitter
     _.e.u();

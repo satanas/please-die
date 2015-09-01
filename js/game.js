@@ -8,10 +8,6 @@ $.start = function() {
   // Bind keyboard
   $.i.b([13, 65, 37, 38, 39, 40, 49, 50, 51, 52]);
 
-  // Groups
-  $.g.b = []; // Blocks
-  $.g.t = []; // Traps
-
   // Sounds
   $.s.a('s', [0,,0.0989,0.3295,0.2402,0.4314,,,,,,0.4986,0.5758,,,,,,1,,,,,0.5]);
   $.s.a('bl', [0,,0.1622,0.2831,0.0177,0.7183,0.0176,-0.6492,,,,,,0.4253,0.0418,,,,1,,,,,0.5]);
@@ -55,7 +51,7 @@ var MenuScene = function() {
 
     if ($.i.r(13)) {
       $.s.p('s');
-      return $.game.init();
+      return $.game.start();
     }
     raf(_.loop.bind(_));
   };
@@ -73,6 +69,9 @@ var GameScene = function() {
   _.init = function() {
     _.p = new Player(200, 200);
     _.h = new HUD(_.p);
+    // Groups
+    $.g.b = []; // Blocks
+    $.g.t = []; // Traps
 
     $.g.b.push(new Block(100, 50));
     for (var i=0; i<30; i++) {
@@ -85,7 +84,6 @@ var GameScene = function() {
     $.g.t.push(new Electricity(640, 384));
     $.c.sw(1000, 1000);
     $.c.st(_.p);
-    _.loop();
   };
 
   _.loop = function() {
@@ -121,6 +119,11 @@ var GameScene = function() {
 
     _.t.s = new Date();
     raf(_.loop.bind(_));
+  };
+
+  _.start = function() {
+    _.init();
+    _.loop();
   };
 
   // Game Over

@@ -65,8 +65,10 @@ var GameScene = function() {
     e: 0 // Elapsed time
   };
 
-  _.lvl = 1;
   _.init = function() {
+    _.dd = 1600; // Delay after death
+    _.t.s = 0;
+    _.t.e = 0;
     _.p = new Player(200, 200);
     _.h = new HUD(_.p);
     // Groups
@@ -87,7 +89,6 @@ var GameScene = function() {
   };
 
   _.loop = function() {
-    console.log(_.lvl);
     $.e = (_.t.s !== 0) ? new Date() - _.t.s : 0;
 
     // This is to avoid wormholes:
@@ -110,7 +111,8 @@ var GameScene = function() {
       $.c.r($.g.t);
 
       if (!_.p.a) {
-        _.game_over();
+        // Decrement the death delay or show the game over screen
+        _.dd > 0 ? _.dd -= $.e : _.game_over();
       } else {
         // Render HUD
         _.h.r();

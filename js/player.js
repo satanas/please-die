@@ -24,7 +24,7 @@ var Player = function(x, y) {
   _.u = function() {
     //console.log('hu', _.hu, 'blc', _.blc, 'elc', _.elc, 'ic', _.ic);
 
-    if (_.a) {
+    if (_.a > 0) {
       //_.ic = dcz(_.ic, $.e);
       // If invincible, decrease counter
       if (_.ic !== 0) {
@@ -151,16 +151,28 @@ var Player = function(x, y) {
     });
 
     if ((_.hl <= 0 || _.y > $.c.wh) && _.a) {
-      _.a = 0;
-      _.y += 24;
-      _.h = 8;
-      $.s.p('d');
+      _.d();
     }
 
     // Update emitter
     _.e.u();
     // Recalculate bounds after collisions
     //_.rb();
+  };
+
+  // Die
+  _.d = function() {
+   _.a = 0;
+   _.y += 24;
+   _.h = 8;
+   $.c.st(null);
+   $.s.p('d');
+  };
+
+  // Keep alive
+  _.k = function() {
+   _.a = -1;
+   $.s.p('d');
   };
 
   // Render with relative coordinates. The r object has x, y, r and b

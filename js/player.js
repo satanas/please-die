@@ -130,7 +130,7 @@ var Player = function(x, y) {
       if ($.o.rect(_, w) && _.a) {
         if (_.ic === 0) {
           _.ic = _.it;
-          if (w.t === $.BL.v) {
+          if (w.t === $.BL.v && w.dc === 0) {
             _.hl -= $.BL.d;
             _.e.e(_.x, _.y, 5, 1);
             $.s.p('bl');

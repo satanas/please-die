@@ -72,7 +72,7 @@ var GameScene = function() {
     _.dd = 1000; // Delay after death
     _.t.s = 0;
     _.t.e = 0;
-    _.t.l = 6000;
+    _.t.l = 60000;
     _.p = new Player(200, 200);
     _.h = new HUD(_.p, _);
     // Groups
@@ -85,8 +85,8 @@ var GameScene = function() {
       //$.g.b.push(new Block(230 + (i * 32), 300));
     }
     $.g.t.push(new Fire(260, 368));
-    $.g.t.push(new Saw(360, 384));
-    $.g.t.push(new Saw(396, 384));
+    $.g.t.push(new Saw(360, 386));
+    //$.g.t.push(new Saw(396, 384));
     $.g.t.push(new Electricity(640, 384));
     $.c.sw(1000, 1000);
     $.c.st(_.p);

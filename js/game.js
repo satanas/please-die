@@ -61,16 +61,18 @@ var GameScene = function() {
   var _ = this;
   // Time associated variables and methods
   _.t = {
+    l: 0, // Level time
     s: 0, // Start time
     e: 0 // Elapsed time
   };
 
   _.init = function() {
-    _.dd = 1600; // Delay after death
+    _.dd = 1000; // Delay after death
     _.t.s = 0;
     _.t.e = 0;
+    _.t.l = 6000;
     _.p = new Player(200, 200);
-    _.h = new HUD(_.p);
+    _.h = new HUD(_.p, _);
     // Groups
     $.g.b = []; // Blocks
     $.g.t = []; // Traps
@@ -90,6 +92,7 @@ var GameScene = function() {
 
   _.loop = function() {
     $.e = (_.t.s !== 0) ? new Date() - _.t.s : 0;
+    _.t.l -= $.e;
 
     // This is to avoid wormholes:
     // https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
@@ -110,12 +113,18 @@ var GameScene = function() {
       $.c.r($.g.b);
       $.c.r($.g.t);
 
-      if (!_.p.a) {
-        // Decrement the death delay or show the game over screen
-        _.dd > 0 ? _.dd -= $.e : _.game_over();
-      } else {
+      // If player still alive
+      if (_.p.a > 0) {
+        // If time is out, keep the player alive (in other words, lose)
+        if (_.t.l < 20) {
+          _.dd = 300;
+          _.p.k();
+        }
         // Render HUD
         _.h.r();
+      } else {
+        // Decrement the death delay or show the finish screen
+        _.dd > 0 ? _.dd -= $.e : (_.p.a === 0) ? _.next() : _.game_over();
       }
     }
 
@@ -130,17 +139,32 @@ var GameScene = function() {
 
   // Game Over
   _.game_over = function() {
+    var c = 'red';
+    $.x.s();
+    _.mo();
+    $.x.ct('YOU STILL ALIVE', 50, 150, c);
+    $.x.ct('Oh noes! You couldn\'t rest in peace', 35, 200, c);
+    $.x.ct('Press Enter to try again', 22, 420, c);
+    $.x.r();
+
+    if ($.i.p(13)) {
+      $.s.p('s');
+      return _.init();
+    }
+  };
+
+  // Next level
+  _.next = function() {
     var c = '#fff';
     $.x.s();
     _.mo();
-    $.x.ct('CONGRATULATIONS!', 50, 150, c);
-    $.x.ct('You died', 35, 200, c);
+    $.x.ct('YEAH! YOU DIED', 50, 150, c);
+    $.x.ct('R.I.P.', 35, 200, c);
     $.x.ct('Press Enter to play next level', 22, 420, c);
     $.x.r();
 
     if ($.i.p(13)) {
       $.s.p('s');
-
       _.lvl += 1;
       return _.init();
     }

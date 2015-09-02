@@ -172,7 +172,6 @@ var Player = function(x, y) {
   // Keep alive
   _.k = function() {
    _.a = -1;
-   $.s.p('d');
   };
 
   // Render with relative coordinates. The r object has x, y, r and b

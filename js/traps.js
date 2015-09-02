@@ -5,6 +5,11 @@ var Fire = function(x, y) {
   _.w = 16; // Width
   _.h = 32; // Height
   _.t = $.BU.v;
+  _.pt = rndr(600, 3000); // Phase time
+  _.dc = 0; // Phase: 0=enabled, 1=disabled
+  _.pc = _.pt; // Phase counter
+  _.bk = 0; // Blink
+  _.bc = 0; // Blink counter
   // Bounds
   _.b = {
     b: _.y + _.h,
@@ -14,12 +19,28 @@ var Fire = function(x, y) {
   };
 
   _.u = function() {
+    _.pc -= $.e;
+    if (_.pc < 0) {
+      _.pc = _.pt;
+      _.dc = (_.dc === 0) ? 1 : 0;
+    }
+    if (_.dc) {
+      _.bc += $.e;
+      if (_.bc >= 50) {
+        _.bk = !_.bk;
+        _.bc = 0;
+      }
+    }
   };
 
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
     $.x.s();
-    $.x.fs("orange");
+    if (_.bk) {
+      $.x.fs("hsla(39, 100%, 50%, 0.4)");
+    } else {
+      $.x.fs("hsla(39, 100%, 50%, 1)");
+    }
     $.x.fr(r.x, r.y, _.w, _.h);
     if (dbg) {
       $.x.ss("red");
@@ -38,7 +59,7 @@ var Saw = function(x, y) {
   _.t = $.BL.v;
   _.ng = 0; // Angle
   _.as = 920; // Angular speed
-  _.pt = rndr(1200, 3000); // Phase time
+  _.pt = rndr(500, 3000); // Phase time
   _.ph = 1; // Phase: 1=up, 2=going down, 3=down, 4=going up
   _.pc = _.pt; // Phase counter
   _.uy = _.y; // Upper Y destination

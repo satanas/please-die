@@ -136,7 +136,7 @@ var Player = function(x, y) {
             $.s.p('bl');
             if (!(_.hu & $.BL.v)) _.hu += $.BL.v;
             _.blc = $.BL.t
-          } else if (w.t === $.BU.v) {
+          } else if (w.t === $.BU.v && w.dc === 0) {
             if (!(_.hu & $.BU.v)) _.hu += $.BU.v;
             _.buc = $.BU.t
           } else if (w.t === $.EL.v && w.dc === 0) {

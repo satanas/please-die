@@ -29,7 +29,12 @@ var $ = {},
     // Generate random integer in a (min, max) range
     rndr = function(a, b) {
       return floor(rnd() * (b - a)) + a;
+    },
+    // Choose random element from array
+    rnde = function(e) {
+      return e[rndr(0, e.length)];
     };
+
 
 // Initialize all variables
 // c: canvas id
@@ -52,14 +57,16 @@ $.init = function(c, w, h) {
   // FIXME: use a local var until the end (to avoid repeating $.x)
   $.x.s = $.x.save;
   $.x.r = $.x.restore;
+  $.x.f = $.x.fill;
   $.x.tn = $.x.translate;
   $.x.ro = $.x.rotate;
   $.x.ft = $.x.fillText;
   $.x.sr = $.x.strokeRect;
   $.x.cr = $.x.clearRect;
   $.x.mt = $.x.measureText;
-  $.x.d = $.x.drawImage;
+  $.x.di = $.x.drawImage;
   $.x.sc = $.x.scale;
+  $.x.bp = $.x.beginPath;
   // fillRect
   $.x.fr = function(x, y, w, h) {
     // To avoid anti-aliasing

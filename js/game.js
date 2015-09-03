@@ -78,6 +78,7 @@ var GameScene = function() {
     // Groups
     $.g.b = []; // Blocks
     $.g.t = []; // Traps
+    $.g.p = []; // Pills
 
     $.g.b.push(new Block(100, 50));
     for (var i=0; i<30; i++) {
@@ -88,6 +89,9 @@ var GameScene = function() {
     $.g.t.push(new Saw(360, 386));
     //$.g.t.push(new Saw(396, 384));
     $.g.t.push(new Electricity(640, 384));
+
+    // Pills
+    $.g.p.push(new Pill(500, 368));
     $.c.sw(1000, 1000);
     $.c.st(_.p);
   };
@@ -111,6 +115,7 @@ var GameScene = function() {
       $.c.u();
 
       // Render objects with camera. Order defines who paints first
+      $.c.r($.g.p);
       $.c.r(_.p);
       $.c.r($.g.b);
       $.c.r($.g.t);

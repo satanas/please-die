@@ -10,12 +10,8 @@ var zip = require('gulp-zip');
 
 var appName = 'die-fast-js13k-2015';
 
-gulp.task('default', function() {
-  
-});
-
-gulp.task('minify', function() {
-  gulp.src([
+gulp.task('minify_js', function() {
+  return gulp.src([
     'js/input.js',
     'js/player.js',
     'js/objects.js',
@@ -27,11 +23,27 @@ gulp.task('minify', function() {
   .pipe(concat('all.min.js'))
   .pipe(uglify())
   .pipe(gulp.dest('min'));
+});
 
-  gulp.src('style.css')
+gulp.task('minify_css', function() {
+  return gulp.src('style.css')
   .pipe(minifyCSS())
   .pipe(rename('style.min.css'))
   .pipe(gulp.dest('min'));
+});
+
+gulp.task('minify_html', ['minify_js', 'minify_css'], function() {
+  var pattern = /<!-- Begin imports -->([\s\S]*)<!-- End imports -->/;
+
+  return gulp.src(['index.html'])
+  .pipe(replace(pattern, '<script src="all.min.js"></script>'))
+  .pipe(replace(/style.css/, 'style.min.css'))
+  .pipe(gulp.dest('min'))
+  .on('end', function() {
+    return gulp.src('min/index.html')
+    .pipe(minifyHTML())
+    .pipe(gulp.dest('min'));
+  });
 });
 
 gulp.task('clean', function() {
@@ -45,18 +57,7 @@ gulp.task('clean', function() {
   .pipe(clean());
 });
 
-gulp.task('build', ['minify'], function() {
-  var pattern = /<!-- Begin imports -->([\s\S]*)<!-- End imports -->/;
-
-  gulp.src(['index.html'])
-  .pipe(replace(pattern, '<script src="all.min.js"></script>'))
-  .pipe(replace(/style.css/, 'style.min.css'))
-  .pipe(gulp.dest('min'))
-
-  gulp.src('min/index.html')
-  .pipe(minifyHTML())
-  .pipe(gulp.dest('min'));
-
+gulp.task('build', ['minify_html'], function() {
   gulp.src(['min/all.min.js', 'min/index.html', 'min/style.min.css'])
   .pipe(zip(appName + '.zip'))
   .pipe(gulp.dest('min'));

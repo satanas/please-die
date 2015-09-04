@@ -31,7 +31,6 @@ var Block = function(x, y) {
 
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
-    //console.log('p', _.s.t);
     $.x.s();
     $.x.fs("white");
     $.x.fr(r.x, r.y, _.w, _.h);
@@ -39,11 +38,9 @@ var Block = function(x, y) {
       $.x.ss("red");
       $.x.sr(r.x, r.y, _.w, _.h);
     }
-    //_.s.forEach(function(k, s) {
     var i, sx;
     for (i in _.s.t) {
       sx = r.x + (i - _.x);
-      //console.log('asdasdads', 'rx', r.x, 'sx', s.x, 'x', _.x, 'sx', sx);
       $.x.fs("red");
       $.x.fr(sx, r.y, _.s.t[i].w, _.s.t[i].h);
     };

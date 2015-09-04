@@ -10,6 +10,7 @@ var Fire = function(x, y) {
   _.pc = _.pt; // Phase counter
   _.bk = 0; // Blink
   _.bc = 0; // Blink counter
+  _.a = 1; // Alive
   // Bounds
   _.b = {
     b: _.y + _.h,
@@ -66,6 +67,7 @@ var Saw = function(x, y) {
   _.ly = _.y + 16; // Lower Y destination
   _.sy = 0.15;
   _.dc = 0;
+  _.a = 1; // Alive
   // Bounds
   _.b = {
     b: _.y + _.h,
@@ -133,6 +135,7 @@ var Electricity = function(x, y) {
   _.bc = 0; // Blink counter
   _.bk = 0; // Blink when discharging
   _.t = $.EL.v;
+  _.a = 1; // Alive
   // Bounds
   _.b = {
     b: _.y + _.h,

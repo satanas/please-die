@@ -77,17 +77,17 @@ var GameScene = function() {
     _.h = new HUD(_.p, _);
     // Groups
     $.g.b = new Group(); // Blocks
-    $.g.t = []; // Traps
+    $.g.t = new Group(); // Traps
     $.g.p = new Group(); // Pills
 
     $.g.b.a(new Block(100, 50));
     for (var i=0; i<30; i++) {
       $.g.b.a(new Block(200 + (i * 32), 400));
     }
-    $.g.t.push(new Fire(260, 368));
-    $.g.t.push(new Saw(360, 386));
-    //$.g.t.push(new Saw(396, 384));
-    $.g.t.push(new Electricity(640, 384));
+    $.g.t.a(new Fire(260, 368));
+    $.g.t.a(new Saw(360, 386));
+    $.g.t.a(new Saw(396, 384));
+    $.g.t.a(new Electricity(640, 384));
 
     // Pills
     $.g.p.a(new Pill(500, 368));
@@ -106,7 +106,7 @@ var GameScene = function() {
       $.x.clr();
 
       _.p.u(); // Update player
-      //$.g.t.u(); // Update traps
+      $.g.t.u(); // Update traps
       $.g.p.u(); // Update pills
 
       // Update camera. Always at the end of all updates
@@ -116,7 +116,7 @@ var GameScene = function() {
       $.g.p.r(); // Render pills
       $.c.r(_.p);
       $.g.b.r(); // Render blocks
-      $.c.r($.g.t);
+      $.g.t.r(); // Render traps
 
       // If player still alive
       if (_.p.a > 0) {

@@ -110,43 +110,38 @@ var Player = function(x, y) {
 
     // Check collisions with blocks
     $.g.b.c(_, function(o, w) {
-      console.log('o', o, 'w', w);
-      if ($.o.rect(o, w)) {
-        if ($.o.bottom(o, w)){
-          o.y = w.b.t - o.h;
-          o.dy = 0;
-        } else if ($.o.top(o, w)) {
-          o.y = w.b.b;
-          o.dy = 0;
-        } else if ($.o.right(o, w)) {
-          o.x = w.b.l - o.w;
-        } else if ($.o.left(o, w)) {
-          o.x = w.b.r;
-        }
+      if ($.o.bottom(o, w)){
+        o.y = w.b.t - o.h;
+        o.dy = 0;
+      } else if ($.o.top(o, w)) {
+        o.y = w.b.b;
+        o.dy = 0;
+      } else if ($.o.right(o, w)) {
+        o.x = w.b.l - o.w;
+      } else if ($.o.left(o, w)) {
+        o.x = w.b.r;
       }
     });
 
     // Check collisions with traps
-    $.g.t.forEach(function(w) {
-      if ($.o.rect(_, w) && _.a) {
-        if (_.ic === 0) {
-          _.ic = _.it;
-          if (w.t === $.BL.v && w.dc === 0) {
-            _.hl -= $.BL.d;
-            _.e.e(_.x, _.y, 5, 1);
-            $.s.p('bl');
-            if (!(_.hu & $.BL.v)) _.hu += $.BL.v;
-            _.blc = $.BL.t
-          } else if (w.t === $.BU.v && w.dc === 0) {
-            if (!(_.hu & $.BU.v)) _.hu += $.BU.v;
-            _.buc = $.BU.t
-          } else if (w.t === $.EL.v && w.dc === 0) {
-            _.hl -= $.EL.d;
-            // Discharge trap
-            w.d();
-            if (!(_.hu & $.EL.v)) _.hu += $.EL.v;
-            _.elc = $.EL.t
-          }
+    $.g.t.c(_, function(o, w) {
+      if (o.ic === 0) {
+        o.ic = o.it;
+        if (w.t === $.BL.v && w.dc === 0) {
+          o.hl -= $.BL.d;
+          o.e.e(o.x, o.y, 5, 1);
+          $.s.p('bl');
+          if (!(o.hu & $.BL.v)) o.hu += $.BL.v;
+          o.blc = $.BL.t
+        } else if (w.t === $.BU.v && w.dc === 0) {
+          if (!(o.hu & $.BU.v)) o.hu += $.BU.v;
+          o.buc = $.BU.t
+        } else if (w.t === $.EL.v && w.dc === 0) {
+          o.hl -= $.EL.d;
+          // Discharge trap
+          w.d();
+          if (!(o.hu & $.EL.v)) o.hu += $.EL.v;
+          o.elc = $.EL.t
         }
       }
     });

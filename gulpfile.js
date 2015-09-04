@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var size = require('gulp-size');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
@@ -58,9 +59,15 @@ gulp.task('clean', function() {
 });
 
 gulp.task('build', ['minify_html'], function() {
+  var s = size();
   gulp.src(['min/all.min.js', 'min/index.html', 'min/style.min.css'])
   .pipe(zip(appName + '.zip'))
-  .pipe(gulp.dest('min'));
+  .pipe(s)
+  .pipe(gulp.dest('min'))
+  .on('end', function() {
+    var r = 12793 - s.size;
+    console.log('Remaining size: ', r, 'bytes');
+  });
 });
 
 //gulp.task('closure', function() {

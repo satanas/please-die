@@ -1,7 +1,7 @@
 var Emitter = function() {
   var _ = this;
   // Particle references
-  _.p = [];
+  _.p = new Group();
   _.ff = 110; // Fire particles frequency
   _.fc = 0; // Fire counter
   _.sf = 80; // Sparkles frequency
@@ -23,19 +23,19 @@ var Emitter = function() {
         i = n;
     if (t === 1) {
       for(i; i--;)
-        _.p.push(new Particle(x, y, rndr(-5, 5), -rndr(4, 8), "red", 2000, 1, 0, 0, 1));
+        _.p.a(new Particle(x, y, rndr(-5, 5), -rndr(4, 8), "red", 2000, 1, 0, 0, 1));
     } else if (t === 2 && _.fc <= 0) {
       _.fc = _.ff;
       for(i; i--;)
-        _.p.push(new Particle(x + rndr(-8, 8), y, rndr(3, 5), -rndr(1, 4), "orange", rndr(600, 1200), 0, 1, 1, 0));
+        _.p.a(new Particle(x + rndr(-8, 8), y, rndr(3, 5), -rndr(1, 4), "orange", rndr(600, 1200), 0, 1, 1, 0));
     } else if (t === 3 && _.sc <= 0) {
       _.sc = _.sf;
       for(i; i--;)
-        _.p.push(new Particle(x + rndr(-3, 3), y + rndr(-8, 8), rndr(-8, 8), rndr(-8, 8), "lightblue", rndr(100, 300), 1, 0, 0, 0));
+        _.p.a(new Particle(x + rndr(-3, 3), y + rndr(-8, 8), rndr(-8, 8), rndr(-8, 8), "lightblue", rndr(100, 300), 1, 0, 0, 0));
     } else if (t === 4 && _.ac <= 0) {
       _.ac = _.af;
       for(i; i--;)
-        _.p.push(new Particle(x + rndr(-5, 5), y + rndr(-16, 16), 0, 0, "green", rndr(800, 1200), 0, 1, 0, 0));
+        _.p.a(new Particle(x + rndr(-5, 5), y + rndr(-16, 16), 0, 0, "green", rndr(800, 1200), 0, 1, 0, 0));
     }
   };
 
@@ -46,24 +46,14 @@ var Emitter = function() {
     if (_.ac > 0) _.ac -= $.e;
     if (_.p.length === 0) return;
 
-    var d = [];
-    for(i = _.p.length; i--;) {
-      _.p[i].u();
-      // Mark dead particles for deletion
-      if (!_.p[i].a) d.push(i);
-    }
-
-    // Remove references to dead particles
-    d.forEach(function(i) {
-      _.p.splice(i, 1);
-    });
+    _.p.u();
   };
 
   // Render particles
   _.r = function() {
     if (_.p.length === 0) return;
 
-    $.c.r(_.p);
+    _.p.r();
   };
 
   // Length of particles array
@@ -115,12 +105,10 @@ var Particle = function(x, y, dx, dy, c, l, g, d, sx, t) {
     _.rb();
 
     // Check collisions with blocks
-    $.g.b.forEach(function(w) {
-      if ($.o.rect(_, w)) {
-        _.a = 0;
-        // Taint blocks
-        if (_.t) w.t('t', _.x, _.w);
-      }
+    $.g.b.c(_, function(o, w) {
+      o.a = 0;
+      // Taint blocks
+      if (_.t) w.t('t', _.x, _.w);
     });
     // Check boundaries
     if (_.x < 0 || _.x > $.c.ww || _.y < 0 || _.y > $.c.wh) _.a = 0;

@@ -109,18 +109,19 @@ var Player = function(x, y) {
     _.rb();
 
     // Check collisions with blocks
-    $.g.b.forEach(function(w) {
-      if ($.o.rect(_, w)) {
-        if ($.o.bottom(_, w)){
-          _.y = w.b.t - _.h;
-          _.dy = 0;
-        } else if ($.o.top(_, w)) {
-          _.y = w.b.b;
-          _.dy = 0;
-        } else if ($.o.right(_, w)) {
-          _.x = w.b.l - _.w;
-        } else if ($.o.left(_, w)) {
-          _.x = w.b.r;
+    $.g.b.c(_, function(o, w) {
+      console.log('o', o, 'w', w);
+      if ($.o.rect(o, w)) {
+        if ($.o.bottom(o, w)){
+          o.y = w.b.t - o.h;
+          o.dy = 0;
+        } else if ($.o.top(o, w)) {
+          o.y = w.b.b;
+          o.dy = 0;
+        } else if ($.o.right(o, w)) {
+          o.x = w.b.l - o.w;
+        } else if ($.o.left(o, w)) {
+          o.x = w.b.r;
         }
       }
     });
@@ -148,6 +149,12 @@ var Player = function(x, y) {
           }
         }
       }
+    });
+
+    // Check collisions with pills
+    $.g.p.c(_, function(o, p) {
+      p.a = 0;
+      o.hl += p.hl;
     });
 
     if ((_.hl <= 0 || _.y > $.c.wh) && _.a) {

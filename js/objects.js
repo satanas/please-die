@@ -4,6 +4,7 @@ var Block = function(x, y) {
   _.y = y;
   _.w = 32; // Width
   _.h = 32; // Height
+  _.a = 1; // Alive
   // Bounds
   _.b = {
     b: _.y + _.h,

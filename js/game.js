@@ -76,14 +76,13 @@ var GameScene = function() {
     _.p = new Player(200, 200);
     _.h = new HUD(_.p, _);
     // Groups
-    $.g.b = []; // Blocks
+    $.g.b = new Group(); // Blocks
     $.g.t = []; // Traps
-    $.g.p = []; // Pills
+    $.g.p = new Group(); // Pills
 
-    $.g.b.push(new Block(100, 50));
+    $.g.b.a(new Block(100, 50));
     for (var i=0; i<30; i++) {
-      $.g.b.push(new Block(200 + (i * 32), 400));
-      //$.g.b.push(new Block(230 + (i * 32), 300));
+      $.g.b.a(new Block(200 + (i * 32), 400));
     }
     $.g.t.push(new Fire(260, 368));
     $.g.t.push(new Saw(360, 386));
@@ -91,7 +90,8 @@ var GameScene = function() {
     $.g.t.push(new Electricity(640, 384));
 
     // Pills
-    $.g.p.push(new Pill(500, 368));
+    $.g.p.a(new Pill(500, 368));
+
     $.c.sw(1000, 1000);
     $.c.st(_.p);
   };
@@ -105,19 +105,17 @@ var GameScene = function() {
     if ($.e < 160) {
       $.x.clr();
 
-      // Update player
-      _.p.u();
-      $.g.t.forEach(function(t) {
-        t.u();
-      });
+      _.p.u(); // Update player
+      //$.g.t.u(); // Update traps
+      $.g.p.u(); // Update pills
 
       // Update camera. Always at the end of all updates
       $.c.u();
 
       // Render objects with camera. Order defines who paints first
-      $.c.r($.g.p);
+      $.g.p.r(); // Render pills
       $.c.r(_.p);
-      $.c.r($.g.b);
+      $.g.b.r(); // Render blocks
       $.c.r($.g.t);
 
       // If player still alive

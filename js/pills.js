@@ -4,6 +4,8 @@ var Pill = function(x, y) {
   _.y = y;
   _.w = 8; // Width
   _.h = 16; // Height
+  _.a = 1; // Alive
+  _.hl = rndr(10, 20); // Heal
   // Bounds
   _.b = {
     b: _.y + _.h,
@@ -11,12 +13,11 @@ var Pill = function(x, y) {
     l: _.x,
     r: _.x + _.w
   };
-  _.c = rnde(['red', 'green', 'lightblue', 'orange', 'pink']);
 
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
     $.x.s();
-    $.x.fs(_.c);
+    $.x.fs('red');
     $.x.bp();
     $.x.arc(r.x + 4, r.y + 4, 4, PI, 0, 0);
     $.x.f();

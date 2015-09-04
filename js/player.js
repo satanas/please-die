@@ -134,6 +134,7 @@ var Player = function(x, y) {
           if (!(o.hu & $.BL.v)) o.hu += $.BL.v;
           o.blc = $.BL.t
         } else if (w.t === $.BU.v && w.dc === 0) {
+          _.po();
           if (!(o.hu & $.BU.v)) o.hu += $.BU.v;
           o.buc = $.BU.t
         } else if (w.t === $.EL.v && w.dc === 0) {
@@ -149,7 +150,7 @@ var Player = function(x, y) {
     // Check collisions with pills
     $.g.p.c(_, function(o, p) {
       p.a = 0;
-      o.hl += p.hl;
+      o.hl += p.po ? -p.hl : p.hl;
     });
 
     if ((_.hl <= 0 || _.y > $.c.wh) && _.a) {
@@ -203,5 +204,12 @@ var Player = function(x, y) {
       l: _.x,
       r: _.x + _.w
     };
+  };
+
+  // Poison pills
+  _.po = function() {
+    $.g.p.e.forEach(function(p) {
+      p.p();
+    });
   };
 };

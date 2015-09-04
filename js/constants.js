@@ -3,3 +3,4 @@ $.BL = {v: 1, t: 1200, d: 2.5, ds: 1.3}; // Bleeding
 $.BU = {v: 2, t: 2000, d: 15, ds: 6}; // Burning
 $.EL = {v: 4, t: 1800, d: 3}; // Electrocuting
 $.PO = {v: 8, t: 3000, d: 2.5}; // Poisoning/Radiation
+$.POT = 2000;

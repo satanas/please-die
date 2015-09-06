@@ -18,7 +18,8 @@ var Rainbow = function(x, y, r) {
     var ra = _.ra;
     $.x.s();
     _.c.forEach(function(c) {
-      $.x.ss('rgba('+ c +',0.9)');
+      $.x.globalAlpha = 0.8;
+      $.x.ss(c);
       $.x.lineWidth = 5;
       $.x.bp();
       $.x.arc(r.x + (_.w / 2), r.y + _.h, ra, PI, 0, 0);

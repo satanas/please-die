@@ -192,6 +192,7 @@ var Water = function(x, y) {
   //_.dc = 0; // Discharge counter
   //_.bc = 0; // Blink counter
   //_.bk = 0; // Blink when discharging
+  _.a = 1;
   _.t = $.WA.v;
   // Bounds
   _.b = {

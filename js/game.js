@@ -86,13 +86,17 @@ var GameScene = function() {
       $.g.b.a(new Block(200 + (i * 32), 400));
       $.g.b.a(new Block(100 + (i * 32), 600));
     }
+
+    // Traps
     $.g.t.a(new Fire(260, 368));
     $.g.t.a(new Saw(360, 386));
     $.g.t.a(new Saw(396, 384));
     $.g.t.a(new Electricity(640, 384));
+    $.g.t.a(new Water(440, 576));
+
+    // Rainbows
     $.g.r.a(new Rainbow(700, 336, 96));
     $.g.r.a(new Rainbow(440, 368, 32));
-    $.g.r.a(new Water(440, 576));
 
     // Pills
     $.g.p.a(new Pill(500, 368));
@@ -120,8 +124,8 @@ var GameScene = function() {
 
       // Render objects with camera. Order defines who paints first
       $.g.p.r(); // Render pills
-      $.c.r(_.p);
-      $.g.r.r();
+      $.c.r(_.p); // Render player
+      $.g.r.r(); // Render rainbows
       $.g.b.r(); // Render blocks
       $.g.t.r(); // Render traps
 

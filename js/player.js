@@ -89,6 +89,7 @@ var Player = function(x, y) {
       var mys = _.mys; // May y speed that will be affected by traps
       if (_.hu & $.BL.v) mxs = _.mxs / 3;
       if (_.hu & $.BU.v) mxs = _.mxs * 1.5;
+      if (_.hu & $.WA.v) mxs = _.mxs / 1.5;
       //if (_.hu & $.EL.v) { mxs = 0; mys = 0}
 
       // Side movement
@@ -154,6 +155,8 @@ var Player = function(x, y) {
           w.d();
           if (!(o.hu & $.EL.v)) o.hu += $.EL.v;
           o.elc = $.EL.t
+        } else if (w.t === $.WA.v) {
+          if (!(o.hu & $.WA.v)) o.hu += $.WA.v;
         }
       }
     });

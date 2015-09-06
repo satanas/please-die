@@ -79,6 +79,7 @@ var GameScene = function() {
     $.g.b = new Group(); // Blocks
     $.g.t = new Group(); // Traps
     $.g.p = new Group(); // Pills
+    $.g.r = new Group(); // Rainbows
 
     $.g.b.a(new Block(100, 50));
     for (var i=0; i<30; i++) {
@@ -88,6 +89,8 @@ var GameScene = function() {
     $.g.t.a(new Saw(360, 386));
     $.g.t.a(new Saw(396, 384));
     $.g.t.a(new Electricity(640, 384));
+    $.g.r.a(new Rainbow(700, 336, 96));
+    $.g.r.a(new Rainbow(440, 368, 32));
 
     // Pills
     $.g.p.a(new Pill(500, 368));
@@ -115,6 +118,7 @@ var GameScene = function() {
       // Render objects with camera. Order defines who paints first
       $.g.p.r(); // Render pills
       $.c.r(_.p);
+      $.g.r.r();
       $.g.b.r(); // Render blocks
       $.g.t.r(); // Render traps
 

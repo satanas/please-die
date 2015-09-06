@@ -94,6 +94,7 @@ var GameScene = function() {
 
     // Pills
     $.g.p.a(new Pill(500, 368));
+    $.g.p.a(new Medikit(550, 368));
 
     $.c.sw(1000, 1000);
     $.c.st(_.p);

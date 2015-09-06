@@ -23,7 +23,7 @@ var Player = function(x, y) {
   _.e = new Emitter(); // Particles emitter
 
   _.u = function() {
-    console.log('hu', _.hu, 'blc', _.blc, 'elc', _.elc, 'ic', _.ic);
+    //console.log('hu', _.hu, 'blc', _.blc, 'elc', _.elc, 'ic', _.ic);
 
     if (_.a > 0) {
       //_.ic = dcz(_.ic, $.e);

@@ -86,6 +86,10 @@ $.init = function(c, w, h) {
     $.x.fs(c || "black");
     $.x.fr(0, 0, $.vw, $.vh);
   };
+  // Global alpha
+  $.x.ga = function(a) {
+    $.x.globalAlpha = a;
+  };
   // Render centered text
   // t: text
   // s: size

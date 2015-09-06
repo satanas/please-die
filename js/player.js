@@ -157,6 +157,9 @@ var Player = function(x, y) {
           o.elc = $.EL.t
         } else if (w.t === $.WA.v) {
           if (!(o.hu & $.WA.v)) o.hu += $.WA.v;
+        } else if (w.t === $.TN.v && o.hu & $.BU.v) {
+          w.a = 0;
+          o.hl -= $.TN.d;
         }
       }
     });

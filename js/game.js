@@ -84,6 +84,7 @@ var GameScene = function() {
     $.g.b.a(new Block(100, 50));
     for (var i=0; i<30; i++) {
       $.g.b.a(new Block(200 + (i * 32), 400));
+      $.g.b.a(new Block(100 + (i * 32), 600));
     }
     $.g.t.a(new Fire(260, 368));
     $.g.t.a(new Saw(360, 386));
@@ -91,6 +92,7 @@ var GameScene = function() {
     $.g.t.a(new Electricity(640, 384));
     $.g.r.a(new Rainbow(700, 336, 96));
     $.g.r.a(new Rainbow(440, 368, 32));
+    $.g.r.a(new Water(440, 576));
 
     // Pills
     $.g.p.a(new Pill(500, 368));

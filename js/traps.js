@@ -181,3 +181,39 @@ var Electricity = function(x, y) {
     $.x.r();
   };
 };
+
+var Water = function(x, y) {
+  var _ = this;
+  _.x = x;
+  _.y = y;
+  _.w = 32; // Width
+  _.h = 24; // Height
+  //_.dt = 5000; // Discharge cooldown time
+  //_.dc = 0; // Discharge counter
+  //_.bc = 0; // Blink counter
+  //_.bk = 0; // Blink when discharging
+  _.t = $.WA.v;
+  // Bounds
+  _.b = {
+    b: _.y + _.h,
+    t: _.y,
+    l: _.x,
+    r: _.x + _.w
+  };
+
+  _.u = function() {
+  };
+
+  // Render with relative coordinates. The r object has x, y, r and b
+  _.r = function(r) {
+    $.x.s();
+    $.x.ga(0.8);
+    $.x.fs('lightskyblue');
+    $.x.fr(r.x, r.y, _.w, _.h);
+    if (dbg) {
+      $.x.ss("red");
+      $.x.sr(r.x, r.y, _.w, _.h);
+    }
+    $.x.r();
+  };
+};

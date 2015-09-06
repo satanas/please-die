@@ -4,13 +4,6 @@ $.BU = {v: 2, t: 2000, d: 15, ds: 6}; // Burning
 $.EL = {v: 4, t: 1800, d: 3}; // Electrocuting
 $.PO = {v: 8, t: 3000, d: 2.5}; // Poisoning/Radiation
 $.RB = {v: 16, t: 5000} // Rainbow
+$.WA = {v: 32, t: 1300, d: 3}; // Water
 $.POT = 2000;
 $.RC = ['red', 'orange', 'yellow', 'limegreen', 'blue', 'blueviolet'];
-//$.RC = [
-//  '255,0,0',
-//  '255,165,0',
-//  '255,255,0',
-//  '50,205,50',
-//  '0,0,255',
-//  '138,43,226'
-//];

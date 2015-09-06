@@ -58,6 +58,7 @@ $.init = function(c, w, h) {
   $.x.s = $.x.save;
   $.x.r = $.x.restore;
   $.x.f = $.x.fill;
+  $.x.k = $.x.stroke;
   $.x.tn = $.x.translate;
   $.x.ro = $.x.rotate;
   $.x.ft = $.x.fillText;
@@ -67,6 +68,8 @@ $.init = function(c, w, h) {
   $.x.di = $.x.drawImage;
   $.x.sc = $.x.scale;
   $.x.bp = $.x.beginPath;
+  $.x.mv = $.x.moveTo;
+  $.x.lt = $.x.lineTo;
   // fillRect
   $.x.fr = function(x, y, w, h) {
     // To avoid anti-aliasing

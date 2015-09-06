@@ -12,6 +12,7 @@ var Player = function(x, y) {
   _.blc = 0; // Bleeding counter
   _.buc = 0; // Burning counter
   _.elc = 0; // Electrocuting counter
+  _.rbc = 0;
   _.bk = 0; // Blink
   _.bkc = 0; // Blink counter
   _.a = 1; // Alive
@@ -22,7 +23,7 @@ var Player = function(x, y) {
   _.e = new Emitter(); // Particles emitter
 
   _.u = function() {
-    //console.log('hu', _.hu, 'blc', _.blc, 'elc', _.elc, 'ic', _.ic);
+    console.log('hu', _.hu, 'blc', _.blc, 'elc', _.elc, 'ic', _.ic);
 
     if (_.a > 0) {
       //_.ic = dcz(_.ic, $.e);
@@ -30,6 +31,15 @@ var Player = function(x, y) {
       if (_.ic !== 0) {
         _.ic -= $.e;
         if (_.ic <= 0) _.ic = 0;
+      }
+
+      // If rainbow, recover
+      if (_.rbc !== 0) {
+        _.rbc -= $.e;
+        if (_.rbc <= 0) {
+          _.rbc = 0;
+          _.hu = 0;
+        }
       }
 
       // If bleeding, recover
@@ -125,7 +135,8 @@ var Player = function(x, y) {
 
     // Check collisions with traps
     $.g.t.c(_, function(o, w) {
-      if (o.ic === 0) {
+      // If player not invincible and not with rainbow
+      if (o.ic === 0 && (!(o.hu & $.RB.v))) {
         o.ic = o.it;
         if (w.t === $.BL.v && w.dc === 0) {
           o.hl -= $.BL.d;
@@ -151,6 +162,13 @@ var Player = function(x, y) {
     $.g.p.c(_, function(o, p) {
       p.a = 0;
       o.hl += p.po ? -p.hl : p.hl;
+    });
+
+    // Check collisions with rainbows
+    $.g.r.c(_, function(o, r) {
+      o.hu = $.RB.v;
+      o.rbc = $.RB.t;
+      o.elc = o.buc = o.blc = 0;
     });
 
     if ((_.hl <= 0 || _.y > $.c.wh) && _.a) {

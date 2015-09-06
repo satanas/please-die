@@ -12,7 +12,8 @@ var Group = function() {
     var i, w;
     for(i = _.e.length; i--;) {
       w = _.e[i];
-      if ($.o.rect(o, w) && o.a && w.a) cb(o, w);
+      //if ($.o.rect(o, w) && o.a && w.a) cb(o, w);
+      if ($.o.rect(o, w)) cb(o, w);
     }
   };
 

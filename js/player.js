@@ -79,7 +79,7 @@ var Player = function(x, y) {
       var mys = _.mys; // May y speed that will be affected by traps
       if (_.hu & $.BL.v) mxs = _.mxs / 3;
       if (_.hu & $.BU.v) mxs = _.mxs * 1.5;
-      if (_.hu & $.EL.v) { mxs = 0; mys = 0}
+      //if (_.hu & $.EL.v) { mxs = 0; mys = 0}
 
       // Side movement
       if ($.i.p(37)) {

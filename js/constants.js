@@ -5,5 +5,6 @@ $.EL = {v: 4, t: 1800, d: 3}; // Electrocuting
 $.PO = {v: 8, t: 3000, d: 2.5}; // Poisoning/Radiation
 $.RB = {v: 16, t: 5000} // Rainbow
 $.WA = {v: 32, t: 1300, d: 3}; // Water
+$.TN = {v: 64, t: 0, d: 3}; // TNT
 $.POT = 2000;
 $.RC = ['red', 'orange', 'yellow', 'limegreen', 'blue', 'blueviolet'];

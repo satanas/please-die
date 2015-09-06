@@ -93,6 +93,7 @@ var GameScene = function() {
     $.g.t.a(new Saw(396, 384));
     $.g.t.a(new Electricity(640, 384));
     $.g.t.a(new Water(440, 576));
+    $.g.t.a(new TNT(540, 574));
 
     // Rainbows
     $.g.r.a(new Rainbow(700, 336, 96));
@@ -124,11 +125,11 @@ var GameScene = function() {
       $.c.u();
 
       // Render objects with camera. Order defines who paints first
+      $.g.b.r(); // Render blocks
       $.g.p.r(); // Render pills
+      $.g.t.r(); // Render traps
       $.c.r(_.p); // Render player
       $.g.r.r(); // Render rainbows
-      $.g.b.r(); // Render blocks
-      $.g.t.r(); // Render traps
 
       // If player still alive
       if (_.p.a > 0) {

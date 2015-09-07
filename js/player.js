@@ -6,6 +6,7 @@ var Player = function(x, y) {
   _.h = 32;
   _.dx = 0;
   _.dy = 0;
+  _.f = 1; // 1: right, -1: left
   _.hu = 0; // Hurt. Accumulative variable to hold bleeding, burning, etc
   _.it = 80; // Invisibility time
   _.ic = 0; // Invisibility counter
@@ -20,9 +21,16 @@ var Player = function(x, y) {
   _.mxs = 5; // Max x speed
   _.mys = 15; // Max y speed
   _.hl = 100; // Health
+  // Applying forces
+  _.fo = {
+    x: 0, // Force in X
+    y: 0, // Force in Y
+    d: 0 // Force duration
+  };
   _.e = new Emitter(); // Particles emitter
 
   _.u = function() {
+    //console.log(_.f === 1 ? 'right' : 'left');
     //console.log('hu', _.hu, 'blc', _.blc, 'elc', _.elc, 'ic', _.ic);
 
     if (_.a > 0) {
@@ -95,8 +103,10 @@ var Player = function(x, y) {
       // Side movement
       if ($.i.p(37)) {
         _.dx -= _.s;
+        _.f = -1;
       } else if ($.i.p(39)) {
         _.dx += _.s;
+        _.f = 1;
       }
 
       _.dx = iir(_.dx, -mxs, mxs);
@@ -108,6 +118,17 @@ var Player = function(x, y) {
       if (_.dy === 0 && $.i.p(38) && !(_.hu & $.EL.v)) {
         $.s.p('j');
         _.dy = -8;
+      }
+
+      // Applying forces
+      if (_.fo.x !== 0 || _.fo.y !== 0) {
+        if (_.fo.d > 0) {
+          _.dx += _.fo.x;
+          _.dy += _.fo.y;
+          _.fo.d -= $.e;
+        } else {
+          _.fo.x = _.fo.y = _.fo.d = 0;
+        }
       }
 
       _.dy += 19.8 * ($.e / 1000);
@@ -160,6 +181,9 @@ var Player = function(x, y) {
         } else if (w.t === $.TN.v && o.hu & $.BU.v) {
           w.a = 0;
           o.hl -= $.TN.d;
+          _.fo.x = -8 * _.f;
+          _.fo.y = -4;
+          _.fo.d = 25;
         }
       }
     });

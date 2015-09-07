@@ -13,7 +13,8 @@ var Player = function(x, y) {
   _.blc = 0; // Bleeding counter
   _.buc = 0; // Burning counter
   _.elc = 0; // Electrocuting counter
-  _.rbc = 0;
+  _.shc = 0; // Electrocuting counter
+  _.rbc = 0; // Rainbow counter
   _.bk = 0; // Blink
   _.bkc = 0; // Blink counter
   _.a = 1; // Alive
@@ -21,7 +22,7 @@ var Player = function(x, y) {
   _.mxs = 5; // Max x speed
   _.mys = 15; // Max y speed
   _.hl = 100; // Health
-  // Applying forces
+  // Force variables
   _.fo = {
     x: 0, // Force in X
     y: 0, // Force in Y
@@ -31,7 +32,7 @@ var Player = function(x, y) {
 
   _.u = function() {
     //console.log(_.f === 1 ? 'right' : 'left');
-    console.log('hu', _.hu, 'blc', _.blc, 'buc', _.buc, 'elc', _.elc, 'ic', _.ic);
+    //console.log('hu', _.hu, 'blc', _.blc, 'buc', _.buc, 'elc', _.elc, 'shc', _.shc, 'ic', _.ic);
 
     if (_.a > 0) {
       // If invincible, decrease counter
@@ -53,10 +54,17 @@ var Player = function(x, y) {
 
       // If electrocuting, recover
       _.elc = _.cdr(_.elc, ($.e * $.EL.ds) / 1000, $.EL.v, function() {
-        $.s.p('el');
-        _.e.e(_.x, _.y + (_.h / 2), 8, 3);
+        //$.s.p('el');
+        //_.e.e(_.x, _.y + (_.h / 2), 1, 3);
       });
 
+      // If shocking, recover
+      _.shc = _.cdr(_.shc, ($.e * $.SH.ds) / 1000, $.SH.v, function() {
+        $.s.p('el');
+        _.e.e(_.x, _.y + (_.h / 2), 15, 3);
+      });
+
+      // Blink is hurt
       if (_.hu > 0) {
         _.bkc += $.e;
         if (_.bkc > 150) {
@@ -72,7 +80,7 @@ var Player = function(x, y) {
       if (_.hu & $.BL.v) mxs = _.mxs / 3;
       if (_.hu & $.BU.v) mxs = _.mxs * 1.5;
       if (_.hu & $.WA.v) mxs = _.mxs / 1.5;
-      //if (_.hu & $.EL.v) { mxs = 0; mys = 0}
+      if (_.hu & $.SH.v) { mxs = 0; mys = 0; }
 
       // Side movement
       if ($.i.p(37)) {
@@ -83,6 +91,7 @@ var Player = function(x, y) {
         _.f = 1;
       }
 
+      // Check for dx limits
       _.dx = iir(_.dx, -mxs, mxs);
       if (!$.i.p(37) && !$.i.p(39)) {
         _.dx = 0;
@@ -131,36 +140,44 @@ var Player = function(x, y) {
 
     // Check collisions with traps
     $.g.t.c(_, function(o, w) {
-      // If player not invincible and not with rainbow
-      if (o.ic === 0 && (!(o.hu & $.RB.v))) {
-        o.ic = o.it;
-        if (w.t === $.BL.v && w.dc === 0) {
-          o.hl -= $.BL.d;
-          o.e.e(o.x, o.y, 5, 1);
-          $.s.p('bl');
-          if (!(o.hu & $.BL.v)) o.hu += $.BL.v;
-          o.blc = $.BL.t
-        } else if (w.t === $.BU.v && w.dc === 0) {
-          _.po();
-          if (!(o.hu & $.BU.v)) o.hu += $.BU.v;
-          o.buc = $.BU.t
-        } else if (w.t === $.EL.v && w.dc === 0) {
-          o.hl -= $.EL.d;
-          // Discharge trap
-          w.d();
-          if (!(o.hu & $.EL.v)) o.hu += $.EL.v;
-          o.elc = $.EL.t
-        } else if (w.t === $.WA.v) {
-          if (!(o.hu & $.WA.v)) o.hu += $.WA.v;
-          $.s.p('el');
-          _.e.e(_.x, _.y + (_.h / 2), 15, 3);
-        } else if (w.t === $.TN.v && o.hu & $.BU.v) {
-          w.a = 0;
-          o.hl -= $.TN.d;
-          _.fo.x = -8 * _.f;
-          _.fo.y = -4;
-          _.fo.d = 25;
-        }
+      // Return if player is invincible or is under rainbow effects
+      if (o.ic !== 0 || (o.hu & $.RB.v)) return;
+
+      o.ic = o.it;
+      if (w.t === $.BL.v && w.dc === 0) {
+        o.hl -= $.BL.d;
+        o.e.e(o.x, o.y, 5, 1);
+        $.s.p('bl');
+        if (!(o.hu & $.BL.v)) o.hu += $.BL.v;
+        o.blc = $.BL.t
+      } else if (w.t === $.BU.v && w.dc === 0) {
+        //_.po();
+        if (!(o.hu & $.BU.v)) o.hu += $.BU.v;
+        o.buc = $.BU.t
+      } else if (w.t === $.EL.v && w.dc === 0) {
+        o.hl -= $.EL.d;
+        // Discharge trap
+        w.d();
+        if (!(o.hu & $.EL.v)) o.hu += $.EL.v;
+        o.elc = $.EL.t
+      }
+    });
+
+    // Check for collisions with triggers
+    $.g.z.c(_, function(o, w) {
+      // If collide with water and shocking
+      if (w.t === $.WA.v && o.hu & $.EL.v) {
+        o.hu -= $.EL.v;
+        o.hu += $.SH.v;
+        o.shc = $.SH.t;
+        _.elc = 0;
+      // If collide with TNT and burning
+      } else if (w.t === $.TN.v && o.hu & $.BU.v) {
+        w.a = 0;
+        o.hl -= $.TN.d;
+        _.fo.x = -8 * _.f;
+        _.fo.y = -4;
+        _.fo.d = 25;
       }
     });
 
@@ -241,6 +258,7 @@ var Player = function(x, y) {
   // c: damage counter
   // d: damage
   // v: damage id (value)
+  // cb: callback to be called in every check
   _.cdr = function(c, d, v, cb) {
     if (c !== 0) {
       c -= $.e;

@@ -78,6 +78,7 @@ var GameScene = function() {
     // Groups
     $.g.b = new Group(); // Blocks
     $.g.t = new Group(); // Traps
+    $.g.z = new Group(); // Triggers
     $.g.p = new Group(); // Pills
     $.g.r = new Group(); // Rainbows
 
@@ -92,8 +93,8 @@ var GameScene = function() {
     $.g.t.a(new Saw(360, 386));
     $.g.t.a(new Saw(396, 384));
     $.g.t.a(new Electricity(640, 384));
-    $.g.t.a(new Water(440, 576));
-    $.g.t.a(new TNT(540, 574));
+    $.g.z.a(new Water(440, 576));
+    $.g.z.a(new TNT(540, 574));
 
     // Rainbows
     $.g.r.a(new Rainbow(700, 336, 96));
@@ -119,6 +120,7 @@ var GameScene = function() {
 
       _.p.u(); // Update player
       $.g.t.u(); // Update traps
+      $.g.z.u(); // Update triggers
       $.g.p.u(); // Update pills
 
       // Update camera. Always at the end of all updates
@@ -128,6 +130,7 @@ var GameScene = function() {
       $.g.b.r(); // Render blocks
       $.g.p.r(); // Render pills
       $.g.t.r(); // Render traps
+      $.g.z.r(); // Render triggers
       $.c.r(_.p); // Render player
       $.g.r.r(); // Render rainbows
 

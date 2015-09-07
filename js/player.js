@@ -31,11 +31,11 @@ var Player = function(x, y) {
 
   _.u = function() {
     //console.log(_.f === 1 ? 'right' : 'left');
-    //console.log('hu', _.hu, 'blc', _.blc, 'elc', _.elc, 'ic', _.ic);
+    console.log('hu', _.hu, 'blc', _.blc, 'buc', _.buc, 'elc', _.elc, 'ic', _.ic);
 
     if (_.a > 0) {
-      //_.ic = dcz(_.ic, $.e);
       // If invincible, decrease counter
+      //_.ic = duz(_.ic, $.e);
       if (_.ic !== 0) {
         _.ic -= $.e;
         if (_.ic <= 0) _.ic = 0;
@@ -51,37 +51,19 @@ var Player = function(x, y) {
       }
 
       // If bleeding, recover
-      if (_.blc !== 0) {
-        _.blc -= $.e;
-        if (_.blc <= 0) {
-          _.blc = 0;
-          _.hu -= $.BL.v;
-        }
-      }
+      _.blc = _.cdr(_.blc, 0, $.BL.v);
 
       // If burning, recover
-      if (_.buc !== 0) {
+      _.buc = _.cdr(_.buc, ($.e * $.BU.ds) / 1000, $.BU.v, function() {
         $.s.p('bu');
         _.e.e(_.x, _.y, 6, 2);
-        _.buc -= $.e;
-        _.hl -= ($.e * $.BU.ds) / 1000;
-        if (_.buc <= 0) {
-          _.buc = 0;
-          _.hu -= $.BU.v;
-        }
-      }
+      });
 
       // If electrocuting, recover
-      if (_.elc !== 0) {
+      _.elc = _.cdr(_.elc, ($.e * $.EL.ds) / 1000, $.EL.v, function() {
         $.s.p('el');
-        _.e.e(_.x, _.y + (_.h / 2), 10, 3);
-        _.elc -= $.e;
-        _.hl -= $.EL.d;
-        if (_.elc <= 0) {
-          _.elc = 0;
-          _.hu -= $.EL.v;
-        }
-      }
+        _.e.e(_.x, _.y + (_.h / 2), 8, 3);
+      });
 
       if (_.hu > 0) {
         _.bkc += $.e;
@@ -115,7 +97,7 @@ var Player = function(x, y) {
       }
 
       // Jump
-      if (_.dy === 0 && $.i.p(38) && !(_.hu & $.EL.v)) {
+      if (_.dy === 0 && $.i.p(38)) {
         $.s.p('j');
         _.dy = -8;
       }
@@ -178,6 +160,8 @@ var Player = function(x, y) {
           o.elc = $.EL.t
         } else if (w.t === $.WA.v) {
           if (!(o.hu & $.WA.v)) o.hu += $.WA.v;
+          $.s.p('el');
+          _.e.e(_.x, _.y + (_.h / 2), 15, 3);
         } else if (w.t === $.TN.v && o.hu & $.BU.v) {
           w.a = 0;
           o.hl -= $.TN.d;
@@ -259,5 +243,22 @@ var Player = function(x, y) {
     $.g.p.e.forEach(function(p) {
       p.p();
     });
+  };
+
+  // Do continuous damage and check for recovery
+  // c: damage counter
+  // d: damage
+  // v: damage id (value)
+  _.cdr = function(c, d, v, cb) {
+    if (c !== 0) {
+      c -= $.e;
+      _.hl -= d;
+      if (cb !== undefined) cb();
+      if (c <= 0) {
+        c = 0;
+        _.hu -= v;
+      }
+    }
+    return c;
   };
 };

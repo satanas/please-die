@@ -97,7 +97,7 @@ var GameScene = function() {
 
     // Rainbows
     $.g.r.a(new Rainbow(700, 336, 96));
-    $.g.r.a(new Rainbow(440, 368, 32));
+    //$.g.r.a(new Rainbow(440, 368, 32));
     $.g.r.a(new RainbowBlock(640, 468));
 
     // Pills

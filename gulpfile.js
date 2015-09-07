@@ -65,7 +65,7 @@ gulp.task('build', ['minify_html'], function() {
   .pipe(s)
   .pipe(gulp.dest('min'))
   .on('end', function() {
-    var r = 12793 - s.size;
+    var r = 13312 - s.size;
     console.log('Remaining size: ', r, 'bytes');
   });
 });

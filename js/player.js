@@ -35,11 +35,7 @@ var Player = function(x, y) {
 
     if (_.a > 0) {
       // If invincible, decrease counter
-      //_.ic = duz(_.ic, $.e);
-      if (_.ic !== 0) {
-        _.ic -= $.e;
-        if (_.ic <= 0) _.ic = 0;
-      }
+      _.ic = duz(_.ic, $.e);
 
       // If rainbow, recover
       if (_.rbc !== 0) {

@@ -38,13 +38,9 @@ var Player = function(x, y) {
       _.ic = duz(_.ic, $.e);
 
       // If rainbow, recover
-      if (_.rbc !== 0) {
-        _.rbc -= $.e;
-        if (_.rbc <= 0) {
-          _.rbc = 0;
-          _.hu = 0;
-        }
-      }
+      _.rbc = duz(_.rbc, $.e, function() {
+        _.hu = 0;
+      });
 
       // If bleeding, recover
       _.blc = _.cdr(_.blc, 0, $.BL.v);

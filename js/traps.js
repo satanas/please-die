@@ -51,7 +51,7 @@ var Fire = function(x, y) {
   };
 };
 
-var Saw = function(x, y) {
+var Saw = function(x, y, pt) {
   var _ = this;
   _.x = x;
   _.y = y;
@@ -60,7 +60,7 @@ var Saw = function(x, y) {
   _.t = $.BL.v;
   _.ng = 0; // Angle
   _.as = 920; // Angular speed
-  _.pt = rndr(500, 3000); // Phase time
+  _.pt = pt || rndr(500, 3000); // Phase time
   _.ph = 1; // Phase: 1=up, 2=going down, 3=down, 4=going up
   _.pc = _.pt; // Phase counter
   _.uy = _.y; // Upper Y destination

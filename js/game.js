@@ -89,7 +89,8 @@ var GameScene = function() {
         if (_.m.m[x][y] === "#") $.g.b.a(new Block(x * 32, y * 32));
         if (_.m.m[x][y] === "@") _.p = new Player(x * 32, y * 32);
         if (_.m.m[x][y] === "T") $.g.z.a(new TNT(x * 32, y * 32));
-        if (_.m.m[x][y] === "f") $.g.t.a(new Fire(x * 32, y * 32));
+        if (_.m.m[x][y] === "F") $.g.t.a(new Fire(x * 32, y * 32));
+        if (_.m.m[x][y] === "S") $.g.t.a(new Saw(x * 32, y * 32));
       }
     }
     _.h = new HUD(_.p, _);

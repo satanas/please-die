@@ -24,8 +24,10 @@ var Map = function(w, h) {
     // Set player
     _.sp();
     // Set TNT
-    _.stnt();
-    _.sfi();
+    _.stnt(3);
+    _.sfi(3);
+    // Set saws
+    _.ssw(8);
     if (dbg) _.pp(_.m);
   };
 
@@ -150,18 +152,18 @@ var Map = function(w, h) {
     for (x=1; x<_.w - 1; x++) {
       for (y=1; y<_.h - 1; y++) {
         // If the square is free, check if there is plenty room for the player
-        if (_.m[x][y] === '.' && _.ca(_.m, x, y) < 3) return _.m[x][y] = "@";
+        if (_.m[x][y] === "." && _.ca(_.m, x, y) < 3) return _.m[x][y] = "@";
       }
     }
   };
 
   // Set TNT
-  _.stnt = function() {
+  _.stnt = function(n) {
     var x, y, c=t=0;
-    while (t < 10 && c < 3) {
+    while (t < 10 && c < n) {
       x = rndr(1, _.w - 1);
       y = rndr(1, _.h - 1);
-      if (_.m[x][y] === '.' && _.ca(_.m, x, y) < 4 && !_.ar("T", x, y, 5)) {
+      if (_.m[x][y] === "." && _.ca(_.m, x, y) < 4 && !_.ar("T", x, y, 5)) {
         _.m[x][y] = "T";
         c += 1;
         t = 0;
@@ -171,16 +173,79 @@ var Map = function(w, h) {
   };
 
   // Set fire
-  _.sfi = function() {
+  _.sfi = function(n) {
     var x, y, c=t=0;
-    while (t < 10 && c < 3) {
+    while (t < 10 && c < n) {
       x = rndr(1, _.w - 1);
       y = rndr(1, _.h - 1);
-      if (_.m[x][y] === '.' && _.ca(_.m, x, y) < 4 && !_.ar("f", x, y, 5)) {
-        _.m[x][y] = "f";
+      if (_.m[x][y] === "." && _.ca(_.m, x, y) < 4 && !_.ar("F", x, y, 5)) {
+        _.m[x][y] = "F";
         c += 1;
         t = 0;
       }
+      t += 1;
+    }
+  };
+
+  // Set saws
+  _.ssw = function(m) {
+    var x, y, i, j,
+        t = // Number of tries before quit
+        n = // Number of saws
+        h = // Horizontal?
+        c = // Number of traps placed
+        z = 0, // New coordinate
+        p = 1; // Is possible to place it?
+
+    while (t < 10 && c < m) {
+      x = rndr(1, _.w - 1);
+      y = rndr(1, _.h - 1);
+      n = rndr(1, 4);
+      h = rndr(0, 2);
+
+      console.log('trying saw ('+x+','+ y+')', 'n', n, 'h', h);
+
+      // If horizontal
+      if (h) {
+        for(i=n; i--; ) {
+          z = x + i;
+          if (z > _.w) {
+            p = 0; break;
+          }
+          if (_.m[z][y] !== "." || _.ar("S", z, y, 4) || _.ca(_.m, z, y) > 5) {
+            p = 0;
+            break;
+          }
+        }
+
+        if (p) continue;
+
+        for(i=n; i--; ) {
+          _.m[x + i][y] = "S";
+        }
+        c += 1;
+      // If vertical
+      } else {
+        for(i=n; i--; ) {
+          z = y + i;
+          if (z > _.y) {
+            p = 0;
+            break;
+          }
+          if (_.m[x][z] !== "." || _.ar("S", x, z, 4) || _.ca(_.m, x, z) > 5) {
+            p = 0;
+            break;
+          }
+        }
+
+        if (p) continue;
+
+        for(i=n; i--; ) {
+          _.m[x][y + i] = "S";
+        }
+        c += 1;
+      }
+
       t += 1;
     }
   };
@@ -189,7 +254,7 @@ var Map = function(w, h) {
   _.pp = function(m) {
     var x, y, str;
     for (y=0; y<_.h; y++) {
-      str = '';
+      str = "";
       for (x=0; x<_.w; x++) {
         str += m[x][y] + " ";
       }

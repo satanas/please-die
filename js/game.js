@@ -89,26 +89,26 @@ var GameScene = function() {
         if (_.m.m[x][y] === "#") $.g.b.a(new Block(x * 32, y * 32));
         if (_.m.m[x][y] === "@") _.p = new Player(x * 32, y * 32);
         if (_.m.m[x][y] === "T") $.g.z.a(new TNT(x * 32, y * 32));
-        if (_.m.m[x][y] === "f") $.g.z.a(new Fire(x * 32, y * 32));
+        if (_.m.m[x][y] === "f") $.g.t.a(new Fire(x * 32, y * 32));
       }
     }
     _.h = new HUD(_.p, _);
 
     // Traps
     //$.g.t.a(new Fire(260, 368));
-    $.g.t.a(new Saw(360, 386));
-    $.g.t.a(new Saw(396, 384));
-    $.g.t.a(new Electricity(640, 384));
-    $.g.z.a(new Water(440, 576));
+    //$.g.t.a(new Saw(360, 386));
+    //$.g.t.a(new Saw(396, 384));
+    //$.g.t.a(new Electricity(640, 384));
+    //$.g.z.a(new Water(440, 576));
 
     // Rainbows
-    $.g.r.a(new Rainbow(700, 336, 96));
-    //$.g.r.a(new Rainbow(440, 368, 32));
-    $.g.r.a(new RainbowBlock(640, 468));
+    //$.g.r.a(new Rainbow(700, 336, 96));
+    ////$.g.r.a(new Rainbow(440, 368, 32));
+    //$.g.r.a(new RainbowBlock(640, 468));
 
-    // Pills
-    $.g.p.a(new Pill(500, 368));
-    $.g.p.a(new Medikit(550, 368));
+    //// Pills
+    //$.g.p.a(new Pill(500, 368));
+    //$.g.p.a(new Medikit(550, 368));
 
     $.c.sw(1000, 1000);
     $.c.st(_.p);

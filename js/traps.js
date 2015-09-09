@@ -81,31 +81,31 @@ var Saw = function(x, y, pt) {
     _.ng += ($.e / 1000) * _.as;
     if (_.ng > 360) _.ng = _.ng - 360;
 
-    if (_.ph === 1) {
-      _.pc -= $.e;
-      if (_.pc < 0) _.ph = 2;
-    } else if (_.ph === 2) {
-      _.y += _.sy;
-      if (_.y >= _.ly) {
-        _.y = _.ly;
-        _.ph = 3;
-        _.dc = 1;
-        _.pc = _.pt;
-      }
-    } else if (_.ph === 3) {
-      _.pc -= $.e;
-      if (_.pc < 0) {
-        _.ph = 4;
-        _.dc = 0;
-      }
-    } else if (_.ph === 4) {
-      _.y -= _.sy;
-      if (_.y <= _.uy) {
-        _.y = _.uy;
-        _.ph = 1;
-        _.pc = _.pt;
-      }
-    }
+    //if (_.ph === 1) {
+    //  _.pc -= $.e;
+    //  if (_.pc < 0) _.ph = 2;
+    //} else if (_.ph === 2) {
+    //  _.y += _.sy;
+    //  if (_.y >= _.ly) {
+    //    _.y = _.ly;
+    //    _.ph = 3;
+    //    _.dc = 1;
+    //    _.pc = _.pt;
+    //  }
+    //} else if (_.ph === 3) {
+    //  _.pc -= $.e;
+    //  if (_.pc < 0) {
+    //    _.ph = 4;
+    //    _.dc = 0;
+    //  }
+    //} else if (_.ph === 4) {
+    //  _.y -= _.sy;
+    //  if (_.y <= _.uy) {
+    //    _.y = _.uy;
+    //    _.ph = 1;
+    //    _.pc = _.pt;
+    //  }
+    //}
   };
 
   // Render with relative coordinates. The r object has x, y, r and b

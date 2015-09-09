@@ -73,7 +73,7 @@ var GameScene = function() {
     _.t.s = 0;
     _.t.e = 0;
     _.t.l = 60000;
-    _.m = new Map(20, 16);
+    _.m = new Map(30, 24);
     _.p = new Player(200, 200);
     _.h = new HUD(_.p, _);
     _.m.g();
@@ -84,10 +84,11 @@ var GameScene = function() {
     $.g.p = new Group(); // Pills
     $.g.r = new Group(); // Rainbows
 
-    $.g.b.a(new Block(100, 50));
-    for (var i=0; i<30; i++) {
-      $.g.b.a(new Block(200 + (i * 32), 400));
-      $.g.b.a(new Block(100 + (i * 32), 600));
+    var x, y;
+    for (y=0; y<_.m.h; y++) {
+      for (x=0; x<_.m.w; x++) {
+        if (_.m.m[x][y] === "#") $.g.b.a(new Block(x * 32, y * 32));
+      }
     }
 
     // Traps

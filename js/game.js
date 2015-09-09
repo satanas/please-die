@@ -73,8 +73,10 @@ var GameScene = function() {
     _.t.s = 0;
     _.t.e = 0;
     _.t.l = 60000;
+    _.m = new Map(20, 16);
     _.p = new Player(200, 200);
     _.h = new HUD(_.p, _);
+    _.m.g();
     // Groups
     $.g.b = new Group(); // Blocks
     $.g.t = new Group(); // Traps

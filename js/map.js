@@ -21,14 +21,11 @@ var Map = function(w, h) {
       _.m = _.ss(_.m);
     }
     _.hk();
-    // Set player (2)
-    //while (1) {
-    //  x = rndr(1, _.w - 1);
-    //  y = rndr(1, _.h - 1);
-    //  if (_.m[x][y] === "#") continue;
-
-    //  if (_.ca(_.m, x, y) < 3;
-    //}
+    // Set player
+    _.sp();
+    // Set TNT
+    _.stnt();
+    _.sfi();
     if (dbg) _.pp(_.m);
   };
 
@@ -70,6 +67,21 @@ var Map = function(w, h) {
       }
     }
     return c;
+  };
+
+  // Check if an object is around another
+  _.ar = function(o, x, y, d) {
+    var i, j, nx, ny, d = d || 1;
+
+    for (i=-d; i<=d; i++) {
+      for (j=-d; j<=d; j++) {
+        nx = x + i;
+        ny = y + j;
+        if (nx < 0 || ny < 0 || nx > _.w - 1 || ny > _.h - 1) continue;
+        if (_.m[nx][ny] === o) return true;
+      }
+    }
+    return false;
   };
 
   // Create cellmap
@@ -130,6 +142,47 @@ var Map = function(w, h) {
       if (_.m[i][y] === "#") c += 1;
     }
     return c;
+  };
+
+  // Set player
+  _.sp = function() {
+    var x, y;
+    for (x=1; x<_.w - 1; x++) {
+      for (y=1; y<_.h - 1; y++) {
+        // If the square is free, check if there is plenty room for the player
+        if (_.m[x][y] === '.' && _.ca(_.m, x, y) < 3) return _.m[x][y] = "@";
+      }
+    }
+  };
+
+  // Set TNT
+  _.stnt = function() {
+    var x, y, c=t=0;
+    while (t < 10 && c < 3) {
+      x = rndr(1, _.w - 1);
+      y = rndr(1, _.h - 1);
+      if (_.m[x][y] === '.' && _.ca(_.m, x, y) < 4 && !_.ar("T", x, y, 5)) {
+        _.m[x][y] = "T";
+        c += 1;
+        t = 0;
+      }
+      t += 1;
+    }
+  };
+
+  // Set fire
+  _.sfi = function() {
+    var x, y, c=t=0;
+    while (t < 10 && c < 3) {
+      x = rndr(1, _.w - 1);
+      y = rndr(1, _.h - 1);
+      if (_.m[x][y] === '.' && _.ca(_.m, x, y) < 4 && !_.ar("f", x, y, 5)) {
+        _.m[x][y] = "f";
+        c += 1;
+        t = 0;
+      }
+      t += 1;
+    }
   };
 
   // Pretty print map

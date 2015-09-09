@@ -74,8 +74,7 @@ var GameScene = function() {
     _.t.e = 0;
     _.t.l = 60000;
     _.m = new Map(30, 24);
-    _.p = new Player(200, 200);
-    _.h = new HUD(_.p, _);
+    //_.p = new Player(200, 200);
     _.m.g();
     // Groups
     $.g.b = new Group(); // Blocks
@@ -88,16 +87,19 @@ var GameScene = function() {
     for (y=0; y<_.m.h; y++) {
       for (x=0; x<_.m.w; x++) {
         if (_.m.m[x][y] === "#") $.g.b.a(new Block(x * 32, y * 32));
+        if (_.m.m[x][y] === "@") _.p = new Player(x * 32, y * 32);
+        if (_.m.m[x][y] === "T") $.g.z.a(new TNT(x * 32, y * 32));
+        if (_.m.m[x][y] === "f") $.g.z.a(new Fire(x * 32, y * 32));
       }
     }
+    _.h = new HUD(_.p, _);
 
     // Traps
-    $.g.t.a(new Fire(260, 368));
+    //$.g.t.a(new Fire(260, 368));
     $.g.t.a(new Saw(360, 386));
     $.g.t.a(new Saw(396, 384));
     $.g.t.a(new Electricity(640, 384));
     $.g.z.a(new Water(440, 576));
-    $.g.z.a(new TNT(540, 574));
 
     // Rainbows
     $.g.r.a(new Rainbow(700, 336, 96));

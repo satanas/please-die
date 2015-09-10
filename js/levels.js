@@ -34,8 +34,16 @@ var Levels = function() {
           d: 2300
         },
         {
-          t: ["Your purpose", "is to die"],
-          d: 3000
+          t: ["Still ARROWS to move", "and UP to jump"],
+          d: 2200
+        },
+        {
+          t: ["But your purpose..."],
+          d: 2200,
+        },
+        {
+          t: ["Your purpose is to die"],
+          d: 4000
         }
       ]
     }

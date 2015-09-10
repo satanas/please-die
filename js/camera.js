@@ -61,7 +61,7 @@ var Camera = function(w, h, ww, wh) {
     }
 
     if (_.wh <= _.h) {
-      tx = _.tg.y;
+      ty = _.tg.y;
     } else if (_.tg.y <= (mh)) {
       ty = _.tg.y;
     } else if ((_.tg.y > mh) && (_.tg.y + mh <= _.wh)) {

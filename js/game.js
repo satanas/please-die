@@ -74,7 +74,6 @@ var GameScene = function() {
     _.t.e = 0;
     _.t.l = 60000;
     _.m = new Map(30, 24);
-    //_.p = new Player(200, 200);
     _.m.l(L1);
     _.bg = rnde(LC);
     $.c.sw(_.m.w * 32, _.m.h * 32);
@@ -96,6 +95,8 @@ var GameScene = function() {
       }
     }
     _.h = new HUD(_.p, _);
+    _.p.say(['Kill me, bitch!', 'Before the time runs out']);
+    _.p.say('Holy crap!');
 
     // Traps
     //$.g.t.a(new Fire(260, 368));

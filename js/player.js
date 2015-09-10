@@ -128,6 +128,8 @@ var Player = function(x, y) {
       if (_.x + _.w > $.c.ww) _.x = $.c.ww - _.w;
       if (_.x < 0) _.x = 0;
 
+      //console.log('b', 'x', _.x, 'y', _.y, 'dx', _.dx, 'dy', _.dy);
+
       // Update dialog
       _.dia.u();
     }
@@ -137,18 +139,25 @@ var Player = function(x, y) {
     // Check collisions with blocks
     $.g.b.c(_, function(o, w) {
       if ($.o.bottom(o, w)){
+        //console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
         o.y = w.b.t - o.h;
-        o.dy = 0;
-        o.j = 0;
+        o.dy = o.j = 0;
       } else if ($.o.top(o, w)) {
+        //console.log('tttttttttttttttttttttttttttttttttttttttttttttttttt');
         o.dy = 0.1;
       } else if ($.o.right(o, w)) {
+        //console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
         o.x = w.b.l - o.w;
       } else if ($.o.left(o, w)) {
+        //console.log('llllllllllllllllllllllllllllllllllllllllllllllllll');
         o.x = w.b.r;
       }
     });
 
+    // Recalculate bounds after collisions
+    _.rb();
+
+    //console.log('a', 'x', _.x, 'y', _.y, 'dx', _.dx, 'dy', _.dy);
     // Check collisions with traps
     $.g.t.c(_, function(o, w) {
       // Return if player is invincible or is under rainbow effects
@@ -289,8 +298,8 @@ var Player = function(x, y) {
     return c;
   };
 
-  _.say = function(t) {
-    _.dia.s(t);
+  _.say = function(t, d) {
+    _.dia.s(t, d);
   };
 };
 
@@ -304,13 +313,14 @@ var Dialog = function() {
   _.p = 0; // Phase. 0: showing, 1: waiting
 
   // Say message
-  _.s = function(t) {
+  _.s = function(t, d) {
+    d = d || _.dt;
     if (!(t instanceof Array)) t = [t];
     if (_.q.length === 0 && !_.d) {
       _.d = t;
-      _.c = _.dt;
+      _.c = d;
     } else {
-      _.q.push(t);
+      _.q.push({t: t, d: d});
     }
   };
 
@@ -329,8 +339,9 @@ var Dialog = function() {
         _.c = 0;
         _.d = 0;
         if (_.q.length > 0) {
-          _.c = _.dt;
-          _.d = _.q.splice(0, 1);
+          var x = _.q.splice(0, 1)[0];
+          _.c = x.d;
+          _.d = x.t;
         }
       }
     }

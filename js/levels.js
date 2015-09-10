@@ -25,8 +25,18 @@ var Levels = function() {
         "....................",
       ],
       "s": [
-        ["Hi there!"],
-        ["Things here work", "slighly different"],
+        {
+          t: ["Hi there!"],
+          d: 1400
+        },
+        {
+          t: ["Things here work", "slighly different"],
+          d: 2300
+        },
+        {
+          t: ["Your purpose", "is to die"],
+          d: 3000
+        }
       ]
     }
   };

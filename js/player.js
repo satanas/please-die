@@ -358,8 +358,10 @@ var Dialog = function() {
     for (i=0; i<_.d.length; i++) {
       m = $.x.mt(_.d[i]);
       x = r.x - (m.width / 2) + 8;
-      if (x < mx) mx = x;
-      if (m.width > mw) mw = m.width;
+      //if (x < mx) mx = x;
+      //if (m.width > mw) mw = m.width;
+      mx = x;
+      mw = m.width;
       $.x.ft(_.d[i], x + 4, r.y - ((_.d.length - i) * 20));
     }
 

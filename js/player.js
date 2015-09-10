@@ -22,6 +22,8 @@ var Player = function(x, y) {
   _.mxs = 5; // Max x speed
   _.mys = 15; // Max y speed
   _.hl = 100; // Health
+  _.jt = 0.9; // Jump tolerance
+  _.j = 0; // Is jumping?
   // Force variables
   _.fo = {
     x: 0, // Force in X
@@ -98,9 +100,10 @@ var Player = function(x, y) {
       }
 
       // Jump
-      if (_.dy === 0 && $.i.p(38)) {
+      if (_.dy <= _.jt && $.i.p(38) && !_.j) {
         $.s.p('j');
         _.dy = -8;
+        _.j = 1;
       }
 
       // Applying forces
@@ -119,6 +122,10 @@ var Player = function(x, y) {
 
       _.x += _.dx;
       _.y += _.dy;
+
+      // Check for world limits
+      if (_.x + _.w > $.c.ww) _.x = $.c.ww - _.w;
+      if (_.x < 0) _.x = 0;
     }
     // Recalculate bounds after movement
     _.rb();
@@ -128,9 +135,11 @@ var Player = function(x, y) {
       if ($.o.bottom(o, w)){
         o.y = w.b.t - o.h;
         o.dy = 0;
+        o.j = 0;
       } else if ($.o.top(o, w)) {
         o.y = w.b.b;
         o.dy = 0;
+        o.j = 0;
       } else if ($.o.right(o, w)) {
         o.x = w.b.l - o.w;
       } else if ($.o.left(o, w)) {
@@ -208,7 +217,7 @@ var Player = function(x, y) {
   _.d = function() {
    _.a = 0;
    _.y += 24;
-   _.h = 8;
+   //_.h = 8;
    $.c.st(null);
    $.s.p('d');
   };
@@ -220,6 +229,8 @@ var Player = function(x, y) {
 
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
+    if (!_.a) return;
+
     $.x.s();
     if (_.bk) {
       $.x.fs("red");

@@ -24,11 +24,6 @@ var Player = function(x, y) {
   _.hl = 100; // Health
   _.jt = 0.9; // Jump tolerance
   _.j = 0; // Is jumping?
-  //_.dq = []; // Message queue
-  //_.dt = 5000; // Dialog time (duration)
-  //_.dc = 0; // Dialog counter
-  //_.dd = 0; // Dialog delay before showing another
-  //_.dia = null; // Actual dialog
   _.dia = new Dialog();
   // Force variables
   _.fo = {
@@ -135,18 +130,6 @@ var Player = function(x, y) {
 
       // Update dialog
       _.dia.u();
-      //if (_.dc > 0) {
-      //  _.dc -= $.e;
-      //  if (_.dc < 0) {
-      //    if (_.dq.length > 0) {
-      //      _.dc = _.dt;
-      //      _.dia = _.dq.splice(0, 1);
-      //    } else {
-      //      _.dc = 0;
-      //      _.dia = null;
-      //    }
-      //  }
-      //}
     }
     // Recalculate bounds after movement
     _.rb();
@@ -261,7 +244,6 @@ var Player = function(x, y) {
     $.x.fr(r.x, r.y, _.w, _.h);
 
     // Render dialog
-    //if (_.dia) _.pd(r);
     _.dia.r(r);
 
     if (dbg) {
@@ -309,42 +291,8 @@ var Player = function(x, y) {
     return c;
   };
 
-  // Player dialogs
-  //_.pd = function(r) {
-  //  $.x.fs("#fff");
-  //  $.x.ss("#fff");
-  //  $.x.font = "11pt arial";
-  //  var m, x, w, i, mx = $.c.ww, mw = 0;
-
-  //  for (i=0; i<_.dia.length; i++) {
-  //    m = $.x.mt(_.dia[i]);
-  //    x = r.x - (m.width / 2) + 8;
-  //    if (x < mx) mx = x;
-  //    if (m.width > mw) mw = m.width;
-  //    $.x.ft(_.dia[i], x + 4, r.y - ((_.dia.length - i) * 20));
-  //  }
-
-  //  // Draw dialog lines
-  //  $.x.bp();
-  //  $.x.mv(mx, r.y - 15);
-  //  $.x.lt(mx + mw + 8, r.y - 15);
-  //  $.x.k();
-
-  //  $.x.bp();
-  //  $.x.mv(r.x + 8, r.y - 5);
-  //  $.x.lt(r.x + _.w, r.y - 15);
-  //  $.x.k();
-  //};
-
   _.say = function(t) {
     _.dia.s(t);
-    //if (!(t instanceof Array)) t = [t];
-    //if (_.dq.length === 0 && !_.dia) {
-    //  _.dia = t;
-    //  _.dc = _.dt;
-    //} else {
-    //  _.dq.push(t);
-    //}
   };
 };
 

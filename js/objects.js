@@ -32,7 +32,7 @@ var Block = function(x, y) {
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
     $.x.s();
-    $.x.fs("white");
+    $.x.fs("black");
     $.x.fr(r.x, r.y, _.w, _.h);
     if (dbg) {
       $.x.ss("red");

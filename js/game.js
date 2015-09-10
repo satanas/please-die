@@ -75,7 +75,8 @@ var GameScene = function() {
     _.t.l = 60000;
     _.m = new Map(30, 24);
     //_.p = new Player(200, 200);
-    _.m.l();
+    _.m.l(L1);
+    $.c.sw(_.m.w * 32, _.m.h * 32);
     // Groups
     $.g.b = new Group(); // Blocks
     $.g.t = new Group(); // Traps
@@ -111,7 +112,6 @@ var GameScene = function() {
     //$.g.p.a(new Pill(500, 368));
     //$.g.p.a(new Medikit(550, 368));
 
-    $.c.sw(1000, 1000);
     $.c.st(_.p);
   };
 

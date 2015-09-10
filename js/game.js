@@ -97,7 +97,7 @@ var GameScene = function() {
     }
     _.h = new HUD(_.p, _);
     _.lvl.l["1"].s.forEach(function(s) {
-      _.p.say(s.t, s.d);
+      _.p.say(s.t, s.d, s.w);
     });
     //_.p.say(['Kill me, bitch!', 'Before the time runs out'], 3000);
 

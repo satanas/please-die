@@ -298,8 +298,8 @@ var Player = function(x, y) {
     return c;
   };
 
-  _.say = function(t, d) {
-    _.dia.s(t, d);
+  _.say = function(t, d, w) {
+    _.dia.s(t, d, w);
   };
 };
 
@@ -310,22 +310,26 @@ var Dialog = function() {
   _.wt = 1000; // Waiting time between dialogs
   _.c = 0; // Time counter
   _.d = 0; // Current dialog
+  _.w = 0; // Waiting time
   _.p = 0; // Phase. 0: showing, 1: waiting
 
   // Say message
-  _.s = function(t, d) {
+  _.s = function(t, d, w) {
     d = d || _.dt;
+    w = w || _.wt;
     if (!(t instanceof Array)) t = [t];
     if (_.q.length === 0 && !_.d) {
       _.d = t;
       _.c = d;
+      _.wt = w;
     } else {
-      _.q.push({t: t, d: d});
+      _.q.push({t: t, d: d, w: w});
     }
   };
 
   // Update
   _.u = function() {
+    //console.log('c', _.c, 'd', _.d, 'p', _.p);
     if (_.c > 0) {
       _.c -= $.e;
       // If c < 0 and showing
@@ -342,6 +346,7 @@ var Dialog = function() {
           var x = _.q.splice(0, 1)[0];
           _.c = x.d;
           _.d = x.t;
+          _.wt = x.w;
         }
       }
     }

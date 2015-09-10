@@ -141,9 +141,7 @@ var Player = function(x, y) {
         o.dy = 0;
         o.j = 0;
       } else if ($.o.top(o, w)) {
-        o.y = w.b.b;
-        o.dy = 0;
-        o.j = 0;
+        o.dy = 0.1;
       } else if ($.o.right(o, w)) {
         o.x = w.b.l - o.w;
       } else if ($.o.left(o, w)) {

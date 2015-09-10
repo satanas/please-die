@@ -11,6 +11,35 @@ var Map = function(w, h) {
   _.s = 3; // Number of steps
   _.to = 0.5; // Percentage of tolerance to remove clean up lines to avoid impossible caves
 
+  _.l1 = [
+    "####################",
+    "#12.......#........#",
+    "#..................#",
+    "#.......@..........#",
+    "#..................#",
+    "#..................#",
+    "#.#................#",
+    "#..................#",
+    "####################",
+  ];
+
+  // Load map
+  _.l = function() {
+    var x, y, l;
+    _.m = [];
+    _.w = _.l1[0].length;
+    _.h = _.l1.length;
+    for (x=0; x<_.w; x++) {
+      _.m.push([]);
+      for (y=0; y<_.h; y++) {
+        l = _.l1[y];
+        _.m[x].push(l.split('')[x]);
+      }
+      //console.log(_.m[x]);
+    }
+    if (dbg) _.pp(_.m);
+  };
+
   // Generate map
   _.g = function() {
     var i, c, x, y;
@@ -195,56 +224,59 @@ var Map = function(w, h) {
         h = // Horizontal?
         c = // Number of traps placed
         z = 0, // New coordinate
-        p = 1; // Is possible to place it?
+        p = 0; // Is possible to place it?
 
-    while (t < 10 && c < m) {
+    while (t < 30 && c < m) {
+      t += 1;
       x = rndr(1, _.w - 1);
       y = rndr(1, _.h - 1);
       n = rndr(1, 4);
-      h = rndr(0, 2);
+      h = 1; //rndr(0, 2);
+      p = 0;
 
-      console.log('trying saw ('+x+','+ y+')', 'n', n, 'h', h);
+      console.log('trying saw m('+x+','+ y+')', _.m[x][y], 'n', n, 'h', h);
 
       // If horizontal
       if (h) {
-        for(i=n; i--; ) {
-          z = x + i;
-          if (z > _.w) {
-            p = 0; break;
-          }
-          if (_.m[z][y] !== "." || _.ar("S", z, y, 4) || _.ca(_.m, z, y) > 5) {
-            p = 0;
-            break;
-          }
-        }
+        //for(i=n; i--; ) {
+        //  z = x + i;
+        //  if (z > _.w) break;
+        //  if (y + 1 > _.h) break;
+        //  if (_.m[z][y] === "." && _.m[z][y + 1] === "#") p += 1;
+        //}
+        if (y + 1 > _.h) continue;
+        if (_.m[x][y] === "." && _.m[x][y + 1] === "#") p = 1;
+        console.log('p', p);
 
-        if (p) continue;
+        if (p < 1) continue;
 
-        for(i=n; i--; ) {
-          _.m[x + i][y] = "S";
-        }
-        c += 1;
-      // If vertical
-      } else {
-        for(i=n; i--; ) {
-          z = y + i;
-          if (z > _.y) {
-            p = 0;
-            break;
-          }
-          if (_.m[x][z] !== "." || _.ar("S", x, z, 4) || _.ca(_.m, x, z) > 5) {
-            p = 0;
-            break;
-          }
-        }
-
-        if (p) continue;
-
-        for(i=n; i--; ) {
-          _.m[x][y + i] = "S";
-        }
+        _.m[x][y] = "S";
+        //for(i=p; i--; ) {
+        //  _.m[x + i][y] = "S";
+        //}
         c += 1;
       }
+      // If vertical
+      //} else {
+      //  for(i=n; i--; ) {
+      //    z = y + i;
+      //    if (z > _.y) {
+      //      p = 0;
+      //      break;
+      //    }
+      //    if (_.m[x][z] !== "." || _.ar("S", x, z, 4) || _.ca(_.m, x, z) > 5) {
+      //      p = 0;
+      //      break;
+      //    }
+      //  }
+
+      //  if (p) continue;
+
+      //  for(i=n; i--; ) {
+      //    _.m[x][y + i] = "S";
+      //  }
+      //  c += 1;
+      //}
 
       t += 1;
     }

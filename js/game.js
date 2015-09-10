@@ -75,7 +75,7 @@ var GameScene = function() {
     _.t.l = 60000;
     _.m = new Map(30, 24);
     //_.p = new Player(200, 200);
-    _.m.g();
+    _.m.l();
     // Groups
     $.g.b = new Group(); // Blocks
     $.g.t = new Group(); // Traps

@@ -77,7 +77,7 @@ var Player = function(x, y) {
 
       var mxs = _.mxs; // Max x speed that will be affected by traps
       var mys = _.mys; // May y speed that will be affected by traps
-      if (_.hu & $.BL.v) mxs = _.mxs / 3;
+      //if (_.hu & $.BL.v) mxs = _.mxs / 3;
       if (_.hu & $.BU.v) mxs = _.mxs * 1.5;
       if (_.hu & $.WA.v) mxs = _.mxs / 1.5;
       if (_.hu & $.SH.v) { mxs = 0; mys = 0; }

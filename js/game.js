@@ -76,6 +76,7 @@ var GameScene = function() {
     _.m = new Map(30, 24);
     //_.p = new Player(200, 200);
     _.m.l(L1);
+    _.bg = rnde(LC);
     $.c.sw(_.m.w * 32, _.m.h * 32);
     // Groups
     $.g.b = new Group(); // Blocks
@@ -122,7 +123,7 @@ var GameScene = function() {
     // This is to avoid wormholes:
     // https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
     if ($.e < 160) {
-      $.x.clr();
+      $.x.clr(_.bg);
 
       _.p.u(); // Update player
       $.g.t.u(); // Update traps

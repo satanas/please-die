@@ -73,9 +73,10 @@ var GameScene = function() {
     _.t.s = 0;
     _.t.e = 0;
     _.t.l = 60000;
+    _.lvl = new Levels();
     _.m = new Map(30, 24);
-    _.m.l(L1);
-    _.bg = rnde(LC);
+    _.m.l(_.lvl.l["1"].m);
+    _.bg = rnde(_.lvl.bgc);
     $.c.sw(_.m.w * 32, _.m.h * 32);
     // Groups
     $.g.b = new Group(); // Blocks
@@ -95,8 +96,9 @@ var GameScene = function() {
       }
     }
     _.h = new HUD(_.p, _);
-    _.p.say(['Kill me, bitch!', 'Before the time runs out']);
-    _.p.say('Holy crap!');
+    _.p.say(['Kill me, bitch!', 'Before the time runs out'], 3000);
+    _.p.say('Holy crap!', 1000);
+    // Things here work differently, your purpose is to die
 
     // Traps
     //$.g.t.a(new Fire(260, 368));

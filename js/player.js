@@ -329,12 +329,12 @@ var Dialog = function() {
     if (_.c > 0) {
       _.c -= $.e;
       // If c < 0 and showing
-      if (_.c < 0 && !_.p) {
+      if (_.c <= 0 && !_.p) {
         _.c = _.wt;
         _.p = 1;
         _.d = 0;
       // If c < 0 and waiting
-      } else if (_.c < 0 && _.p) {
+      } else if (_.c <= 0 && _.p) {
         _.p = 0;
         _.c = 0;
         _.d = 0;

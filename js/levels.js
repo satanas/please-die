@@ -5,6 +5,7 @@ var Levels = function() {
   // Levels definition
   // m: map
   // s: messages of the character
+  // z: sensors
   _.l = {
     1: {
       "m": [
@@ -74,6 +75,24 @@ var Levels = function() {
         {
           t:["Death is not", "always so easy"],
           d: 2500
+        }
+      ],
+      "e": [
+        {
+          x: 13,
+          y: 10,
+          w: 3,
+          h: 1,
+          t: ["But there is fire"],
+          d: 2000
+        },
+        {
+          x: 11,
+          y: 2,
+          w: 3,
+          h: 3,
+          t: ["Also electricity"],
+          d: 2000
         }
       ]
     }

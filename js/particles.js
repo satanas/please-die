@@ -104,12 +104,15 @@ var Particle = function(x, y, dx, dy, c, l, g, d, sx, t) {
     // Recalculate bounds after movement
     _.rb();
 
-    // Check collisions with blocks
-    $.g.b.c(_, function(o, w) {
-      o.a = 0;
-      // Taint blocks
-      if (_.t) w.t('t', _.x, _.w);
-    });
+    // Check collisions with blocks if block must be tainted
+    if (_.t) {
+      $.g.b.c(_, function(o, w) {
+        o.a = 0;
+        // Taint blocks
+        w.t('t', _.x, _.w);
+      });
+    }
+
     // Check boundaries
     if (_.x < 0 || _.x > $.c.ww || _.y < 0 || _.y > $.c.wh) _.a = 0;
 

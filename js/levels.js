@@ -48,7 +48,8 @@ var Levels = function() {
           t: ["Your purpose is to die"],
           d: 4000
         }
-      ]
+      ],
+      e:[]
     },
     2: {
       "m": [

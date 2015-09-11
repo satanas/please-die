@@ -67,7 +67,7 @@ var GameScene = function() {
     e: 0 // Elapsed time
   };
   _.ssp = 0; // Summary screen sound played
-  $.lvl = 2; // Current level
+  $.lvl = 1; // Current level
   _.wn = 0; // Time warnings before dead
 
   _.init = function() {
@@ -213,7 +213,7 @@ var GameScene = function() {
 
     if ($.i.p(13)) {
       $.s.p('s');
-      _.l += 1;
+      $.lvl += 1;
       return _.init();
     }
   };

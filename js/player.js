@@ -60,8 +60,8 @@ var Player = function(x, y) {
 
       // If electrocuting, recover
       _.elc = _.cdr(_.elc, ($.e * $.EL.ds) / 1000, $.EL.v, function() {
-        //$.s.p('el');
-        //_.e.e(_.x, _.y + (_.h / 2), 1, 3);
+        $.s.p('el');
+        _.e.e(_.x, _.y + (_.h / 2), 3, 3);
       });
 
       // If shocking, recover
@@ -160,49 +160,47 @@ var Player = function(x, y) {
     // Recalculate bounds after collisions
     _.rb();
 
-    //console.log('a', 'x', _.x, 'y', _.y, 'dx', _.dx, 'dy', _.dy);
-    // Check collisions with traps
-    $.g.t.c(_, function(o, w) {
-      // Return if player is invincible or is under rainbow effects
-      if (o.ic !== 0 || (o.hu & $.RB.v)) return;
+    // Check collisions with traps if player is not invincible and not under rainbow effects
+    if (o.ic === 0 && !(o.hu & $.RB.v)) {
+      $.g.t.c(_, function(o, w) {
+        o.ic = o.it;
+        if (w.t === $.BL.v && w.dc === 0) {
+          o.hl -= $.BL.d;
+          o.e.e(o.x, o.y, 5, 1);
+          $.s.p('bl');
+          if (!(o.hu & $.BL.v)) o.hu += $.BL.v;
+          o.blc = $.BL.t
+        } else if (w.t === $.BU.v && w.dc === 0) {
+          //_.po();
+          if (!(o.hu & $.BU.v)) o.hu += $.BU.v;
+          o.buc = $.BU.t
+        } else if (w.t === $.EL.v && w.dc === 0) {
+          o.hl -= $.EL.d;
+          // Discharge trap
+          w.d();
+          if (!(o.hu & $.EL.v)) o.hu += $.EL.v;
+          o.elc = $.EL.t
+        }
+      });
 
-      o.ic = o.it;
-      if (w.t === $.BL.v && w.dc === 0) {
-        o.hl -= $.BL.d;
-        o.e.e(o.x, o.y, 5, 1);
-        $.s.p('bl');
-        if (!(o.hu & $.BL.v)) o.hu += $.BL.v;
-        o.blc = $.BL.t
-      } else if (w.t === $.BU.v && w.dc === 0) {
-        //_.po();
-        if (!(o.hu & $.BU.v)) o.hu += $.BU.v;
-        o.buc = $.BU.t
-      } else if (w.t === $.EL.v && w.dc === 0) {
-        o.hl -= $.EL.d;
-        // Discharge trap
-        w.d();
-        if (!(o.hu & $.EL.v)) o.hu += $.EL.v;
-        o.elc = $.EL.t
-      }
-    });
-
-    // Check for collisions with triggers
-    $.g.z.c(_, function(o, w) {
-      // If collide with water and shocking
-      if (w.t === $.WA.v && o.hu & $.EL.v) {
-        o.hu -= $.EL.v;
-        o.hu += $.SH.v;
-        o.shc = $.SH.t;
-        _.elc = 0;
-      // If collide with TNT and burning
-      } else if (w.t === $.TN.v && o.hu & $.BU.v) {
-        w.a = 0;
-        o.hl -= $.TN.d;
-        _.fo.x = -8 * _.f;
-        _.fo.y = -4;
-        _.fo.d = 25;
-      }
-    });
+      // Check for collisions with triggers
+      $.g.z.c(_, function(o, w) {
+        // If collide with water and shocking
+        if (w.t === $.WA.v && o.hu & $.EL.v) {
+          o.hu -= $.EL.v;
+          o.hu += $.SH.v;
+          o.shc = $.SH.t;
+          _.elc = 0;
+        // If collide with TNT and burning
+        } else if (w.t === $.TN.v && o.hu & $.BU.v) {
+          w.a = 0;
+          o.hl -= $.TN.d;
+          _.fo.x = -8 * _.f;
+          _.fo.y = -4;
+          _.fo.d = 25;
+        }
+      });
+    }
 
     // Check collisions with pills
     $.g.p.c(_, function(o, p) {

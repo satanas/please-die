@@ -12,6 +12,8 @@ var Group = function() {
     var i, w;
     for(i = _.e.length; i--;) {
       w = _.e[i];
+      // FIXME: Dirty hack to improve performance
+      if (!$.c.iv(w)) continue;
       if ($.o.rect(o, w)) cb(o, w);
     }
   };

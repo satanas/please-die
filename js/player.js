@@ -332,16 +332,16 @@ var Dialog = function() {
     //console.log('c', _.c, 'd', _.d, 'p', _.p);
     if (_.c > 0) {
       _.c -= $.e;
+    } else {
+      _.d = 0;
       // If c < 0 and showing
-      if (_.c <= 0 && !_.p) {
+      if (!_.p) {
         _.c = _.wt;
         _.p = 1;
-        _.d = 0;
       // If c < 0 and waiting
-      } else if (_.c <= 0 && _.p) {
+      } else {
         _.p = 0;
         _.c = 0;
-        _.d = 0;
         if (_.q.length > 0) {
           var x = _.q.splice(0, 1)[0];
           _.c = x.d;
@@ -363,6 +363,8 @@ var Dialog = function() {
     for (i=0; i<_.d.length; i++) {
       m = $.x.mt(_.d[i]);
       x = r.x - (m.width / 2) + 8;
+      if (x + m.width > $.c.w - 8) x = $.c.w - m.width - 8;
+      if (x < 0) x = 0;
       //if (x < mx) mx = x;
       //if (m.width > mw) mw = m.width;
       mx = x;

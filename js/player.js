@@ -172,8 +172,7 @@ var Player = function(x, y) {
           $.s.p('bl');
           if (!(o.hu & $.BL.v)) o.hu += $.BL.v;
           o.blc = $.BL.t
-        } else if (w.t === $.BU.v && w.dc === 0) {
-          //_.po();
+        } else if (w.t === $.BU.v) {
           if (!(o.hu & $.BU.v)) o.hu += $.BU.v;
           o.buc = $.BU.t
         } else if (w.t === $.EL.v && w.dc === 0) {

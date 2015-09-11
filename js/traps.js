@@ -1,15 +1,12 @@
 var Fire = function(x, y) {
   var _ = this;
-  _.x = x;
+  _.x = x + 4;
   _.y = y;
-  _.w = 16; // Width
+  _.w = 24; // Width
   _.h = 32; // Height
   _.t = $.BU.v;
-  _.pt = rndr(600, 3000); // Phase time
-  _.dc = 0; // Phase: 0=enabled, 1=disabled
-  _.pc = _.pt; // Phase counter
-  _.bk = 0; // Blink
-  _.bc = 0; // Blink counter
+  _.f = 0; // Frame
+  _.fc = 0; // Frame counter
   _.a = 1; // Alive
   // Bounds
   _.b = {
@@ -20,29 +17,36 @@ var Fire = function(x, y) {
   };
 
   _.u = function() {
-    _.pc -= $.e;
-    if (_.pc < 0) {
-      _.pc = _.pt;
-      _.dc = (_.dc === 0) ? 1 : 0;
-    }
-    if (_.dc) {
-      _.bc += $.e;
-      if (_.bc >= 50) {
-        _.bk = !_.bk;
-        _.bc = 0;
-      }
+    _.fc += $.e;
+    if (_.fc >= $.FD) {
+      _.fc = 0;
+      _.f = !_.f;
     }
   };
 
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
     $.x.s();
-    if (_.bk) {
-      $.x.fs("hsla(39, 100%, 50%, 0.4)");
+    if (_.f) {
+      $.x.fs("orange");
+      $.x.fr(r.x + 11, r.y + 1, 6, 2);
+      $.x.fr(r.x + 6, r.y + 3, 11, 3);
+      $.x.fr(r.x + 2, r.y + 6, 18, 8);
+      $.x.fr(r.x, r.y + 14, 23, 18);
+      $.x.fs("yellow");
+      $.x.fr(r.x + 4, r.y + 19, 12, 13);
+      $.x.fs("white");
+      $.x.fr(r.x + 8, r.y + 24, 6, 8);
     } else {
-      $.x.fs("hsla(39, 100%, 50%, 1)");
+      $.x.fs("orange");
+      $.x.fr(r.x + 4, r.y + 7, 3, 8);
+      $.x.fr(r.x + 2, r.y + 9, 16, 7);
+      $.x.fr(r.x + 1, r.y + 16, 19, 16);
+      $.x.fs("yellow");
+      $.x.fr(r.x + 4, r.y + 20, 13, 12);
+      $.x.fs("white");
+      $.x.fr(r.x + 8, r.y + 24, 6, 8);
     }
-    $.x.fr(r.x, r.y, _.w, _.h);
     if (dbg) {
       $.x.ss("red");
       $.x.sr(r.x, r.y, _.w, _.h);

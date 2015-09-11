@@ -15,3 +15,5 @@ $.RB = {
 $.WA = {v: 256}; // Water
 $.TN = {v: 512, t: 0, d: 30}; // TNT
 $.POT = 2000;
+
+$.FD = 110; // Frame duration for animations (aprox 9 FPS)

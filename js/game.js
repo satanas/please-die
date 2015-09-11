@@ -67,7 +67,7 @@ var GameScene = function() {
     e: 0 // Elapsed time
   };
   _.ssp = 0; // Summary screen sound played
-  _.l = 2; // Current level
+  $.lvl = 2; // Current level
   _.wn = 0; // Time warnings before dead
 
   _.init = function() {
@@ -75,10 +75,10 @@ var GameScene = function() {
     _.t.s = 0;
     _.t.e = 0;
     _.t.l = 60000;
-    _.lvl = new Levels();
+    _.lv = new Levels();
     _.m = new Map(30, 24);
-    _.m.l(_.lvl.l[_.l].m);
-    _.bg = rnde(_.lvl.bgc);
+    _.m.l(_.lv.l[$.lvl].m);
+    _.bg = rnde(_.lv.bgc);
     $.c.sw(_.m.w * 32, _.m.h * 32);
     // Groups
     $.g.b = new Group(); // Blocks
@@ -100,29 +100,21 @@ var GameScene = function() {
         if (_.m.m[x][y] === "S") $.g.t.a(new Saw(cx, cy));
         if (_.m.m[x][y] === "E") $.g.t.a(new Electricity(cx, cy));
         if (_.m.m[x][y] === "R") $.g.r.a(new Rainbow(cx, cy, 96));
+        if (_.m.m[x][y] === "r") $.g.r.a(new Rainbow(cx, cy, 64));
+        if (_.m.m[x][y] === "=") $.g.r.a(new RainbowBlock(cx, cy));
       }
     }
     _.h = new HUD(_.p, _);
     // Load level dialogs
-    _.lvl.l[_.l].s.forEach(function(s) {
+    _.lv.l[$.lvl].s.forEach(function(s) {
       _.p.say(s.t, s.d, s.w);
     });
     // Load level sensors
-    _.lvl.l[_.l].e.forEach(function(e) {
+    _.lv.l[$.lvl].e.forEach(function(e) {
       $.g.e.a(new MessageSensor(e.x * 32, e.y * 32, e.w * 32, e.h * 32, e.t, e.d))
     });
 
-    // Traps
-    //$.g.t.a(new Fire(260, 368));
-    //$.g.t.a(new Saw(360, 386));
-    //$.g.t.a(new Saw(396, 384));
-    //$.g.t.a(new Electricity(640, 384));
     //$.g.z.a(new Water(440, 576));
-
-    // Rainbows
-    //$.g.r.a(new Rainbow(700, 336, 96));
-    ////$.g.r.a(new Rainbow(440, 368, 32));
-    //$.g.r.a(new RainbowBlock(640, 468));
 
     //// Pills
     //$.g.p.a(new Pill(500, 368));

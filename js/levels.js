@@ -1,7 +1,7 @@
 var Levels = function() {
   var _ = this;
   // Possible colors for bg levels
-  _.bgc = ['#3c4763', '#543c63', '#633c47', '#3c633e', '#63523c'];
+  _.bgc = rnde(['#3c4763', '#543c63', '#633c47', '#3c633e', '#63523c']);
   // Levels definition
   // m: map
   // s: messages of the character

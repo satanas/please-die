@@ -44,21 +44,21 @@ var Emitter = function() {
     if (_.fc > 0) _.fc -= $.e;
     if (_.sc > 0) _.sc -= $.e;
     if (_.ac > 0) _.ac -= $.e;
-    if (_.p.length === 0) return;
+    if (_.l() === 0) return;
 
     _.p.u();
   };
 
   // Render particles
   _.r = function() {
-    if (_.p.length === 0) return;
+    if (_.l() === 0) return;
 
     _.p.r();
   };
 
   // Length of particles array
   _.l = function() {
-    return _.p.length;
+    return _.p.e.length;
   };
 };
 

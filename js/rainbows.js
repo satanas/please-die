@@ -1,6 +1,5 @@
 var Rainbow = function(x, y, r) {
   var _ = this;
-  _.c = $.RC;
   _.x = x;
   _.y = y;
   _.w = r * 2;
@@ -17,7 +16,7 @@ var Rainbow = function(x, y, r) {
   _.r = function(r) {
     var ra = _.ra;
     $.x.s();
-    _.c.forEach(function(c) {
+    $.RB.c.forEach(function(c) {
       $.x.ga(0.8);
       $.x.ss(c);
       $.x.lineWidth = 5;
@@ -37,7 +36,6 @@ var Rainbow = function(x, y, r) {
 
 var RainbowBlock = function(x, y) {
   var _ = this;
-  _.c = $.RC;
   _.x = x;
   _.y = y;
   _.w = 32;
@@ -53,7 +51,7 @@ var RainbowBlock = function(x, y) {
   _.r = function(r) {
     var y = r.y + 2;
     $.x.s();
-    _.c.forEach(function(c) {
+    $.RB.c.forEach(function(c) {
       $.x.ga(0.8);
       $.x.fs(c);
       $.x.fr(r.x, y, _.w, 5);

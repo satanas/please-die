@@ -161,7 +161,7 @@ var Player = function(x, y) {
     _.rb();
 
     // Check collisions with traps if player is not invincible and not under rainbow effects
-    if (o.ic === 0 && !(o.hu & $.RB.v)) {
+    if (_.ic === 0 && !(_.hu & $.RB.v)) {
       $.g.t.c(_, function(o, w) {
         o.ic = o.it;
         if (w.t === $.BL.v && w.dc === 0) {

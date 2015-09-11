@@ -46,6 +46,7 @@ var Player = function(x, y) {
 
       // If rainbow, recover
       _.rbc = duz(_.rbc, $.e, function() {
+        $.rbe = 0;
         _.hu = 0;
       });
 
@@ -211,6 +212,7 @@ var Player = function(x, y) {
 
     // Check collisions with rainbows
     $.g.r.c(_, function(o, r) {
+      $.rbe = 1;
       o.hu = $.RB.v;
       o.rbc = $.RB.t;
       o.elc = o.buc = o.blc = 0;

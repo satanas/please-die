@@ -33,6 +33,9 @@ var Player = function(x, y) {
   };
   _.e = new Emitter(); // Particles emitter
 
+  // Message-related variables
+  _.frw = 0; // First time touching a rainbow
+
   _.u = function() {
     //console.log(_.f === 1 ? 'right' : 'left');
     //console.log('hu', _.hu, 'blc', _.blc, 'buc', _.buc, 'elc', _.elc, 'shc', _.shc, 'ic', _.ic);
@@ -212,6 +215,12 @@ var Player = function(x, y) {
       o.hu = $.RB.v;
       o.rbc = $.RB.t;
       o.elc = o.buc = o.blc = 0;
+      if (!_.frw && $.lvl === 2) {
+        _.frw = 1;
+        _.say(["But beware of rainbows"], 2000);
+        _.say(["Rainbows make", "people happy"], 2300);
+        _.say(["And happy people", "don't want to die"], 4000);
+      }
     });
 
     // Check collisions with sensors

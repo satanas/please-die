@@ -86,6 +86,7 @@ var GameScene = function() {
     $.g.z = new Group(); // Triggers
     $.g.p = new Group(); // Pills
     $.g.r = new Group(); // Rainbows
+    $.g.e = new Group(); // Sensors
 
     var x, y, cx, cy;
     for (y=0; y<_.m.h; y++) {
@@ -102,10 +103,14 @@ var GameScene = function() {
       }
     }
     _.h = new HUD(_.p, _);
+    // Load level dialogs
     _.lvl.l[_.l].s.forEach(function(s) {
       _.p.say(s.t, s.d, s.w);
     });
-    //_.p.say(['Kill me, bitch!', 'Before the time runs out'], 3000);
+    // Load level sensors
+    _.lvl.l[_.l].e.forEach(function(e) {
+      $.g.e.a(new MessageSensor(e.x * 32, e.y * 32, e.w * 32, e.h * 32, e.t, e.d))
+    });
 
     // Traps
     //$.g.t.a(new Fire(260, 368));
@@ -139,6 +144,7 @@ var GameScene = function() {
       $.g.t.u(); // Update traps
       $.g.z.u(); // Update triggers
       $.g.p.u(); // Update pills
+      $.g.e.u(); // Update sensors
 
       // Update camera. Always at the end of all updates
       $.c.u();
@@ -150,6 +156,7 @@ var GameScene = function() {
       $.g.z.r(); // Render triggers
       $.c.r(_.p); // Render player
       $.g.r.r(); // Render rainbows
+      $.g.e.r(); // Render sensors
 
       // Check time to show warnings
       _.cw();

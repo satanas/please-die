@@ -214,6 +214,11 @@ var Player = function(x, y) {
       o.elc = o.buc = o.blc = 0;
     });
 
+    // Check collisions with sensors
+    $.g.e.c(_, function(o, e) {
+      if (e.a) e.f(o);
+    });
+
     if ((_.hl <= 0 || _.y > $.c.wh) && _.a) {
       _.d();
     }

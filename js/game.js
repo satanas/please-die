@@ -67,6 +67,8 @@ var GameScene = function() {
     e: 0 // Elapsed time
   };
   _.ssp = 0; // Summary screen sound played
+  _.l = 2; // Current level
+  _.wn = 0; // Time warnings before dead
 
   _.init = function() {
     _.dd = 1000; // Delay after death
@@ -75,7 +77,7 @@ var GameScene = function() {
     _.t.l = 60000;
     _.lvl = new Levels();
     _.m = new Map(30, 24);
-    _.m.l(_.lvl.l["1"].m);
+    _.m.l(_.lvl.l[_.l].m);
     _.bg = rnde(_.lvl.bgc);
     $.c.sw(_.m.w * 32, _.m.h * 32);
     // Groups
@@ -85,18 +87,22 @@ var GameScene = function() {
     $.g.p = new Group(); // Pills
     $.g.r = new Group(); // Rainbows
 
-    var x, y;
+    var x, y, cx, cy;
     for (y=0; y<_.m.h; y++) {
       for (x=0; x<_.m.w; x++) {
-        if (_.m.m[x][y] === "#") $.g.b.a(new Block(x * 32, y * 32));
-        if (_.m.m[x][y] === "@") _.p = new Player(x * 32, y * 32);
-        if (_.m.m[x][y] === "T") $.g.z.a(new TNT(x * 32, y * 32));
-        if (_.m.m[x][y] === "F") $.g.t.a(new Fire(x * 32, y * 32));
-        if (_.m.m[x][y] === "S") $.g.t.a(new Saw(x * 32, y * 32));
+        cx = x * 32;
+        cy = y * 32;
+        if (_.m.m[x][y] === "#") $.g.b.a(new Block(cx, cy));
+        if (_.m.m[x][y] === "@") _.p = new Player(cx, cy);
+        if (_.m.m[x][y] === "T") $.g.z.a(new TNT(x, cy));
+        if (_.m.m[x][y] === "F") $.g.t.a(new Fire(cx, cy));
+        if (_.m.m[x][y] === "S") $.g.t.a(new Saw(cx, cy));
+        if (_.m.m[x][y] === "E") $.g.t.a(new Electricity(cx, cy));
+        if (_.m.m[x][y] === "R") $.g.r.a(new Rainbow(cx, cy, 96));
       }
     }
     _.h = new HUD(_.p, _);
-    _.lvl.l["1"].s.forEach(function(s) {
+    _.lvl.l[_.l].s.forEach(function(s) {
       _.p.say(s.t, s.d, s.w);
     });
     //_.p.say(['Kill me, bitch!', 'Before the time runs out'], 3000);
@@ -144,6 +150,9 @@ var GameScene = function() {
       $.g.z.r(); // Render triggers
       $.c.r(_.p); // Render player
       $.g.r.r(); // Render rainbows
+
+      // Check time to show warnings
+      _.cw();
 
       // If player still alive
       if (_.p.a > 0) {
@@ -205,7 +214,7 @@ var GameScene = function() {
 
     if ($.i.p(13)) {
       $.s.p('s');
-      _.lvl += 1;
+      _.l += 1;
       return _.init();
     }
   };
@@ -214,5 +223,25 @@ var GameScene = function() {
   _.mo = function() {
     $.x.fs("rgba(0,0,0,0.85)");
     $.x.fr(0, 0, $.vw, $.vh);
+  };
+
+  // Check time to show warnings
+  _.cw = function() {
+    if (_.t.l <= 30000 && _.wn === 0) {
+      _.p.say(["Come on!", "You only have to die"], 3200);
+      _.wn = 1;
+    } else if (_.t.l <= 20000 && _.wn === 1) {
+      _.p.say(["I'm not joking"], 3000);
+      _.wn = 2;
+    } else if (_.t.l <= 15000 && _.wn === 2) {
+      _.p.say(["Time is running out!"], 3500);
+      _.wn = 3;
+    } else if (_.t.l <= 10000 && _.wn === 3) {
+      _.p.say(["Tic, tac, tic, tac", "Die, die, die"], 3500);
+      _.wn = 4;
+    } else if (_.t.l <= 6000 && _.wn === 4) {
+      _.p.say(["Seriously... DIE!!!"], 4000);
+      _.wn = 5;
+    }
   };
 };

@@ -71,7 +71,7 @@ var GameScene = function() {
 
   // Globals
   $.rbe = 0; // Rainbow effect?
-  $.lvl = 2; // Current level
+  $.lvl = 6; // Current level
 
   _.init = function() {
     _.dd = 1000; // Delay after death

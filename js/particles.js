@@ -116,7 +116,15 @@ var Particle = function(x, y, dx, dy, c, l, g, d, sx, t) {
       $.g.b.c(_, function(o, w) {
         o.a = 0;
         // Taint blocks
-        w.t('t', _.x, _.w);
+        if ($.o.bottom(w, o)){
+          w.t('b', _.x, _.y, _.w);
+        } else if ($.o.top(w, o)) {
+          w.t('t', _.x, _.y, _.w);
+        } else if ($.o.right(w, o)) {
+          w.t('r', _.x, _.y, _.w);
+        } else if ($.o.left(w, o)) {
+          w.t('l', _.x, _.y, _.w);
+        }
       });
     }
 

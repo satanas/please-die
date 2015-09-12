@@ -127,6 +127,7 @@ var GameScene = function() {
         if (_.m.m[x][y] === "R") $.g.r.a(new Rainbow(cx, cy, 80));
         if (_.m.m[x][y] === "r") $.g.r.a(new Rainbow(cx, cy, 48));
         if (_.m.m[x][y] === "=") $.g.r.a(new RainbowBlock(cx, cy));
+        if (_.m.m[x][y] === "P") $.g.p.a(new Pill(cx, cy));
       }
     }
 
@@ -141,10 +142,6 @@ var GameScene = function() {
     });
 
     //$.g.z.a(new Water(440, 576));
-
-    //// Pills
-    //$.g.p.a(new Pill(500, 368));
-    //$.g.p.a(new Medikit(550, 368));
 
     $.c.st(_.p);
   };

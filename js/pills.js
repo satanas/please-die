@@ -30,24 +30,26 @@ var Pill = function(x, y) {
 
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
-    $.x.s();
-    $.x.fs(_.po ? _.c : 'red');
-    $.x.bp();
-    $.x.arc(r.x + 4, r.y + 4, 4, PI, 0, 0);
-    $.x.f();
-    $.x.fr(r.x, r.y + 4, _.w, 4);
+    if ($.rbe) {
+      $.x.s();
+      $.x.fs(_.po ? _.c : 'red');
+      $.x.bp();
+      $.x.arc(r.x + 4, r.y + 4, 4, PI, 0, 0);
+      $.x.f();
+      $.x.fr(r.x, r.y + 4, _.w, 4);
 
-    $.x.fs(_.po ? _.c : "white");
-    $.x.fr(r.x, r.y + 8, _.w, 4);
-    $.x.bp();
-    $.x.arc(r.x + _.w - 4, r.y + _.h - 4, 4, 0, PI, 0);
-    $.x.f();
+      $.x.fs(_.po ? _.c : "white");
+      $.x.fr(r.x, r.y + 8, _.w, 4);
+      $.x.bp();
+      $.x.arc(r.x + _.w - 4, r.y + _.h - 4, 4, 0, PI, 0);
+      $.x.f();
 
-    if (dbg) {
-      $.x.ss("red");
-      $.x.sr(r.x, r.y, _.w, _.h);
+      if (dbg) {
+        $.x.ss("red");
+        $.x.sr(r.x, r.y, _.w, _.h);
+      }
+      $.x.r();
     }
-    $.x.r();
   };
 
   // Set as poison

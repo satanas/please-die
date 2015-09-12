@@ -208,13 +208,16 @@ var Player = function(x, y, hl) {
     }
 
     // Check collisions with pills
-    $.g.p.c(_, function(o, p) {
-      p.a = 0;
-      o.hl += p.po ? -p.hl : p.hl;
-    });
+    if ($.rbe) {
+      $.g.p.c(_, function(o, p) {
+        p.a = 0;
+        // A pill decrement 0.5s the rainbow effect
+        o.rbc -= 500;
+      });
+    }
 
     // Check collisions with rainbows
-    if (_.ic === 0) {
+    if (_.ic === 0 && !$.rbe) {
       $.g.r.c(_, function(o, r) {
         $.rbe = 1;
         if (!(o.hu & $.RB.v)) o.hu += $.RB.v;

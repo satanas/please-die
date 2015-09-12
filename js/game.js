@@ -71,7 +71,7 @@ var GameScene = function() {
 
   // Globals
   $.rbe = 0; // Rainbow effect?
-  $.lvl = 4; // Current level
+  $.lvl = 3; // Current level
 
   _.init = function() {
     _.dd = 1000; // Delay after death
@@ -106,6 +106,10 @@ var GameScene = function() {
         if (_.m.m[x][y] === "=") $.g.r.a(new RainbowBlock(cx, cy));
       }
     }
+
+    // Setting health
+    _.p.hl = _.lv.l[$.lvl].l;
+
     _.h = new HUD(_.p, _);
     // Load level dialogs
     _.lv.l[$.lvl].s.forEach(function(s) {

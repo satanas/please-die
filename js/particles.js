@@ -31,7 +31,7 @@ var Emitter = function() {
     } else if (t === 3 && _.sc <= 0) {
       _.sc = _.sf;
       for(i; i--;)
-        _.p.a(new Particle(x + rndr(-3, 3), y + rndr(-8, 8), rndr(-8, 8), rndr(-8, 8), "lightblue", rndr(100, 300), 1, 0, 0, 0));
+        _.p.a(new Particle(x + 4, y + rndr(-8, 8), rndr(-8, 8), rndr(-8, 8), "lightblue", rndr(100, 300), 1, 0, 0, 0));
     } else if (t === 4 && _.ac <= 0) {
       _.ac = _.af;
       for(i; i--;)
@@ -89,6 +89,13 @@ var Particle = function(x, y, dx, dy, c, l, g, d, sx, t) {
   _.d = d || 0; // Disappear
   _.sx = sx || 0; // Sinusoidal x speed
   _.t = t || 0;
+  // Bounds
+  _.b = {
+    b: _.y + _.h,
+    t: _.y,
+    l: _.x,
+    r: _.x + _.w
+  };
 
   _.u = function() {
     // Side movement

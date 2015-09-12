@@ -13,13 +13,28 @@ var appName = 'die-fast-js13k-2015';
 
 gulp.task('minify_js', function() {
   return gulp.src([
-    'js/input.js',
-    'js/player.js',
-    'js/objects.js',
-    'js/collisions.js',
-    'js/camera.js',
-    'js/init.js',
-    'js/game.js',
+    "js/jsfxr.js",
+    "js/input.js",
+    "js/group.js",
+    "js/player.js",
+    "js/objects.js",
+    "js/pills.js",
+    "js/rainbows.js",
+    "js/collisions.js",
+    "js/medikit.js",
+    "js/camera.js",
+    "js/particles.js",
+    "js/traps.js",
+    "js/map.js",
+    "js/levels.js",
+    "js/triggers.js",
+    "js/sensors.js",
+    "js/sounds.js",
+    "js/hud.js",
+    "js/init.js",
+    "js/constants.js",
+    "js/functions.js",
+    "js/game.js",
   ])
   .pipe(concat('all.min.js'))
   .pipe(uglify())

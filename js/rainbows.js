@@ -1,16 +1,16 @@
 var Rainbow = function(x, y, r) {
   var _ = this;
   _.x = x;
-  _.y = y;
+  _.y = y + 16;
   _.w = r * 2;
   _.h = r;
   _.ra = r;
   // Bounds
   _.b = {
     b: _.y + _.h,
-    t: _.y,
-    l: _.x,
-    r: _.x + _.w
+    t: _.y + (r * 0.25),
+    l: _.x + 4,
+    r: _.x + _.w - 4
   };
 
   _.r = function(r) {
@@ -24,11 +24,12 @@ var Rainbow = function(x, y, r) {
       $.x.arc(r.x + (_.w / 2), r.y + _.h, ra, PI, 0, 0);
       $.x.stroke();
       ra -= 5;
+      $.x.lineWidth = 1;
     });
 
     if (dbg) {
       $.x.ss("red");
-      $.x.sr(r.x, r.y, _.w, _.h);
+      $.x.sr(r.x + 4 , r.y + (_.h * 0.25), _.w - 8, _.h);
     }
     $.x.r();
   };

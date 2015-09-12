@@ -131,16 +131,17 @@ var Saw = function(x, y, pt) {
 
 var Electricity = function(x, y) {
   var _ = this;
-  _.x = x;
+  _.x = x + 4;
   _.y = y;
-  _.w = 32; // Width
-  _.h = 32; // Height
-  _.dt = 5000; // Discharge cooldown time
-  _.dc = 0; // Discharge counter
-  _.bc = 0; // Blink counter
-  _.bk = 0; // Blink when discharging
+  _.w = 24; // Width
+  _.h = 24; // Height
   _.t = $.EL.v;
   _.a = 1; // Alive
+  _.st = 650; // Sparks time
+  _.sc = 0; // Sparks counter
+  _.fs = -0.04; // Fade speed
+  _.f = 1.0; // Fade
+  _.e = new Emitter();
 
   // Bounds
   _.b = {
@@ -156,34 +157,39 @@ var Electricity = function(x, y) {
   };
 
   _.u = function() {
-    // TODO: Check for dcz
-    if (_.dc > 0) {
-      _.dc -= $.e;
-      _.bc += $.e;
-      if (_.bc >= 50) {
-        _.bk = !_.bk;
-        _.bc = 0;
-      }
-    } else {
-      _.dc = 0;
-      _.bk = 0;
-      _.bc = 0;
+    // Update emitter
+    _.e.u();
+
+    _.sc = drst(_.sc, $.e, _.st, function() {
+      _.e.e(_.x, _.y + (_.h / 2), 3, 3);
+    });
+
+    _.f += _.fs;
+    if (_.f <= 0.6) {
+      _.f = 0.6;
+      _.fs = -1 * _.fs;
+    } else if (_.f >= 1) {
+      _.f = 1;
+      _.fs = -1 * _.fs;
     }
+
   };
 
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
     $.x.s();
-    if (_.bk) {
-      $.x.fs("hsla(217,100%,69%,0.4)");
-    } else {
-      $.x.fs("hsla(217,100%,69%,1)");
-    }
-    $.x.fr(r.x, r.y, _.w, _.h);
+    $.x.ga(_.f);
+    $.x.bp();
+    $.x.fs("skyblue");
+    $.x.arc(r.x + (_.w / 2), r.y + (_.h / 2), 12, 0, 2 * PI);
+    $.x.f();
     if (dbg) {
       $.x.ss("red");
       $.x.sr(r.x, r.y, _.w, _.h);
     }
     $.x.r();
+
+    // Render emitter
+    _.e.r();
   };
 };

@@ -59,19 +59,15 @@ var Fire = function(x, y) {
 var Saw = function(x, y, pt) {
   var _ = this;
   _.x = x;
-  _.y = y;
+  _.y = y + 16;
+  _.yd = _.y + 16; // Y destionation when turned off
   _.w = 28; // Width
   _.h = 28; // Height
   _.t = $.BL.v;
   _.ng = 0; // Angle
   _.as = 920; // Angular speed
-  _.pt = pt || rndr(500, 3000); // Phase time
-  _.ph = 1; // Phase: 1=up, 2=going down, 3=down, 4=going up
-  _.pc = _.pt; // Phase counter
-  _.uy = _.y; // Upper Y destination
-  _.ly = _.y + 16; // Lower Y destination
-  _.sy = 0.15;
-  _.dc = 0;
+  _.ts = 1200; // Turn off speed
+  _.to = 0; // Is turned off?
   _.a = 1; // Alive
   // Bounds
   _.b = {
@@ -81,36 +77,20 @@ var Saw = function(x, y, pt) {
     r: _.x + _.w
   };
 
+  // Turn off the saw
+  _.o = function() {
+    _.to = -1;
+  };
+
   // Update
   _.u = function() {
     _.ng += ($.e / 1000) * _.as;
     if (_.ng > 360) _.ng = _.ng - 360;
 
-    //if (_.ph === 1) {
-    //  _.pc -= $.e;
-    //  if (_.pc < 0) _.ph = 2;
-    //} else if (_.ph === 2) {
-    //  _.y += _.sy;
-    //  if (_.y >= _.ly) {
-    //    _.y = _.ly;
-    //    _.ph = 3;
-    //    _.dc = 1;
-    //    _.pc = _.pt;
-    //  }
-    //} else if (_.ph === 3) {
-    //  _.pc -= $.e;
-    //  if (_.pc < 0) {
-    //    _.ph = 4;
-    //    _.dc = 0;
-    //  }
-    //} else if (_.ph === 4) {
-    //  _.y -= _.sy;
-    //  if (_.y <= _.uy) {
-    //    _.y = _.uy;
-    //    _.ph = 1;
-    //    _.pc = _.pt;
-    //  }
-    //}
+    if (_.to < 0) {
+      _.y += $.e * 16 / _.ts;
+      if (_.y >= _.yd) _.to = 1;
+    }
   };
 
   // Render with relative coordinates. The r object has x, y, r and b

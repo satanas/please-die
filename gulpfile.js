@@ -17,7 +17,7 @@ gulp.task('minify_js', function() {
     "js/input.js",
     "js/group.js",
     "js/player.js",
-    "js/objects.js",
+    "js/blocks.js",
     "js/pills.js",
     "js/rainbows.js",
     "js/collisions.js",

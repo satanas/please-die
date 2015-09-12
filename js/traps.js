@@ -42,6 +42,7 @@ var Fire = function(x, y) {
       $.x.fr(r.x + 4, r.y + 7, 3, 8);
       $.x.fr(r.x + 2, r.y + 9, 16, 7);
       $.x.fr(r.x + 1, r.y + 16, 19, 16);
+      $.x.fr(r.x, r.y + 30, 23, 2);
       $.x.fs("yellow");
       $.x.fr(r.x + 4, r.y + 20, 13, 12);
       $.x.fs("white");
@@ -133,13 +134,14 @@ var Electricity = function(x, y) {
   _.x = x;
   _.y = y;
   _.w = 32; // Width
-  _.h = 16; // Height
+  _.h = 32; // Height
   _.dt = 5000; // Discharge cooldown time
   _.dc = 0; // Discharge counter
   _.bc = 0; // Blink counter
   _.bk = 0; // Blink when discharging
   _.t = $.EL.v;
   _.a = 1; // Alive
+
   // Bounds
   _.b = {
     b: _.y + _.h,

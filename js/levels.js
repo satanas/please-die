@@ -120,7 +120,7 @@ var Levels = function() {
       ],
       "s": [
         {
-          t: ["Sharpening the edges"],
+          t: ["Let's sharpen the edges"],
           d: 2400
         }
       ],
@@ -152,7 +152,8 @@ var Levels = function() {
           d: 2400
         }
       ],
-      e:[]
+      e:[],
+      l: 100
     },
     6: {
       "m": [
@@ -178,7 +179,8 @@ var Levels = function() {
           d: 2400
         }
       ],
-      e:[]
+      e:[],
+      l: 300
     },
   };
 };

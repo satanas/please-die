@@ -250,6 +250,7 @@ var Player = function(x, y, hl) {
    //_.h = 8;
    $.c.st(null);
    $.s.p('d');
+   _.e.e(_.x, _.y, 5, 5);
   };
 
   // Keep alive
@@ -259,24 +260,24 @@ var Player = function(x, y, hl) {
 
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
-    if (!_.a) return;
+    if (_.a) {
+      $.x.s();
+      if (_.bk) {
+        $.x.fs("red");
+      } else {
+        $.x.fs("white");
+      }
+      $.x.fr(r.x, r.y, _.w, _.h);
 
-    $.x.s();
-    if (_.bk) {
-      $.x.fs("red");
-    } else {
-      $.x.fs("white");
+      // Render dialog
+      _.dia.r(r);
+
+      if (dbg) {
+        $.x.ss("red");
+        $.x.sr(r.x, r.y, _.w, _.h);
+      }
+      $.x.r();
     }
-    $.x.fr(r.x, r.y, _.w, _.h);
-
-    // Render dialog
-    _.dia.r(r);
-
-    if (dbg) {
-      $.x.ss("red");
-      $.x.sr(r.x, r.y, _.w, _.h);
-    }
-    $.x.r();
 
     // Render emitter
     _.e.r();

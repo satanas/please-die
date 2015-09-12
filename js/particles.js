@@ -18,6 +18,7 @@ var Emitter = function() {
   //   fire = 2
   //   sparkles = 3
   //   acid cloud = 4
+  //   death = 5
   _.e = function(x, y, n, t) {
     var n = n || 5,
         i = n;
@@ -36,6 +37,25 @@ var Emitter = function() {
       _.ac = _.af;
       for(i; i--;)
         _.p.a(new Particle(x + rndr(-5, 5), y + rndr(-16, 16), 0, 0, "green", rndr(800, 1200), 0, 1, 0, 0));
+    } else if (t === 5) {
+      var s = 10, t = 5000, c = "white";
+      _.p.e.push(new Particle(x, y, 0, -4, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, -2, -2, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, -4, 0, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, -2, 2, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, 0, 4, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, 2, 2, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, 4, 0, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, 2, -2, c, t, 0, 0, 0, 0, s));
+
+      _.p.e.push(new Particle(x, y, 0, -2, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, -1, -1, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, -2, 0, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, -1, 1, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, 0, 2, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, 1, 1, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, 2, 0, c, t, 0, 0, 0, 0, s));
+      _.p.e.push(new Particle(x, y, 1, -1, c, t, 0, 0, 0, 0, s));
     }
   };
 
@@ -72,11 +92,11 @@ var Emitter = function() {
 // d: apply alpha until the particle disappear (default: true)
 // sx: sinusoidal speed for x
 // t: taint the blocks?
-var Particle = function(x, y, dx, dy, c, l, g, d, sx, t) {
+var Particle = function(x, y, dx, dy, c, l, g, d, sx, t, w) {
   var _ = this;
   _.x = x;
   _.y = y;
-  _.w = rndr(3, 7);
+  _.w = w || rndr(3, 7);
   _.h = _.w;
   _.dx = dx;
   _.dy = dy;

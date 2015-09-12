@@ -45,4 +45,11 @@ var Input = function() {
       ev[k] = 0;
     });
   };
+  /* Clear */
+  _.c = function() {
+    Object.keys(ps).forEach(function(k){
+      ev[k] = 0;
+      ps[k] = 0;
+    });
+  };
 };

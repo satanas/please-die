@@ -213,6 +213,7 @@ var Player = function(x, y, hl) {
         p.a = 0;
         // A pill decrement 0.5s the rainbow effect
         o.rbc -= 500;
+        $.s.p('pl');
       });
     }
 

@@ -71,7 +71,7 @@ var GameScene = function() {
 
   // Globals
   $.rbe = 0; // Rainbow effect?
-  $.lvl = 6; // Current level
+  $.lvl = 2; // Current level
 
   _.init = function() {
     _.dd = 1000; // Delay after death
@@ -96,7 +96,7 @@ var GameScene = function() {
         cx = x * 32;
         cy = y * 32;
         if (_.m.m[x][y] === "#") $.g.b.a(new Block(cx, cy));
-        if (_.m.m[x][y] === "@") _.p = new Player(cx, cy);
+        if (_.m.m[x][y] === "@") _.p = new Player(cx, cy, _.lv.l[$.lvl].l);
         if (_.m.m[x][y] === "T") $.g.z.a(new TNT(cx, cy));
         if (_.m.m[x][y] === "F") $.g.t.a(new Fire(cx, cy));
         if (_.m.m[x][y] === "S") $.g.t.a(new Saw(cx, cy));
@@ -106,9 +106,6 @@ var GameScene = function() {
         if (_.m.m[x][y] === "=") $.g.r.a(new RainbowBlock(cx, cy));
       }
     }
-
-    // Setting health
-    _.p.hl = _.lv.l[$.lvl].l;
 
     _.h = new HUD(_.p, _);
     // Load level dialogs

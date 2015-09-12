@@ -37,7 +37,6 @@ var Player = function(x, y) {
   _.frw = 0; // First time touching a rainbow
 
   _.u = function() {
-    //console.log(_.f === 1 ? 'right' : 'left');
     //console.log('hu', _.hu, 'blc', _.blc, 'buc', _.buc, 'elc', _.elc, 'shc', _.shc, 'ic', _.ic);
 
     if (_.a > 0) {
@@ -84,7 +83,7 @@ var Player = function(x, y) {
 
       var mxs = _.mxs; // Max x speed that will be affected by traps
       var mys = _.mys; // May y speed that will be affected by traps
-      //if (_.hu & $.BL.v) mxs = _.mxs / 3;
+      if (_.hu & $.BL.v) mxs = _.mxs / 3;
       if (_.hu & $.BU.v) mxs = _.mxs * 1.5;
       if (_.hu & $.WA.v) mxs = _.mxs / 1.5;
       if (_.hu & $.SH.v) { mxs = 0; mys = 0; }
@@ -132,8 +131,6 @@ var Player = function(x, y) {
       if (_.x + _.w > $.c.ww) _.x = $.c.ww - _.w;
       if (_.x < 0) _.x = 0;
 
-      //console.log('b', 'x', _.x, 'y', _.y, 'dx', _.dx, 'dy', _.dy);
-
       // Update dialog
       _.dia.u();
     }
@@ -164,20 +161,24 @@ var Player = function(x, y) {
     // Check collisions with traps if player is not invincible and not under rainbow effects
     if (_.ic === 0 && !(_.hu & $.RB.v)) {
       $.g.t.c(_, function(o, w) {
-        w.a = 0;
         o.ic = o.it;
-        if (w.t === $.BL.v && w.dc === 0) {
+        if (w.t === $.BL.v && w.to <= 0) {
           o.hl -= $.BL.d;
           o.e.e(o.x, o.y, 5, 1);
           $.s.p('bl');
+          // Turn off trap after hit the player
+          w.o();
           if (!(o.hu & $.BL.v)) o.hu += $.BL.v;
+          // FIXME: Remove bleeding counter
           o.blc = $.BL.t
         } else if (w.t === $.BU.v) {
           if (!(o.hu & $.BU.v)) o.hu += $.BU.v;
           o.buc = $.BU.t
+          w.a = 0;
         } else if (w.t === $.EL.v) {
           if (!(o.hu & $.EL.v)) o.hu += $.EL.v;
           o.elc = $.EL.t
+          w.a = 0;
         }
       });
 

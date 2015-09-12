@@ -51,22 +51,26 @@ var TNT = function(x, y) {
   // Render with relative coordinates. The r object has x, y, r and b
   _.r = function(r) {
     $.x.s();
-    $.x.fs('red');
-    $.x.fr(r.x, r.y, _.w, _.h);
+    if ($.rbe) {
+      drwf(r, _);
+    } else {
+      $.x.fs('red');
+      $.x.fr(r.x, r.y, _.w, _.h);
 
-    $.x.ss("#000");
-    $.x.bp();
-    $.x.mv(r.x + 8, r.y);
-    $.x.lt(r.x + 8, r.y + _.h);
-    $.x.k();
-    $.x.bp();
-    $.x.mv(r.x + 16, r.y);
-    $.x.lt(r.x + 16, r.y + _.h);
-    $.x.k();
+      $.x.ss("#000");
+      $.x.bp();
+      $.x.mv(r.x + 8, r.y);
+      $.x.lt(r.x + 8, r.y + _.h);
+      $.x.k();
+      $.x.bp();
+      $.x.mv(r.x + 16, r.y);
+      $.x.lt(r.x + 16, r.y + _.h);
+      $.x.k();
 
-    $.x.fs("#fff");
-    $.x.font = "10px sans";
-    $.x.ft('TNT', r.x + 2, r.y + 13);
+      $.x.fs("#fff");
+      $.x.font = "10px sans";
+      $.x.ft('TNT', r.x + 2, r.y + 13);
+    }
     if (dbg) {
       $.x.ss("red");
       $.x.sr(r.x, r.y, _.w, _.h);

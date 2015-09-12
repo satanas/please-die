@@ -32,6 +32,7 @@ $.start = function() {
   // Dead
   // 1,0.0178,0.5066,0.022,0.8284,0.2873,,-0.0044,-0.4035,-0.049,0.3671,-0.4245,0.5258,0.544,0.0047,0.2887,,-0.2925,0.959,0.0046,,0.0715,-0.0178,0.5
 
+  $.ingame = 0;
   // Scenes
   $.menu = new MenuScene();
   $.game = new GameScene();
@@ -41,8 +42,18 @@ $.start = function() {
 
 var MenuScene = function() {
   var _ = this;
+  // FIXME: Hack to avoid double enter
+  _.d = 100; // Delay
+  _.c = 0; // Counter
+  _.t = {
+    s: 0, // Start time
+    e: 0 // Elapsed time
+  };
 
   _.loop = function() {
+    $.e = (_.t.s !== 0) ? new Date() - _.t.s : 0;
+
+    if (_.c < _.d) _.c += $.e;
     $.x.clr('ivory');
 
     $.x.s();
@@ -50,10 +61,13 @@ var MenuScene = function() {
     $.x.ct('Press Enter to play', 20, 440, "firebrick");
     $.x.r();
 
-    if ($.i.r(13)) {
+    if ($.i.p(13) && _.c > _.d) {
       $.s.p('s');
+      $.ingame = 1;
       return $.game.start();
     }
+
+    _.t.s = new Date();
     raf(_.loop.bind(_));
   };
 };
@@ -81,6 +95,7 @@ var GameScene = function() {
   $.lvl = 4; // Current level
 
   _.init = function() {
+    $.ingame = 1;
     _.dd = 1000; // Delay after death
     _.t.s = 0;
     _.t.e = 0;
@@ -180,10 +195,15 @@ var GameScene = function() {
         // Decrement the death delay or show the finish screen
         _.dd > 0 ? _.dd -= $.e : (_.p.a === 0) ? _.next() : _.game_over();
       }
+      $.i.u();
     }
 
     _.t.s = new Date();
-    raf(_.loop.bind(_));
+    if ($.ingame) {
+      raf(_.loop.bind(_));
+    } else {
+      return;
+    }
   };
 
   _.start = function() {
@@ -252,6 +272,8 @@ var GameScene = function() {
     $.x.r();
 
     if ($.i.p(13)) {
+      $.ingame = 0;
+      $.i.c();
       $.s.p('s');
       $.menu.loop();
     }

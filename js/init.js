@@ -7,7 +7,7 @@ window.caf = window.cancelAnimationFrame ||
   window.mozCancelAnimationFrame;
 
 var $ = {},
-    dbg = true,
+    dbg = false,
     abs = Math.abs,
     cos = Math.cos,
     sin = Math.sin,
@@ -98,9 +98,13 @@ $.init = function(c, w, h) {
   // s: size
   // y: y coordinate
   // c: font color
-  $.x.ct = function(t, s, y, c) {
+  // f: family
+  // v: variant
+  $.x.ct = function(t, s, y, c, f, v) {
+    f = f || "serif";
+    v = v || '';
     $.x.fs(c || "#000");
-    $.x.font = String(s) + "px serif";
+    $.x.font = v + " " + String(s) + "px " + f;
     var x = $.x.mt(t);
     $.x.ft(t, ($.vw - x.width) / 2, y);
   };

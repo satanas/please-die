@@ -125,7 +125,7 @@ var Player = function(x, y, hl) {
       _.dy += 19.8 * ($.e / 1000);
       _.dy = iir(_.dy, -mys, mys);
 
-      //console.log('hu', _.hu, 'blc', _.blc, 'buc', _.buc, 'elc', _.elc, 'shc', _.shc, 'ic', _.ic, 'dx', _.dx, 'dy', _.dy, 'mxs', mxs, 'mys', mys);
+      //console.log('1 : dx', _.dx, 'dy', _.dy);
       _.x += _.dx;
       _.y += _.dy;
 
@@ -141,22 +141,25 @@ var Player = function(x, y, hl) {
 
     // Check collisions with blocks
     $.g.b.c(_, function(o, w) {
-      if ($.o.bottom(o, w)){
-        //console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
-        o.y = w.b.t - o.h;
-        o.dy = o.j = 0;
-      } else if ($.o.top(o, w)) {
+      //console.log('x, y', o.x, o.y);
+      if ($.o.top(o, w)) {
         //console.log('tttttttttttttttttttttttttttttttttttttttttttttttttt');
         o.dy = 0.1;
-      } else if ($.o.right(o, w)) {
+      } if ($.o.right(o, w)) {
         //console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
         o.x = w.b.l - o.w;
-      } else if ($.o.left(o, w)) {
+      } if ($.o.left(o, w)) {
         //console.log('llllllllllllllllllllllllllllllllllllllllllllllllll');
         o.x = w.b.r;
+      } if ($.o.bottom(o, w)){
+        //console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
+        _.y = w.b.t - o.h;
+        _.dy = o.j = 0;
+        o.j = 0;
       }
     });
 
+    //console.log('2 : dx', _.dx, 'dy', _.dy);
     // Recalculate bounds after collisions
     _.rb();
 

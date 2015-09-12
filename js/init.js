@@ -7,7 +7,7 @@ window.caf = window.cancelAnimationFrame ||
   window.mozCancelAnimationFrame;
 
 var $ = {},
-    dbg = false,
+    dbg = true,
     abs = Math.abs,
     cos = Math.cos,
     sin = Math.sin,

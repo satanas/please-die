@@ -2,10 +2,11 @@ var Collisions = function() {
   var _ = this;
   _.rect = function(o1, o2) {
     if (Object.keys(o1.b).length === 0 || Object.keys(o2.b).length === 0) return false;
-    return !((o1.b.b < o2.b.t) ||
-        (o1.b.t > o2.b.b) ||
-        (o1.b.l > o2.b.r) ||
-        (o1.b.r < o2.b.l));
+    return (o1.b.l < o2.b.r && o1.b.r > o2.b.l && o1.b.t < o2.b.b && o1.b.b > o2.b.t);
+    //return !((o1.b.b < o2.b.t) ||
+    //    (o1.b.t > o2.b.b) ||
+    //    (o1.b.l > o2.b.r) ||
+    //    (o1.b.r < o2.b.l));
   };
 
   _.faces = function(o1, o2) {
@@ -19,7 +20,9 @@ var Collisions = function() {
 
   _.bottom = function(o1, o2) {
     var f = _.faces(o1, o2);
-    return (f.t < f.b && f.t < f.l && f.t < f.r);
+    //console.log('faces', 'l1', o1.b.l, 'r2', o2.b.r, 'r1', o1.b.r, 'l2', o2.b.l);
+    //return (f.t < f.b && f.t < f.l && f.t < f.r);
+    return (f.t < f.b && o1.b.l < o2.b.r && o1.b.r > o2.b.l);
   };
 
   _.top = function(o1, o2) {

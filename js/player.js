@@ -47,7 +47,7 @@ var Player = function(x, y, hl) {
       // If rainbow, recover
       _.rbc = duz(_.rbc, $.e, function() {
         $.rbe = 0;
-        _.hu = 0;
+        _.hu -= $.RB.v;
       });
 
       // If bleeding, recover
@@ -84,10 +84,10 @@ var Player = function(x, y, hl) {
 
       var mxs = _.mxs; // Max x speed that will be affected by traps
       var mys = _.mys; // May y speed that will be affected by traps
-      if (_.hu & $.BL.v) mxs = _.mxs / 3;
+      if (_.hu & $.BL.v) mxs = _.mxs / 1.4;
       if (_.hu & $.BU.v) mxs = _.mxs * 1.12;
       if (_.hu & $.WA.v) mxs = _.mxs / 1.5;
-      if (_.hu & $.SH.v) { mxs = 0; mys = 0; }
+      //if (_.hu & $.SH.v) { mxs = 0; mys = 0; }
 
       // Side movement
       if ($.i.p(37)) {
@@ -125,6 +125,7 @@ var Player = function(x, y, hl) {
       _.dy += 19.8 * ($.e / 1000);
       _.dy = iir(_.dy, -mys, mys);
 
+      //console.log('hu', _.hu, 'blc', _.blc, 'buc', _.buc, 'elc', _.elc, 'shc', _.shc, 'ic', _.ic, 'dx', _.dx, 'dy', _.dy, 'mxs', mxs, 'mys', mys);
       _.x += _.dx;
       _.y += _.dy;
 
@@ -209,18 +210,20 @@ var Player = function(x, y, hl) {
     });
 
     // Check collisions with rainbows
-    $.g.r.c(_, function(o, r) {
-      $.rbe = 1;
-      o.hu = $.RB.v;
-      o.rbc = $.RB.t;
-      //o.elc = o.buc = o.blc = 0;
-      if (!_.frw && $.lvl === 2) {
-        _.frw = 1;
-        _.say(["But beware of rainbows"], 2000);
-        _.say(["Rainbows make", "people happy"], 2300);
-        _.say(["And happy people", "don't want to die"], 4000);
-      }
-    });
+    if (_.ic === 0) {
+      $.g.r.c(_, function(o, r) {
+        $.rbe = 1;
+        if (!(o.hu & $.RB.v)) o.hu += $.RB.v;
+        o.rbc = $.RB.t;
+        //o.elc = o.buc = o.blc = 0;
+        if (!_.frw && $.lvl === 2) {
+          _.frw = 1;
+          _.say(["But beware of rainbows"], 2000);
+          _.say(["Rainbows make", "people happy"], 2300);
+          _.say(["And happy people", "don't want to die"], 4000);
+        }
+      });
+    }
 
     // Check collisions with sensors
     $.g.e.c(_, function(o, e) {

@@ -173,11 +173,11 @@ var Player = function(x, y) {
           o.blc = $.BL.t
         } else if (w.t === $.BU.v) {
           if (!(o.hu & $.BU.v)) o.hu += $.BU.v;
-          o.buc = $.BU.t
+          o.buc += $.BU.t
           w.a = 0;
         } else if (w.t === $.EL.v) {
           if (!(o.hu & $.EL.v)) o.hu += $.EL.v;
-          o.elc = $.EL.t
+          o.elc += $.EL.t
           w.a = 0;
         }
       });
@@ -212,7 +212,7 @@ var Player = function(x, y) {
       $.rbe = 1;
       o.hu = $.RB.v;
       o.rbc = $.RB.t;
-      o.elc = o.buc = o.blc = 0;
+      //o.elc = o.buc = o.blc = 0;
       if (!_.frw && $.lvl === 2) {
         _.frw = 1;
         _.say(["But beware of rainbows"], 2000);

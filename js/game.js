@@ -71,7 +71,7 @@ var GameScene = function() {
 
   // Globals
   $.rbe = 0; // Rainbow effect?
-  $.lvl = 3; // Current level
+  $.lvl = 4; // Current level
 
   _.init = function() {
     _.dd = 1000; // Delay after death
@@ -97,11 +97,11 @@ var GameScene = function() {
         cy = y * 32;
         if (_.m.m[x][y] === "#") $.g.b.a(new Block(cx, cy));
         if (_.m.m[x][y] === "@") _.p = new Player(cx, cy);
-        if (_.m.m[x][y] === "T") $.g.z.a(new TNT(x, cy));
+        if (_.m.m[x][y] === "T") $.g.z.a(new TNT(cx, cy));
         if (_.m.m[x][y] === "F") $.g.t.a(new Fire(cx, cy));
         if (_.m.m[x][y] === "S") $.g.t.a(new Saw(cx, cy));
         if (_.m.m[x][y] === "E") $.g.t.a(new Electricity(cx, cy));
-        if (_.m.m[x][y] === "R") $.g.r.a(new Rainbow(cx, cy, 96));
+        if (_.m.m[x][y] === "R") $.g.r.a(new Rainbow(cx, cy, 80));
         if (_.m.m[x][y] === "r") $.g.r.a(new Rainbow(cx, cy, 48));
         if (_.m.m[x][y] === "=") $.g.r.a(new RainbowBlock(cx, cy));
       }

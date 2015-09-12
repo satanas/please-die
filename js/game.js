@@ -46,8 +46,8 @@ var MenuScene = function() {
     $.x.clr('#fff');
 
     $.x.s();
-    $.x.ct('Please, die', 75, 200);
-    $.x.ct('Press Enter to play', 25, 350);
+    $.x.ct('Please, Die', 75, 200, 0, 0, "small-caps bold");
+    $.x.ct('Press Enter to play', 20, 440);
     $.x.r();
 
     if ($.i.r(13)) {
@@ -68,6 +68,13 @@ var GameScene = function() {
   };
   _.ssp = 0; // Summary screen sound played
   _.wn = 0; // Time warnings before dead
+  // Victory messages
+  _.vmsg = rnde([
+    "The aim of all live, is death–S. Freud",
+    "Nothing in life is certain but death and taxes–B. Franklin",
+    "Immortality: a fate worse than death–E. Shoaff",
+    "You only die once–"
+  ]);
 
   // Globals
   $.rbe = 0; // Rainbow effect?
@@ -77,10 +84,10 @@ var GameScene = function() {
     _.dd = 1000; // Delay after death
     _.t.s = 0;
     _.t.e = 0;
-    _.t.l = 60000;
     _.lv = new Levels();
     _.m = new Map(30, 24);
     _.m.l(_.lv.l[$.lvl].m);
+    _.t.l = _.lv.l[$.lvl].t;
     $.c.sw(_.m.w * 32, _.m.h * 32);
     // Groups
     $.g.b = new Group(); // Blocks
@@ -190,12 +197,12 @@ var GameScene = function() {
       _.ssp = 1
       $.s.p('k');
     }
-    var c = 'red';
+    var c = 'hotpink';
     $.x.s();
     _.mo();
-    $.x.ct('YOU STILL ALIVE', 50, 150, c);
-    $.x.ct('Oh noes! You couldn\'t rest in peace', 35, 200, c);
-    $.x.ct('Press Enter to try again', 22, 420, c);
+    $.x.ct("You're Still Alive", 60, 130, c, 0, "small-caps");
+    $.x.ct("And here that is a tragedy!", 35, 200, c, 0, "italic");
+    $.x.ct('Press Enter to try again', 20, 440, c);
     $.x.r();
 
     if ($.i.p(13)) {
@@ -210,12 +217,17 @@ var GameScene = function() {
       _.ssp = 1
       $.s.p('ad');
     }
-    var c = '#fff';
+    var c = '#fff', a, x;
     $.x.s();
     _.mo();
-    $.x.ct('YEAH! YOU DIED', 50, 150, c);
-    $.x.ct('R.I.P.', 35, 200, c);
-    $.x.ct('Press Enter to play next level', 22, 420, c);
+    $.x.ct('Rest In Peace', 70, 130, c, 0, "small-caps");
+    $.x.ct(_.vmsg.split('–')[0], 25, 200, c, 0, 'italic');
+    a = _.vmsg.split('–')[1];
+    if (a) {
+      x = 500 - $.x.mt(_.vmsg.split('–')[1]).width;
+      $.x.ft(a, x, 250);
+    }
+    $.x.ct('Press Enter to play next level', 20, 440, c);
     $.x.r();
 
     if ($.i.p(13)) {
@@ -227,7 +239,7 @@ var GameScene = function() {
 
   // Modal
   _.mo = function() {
-    $.x.fs("rgba(0,0,0,0.85)");
+    $.x.fs("rgba(0,0,0,0.75)");
     $.x.fr(0, 0, $.vw, $.vh);
   };
 

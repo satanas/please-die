@@ -165,6 +165,7 @@ var GameScene = function() {
       $.g.p.u(); // Update pills
       $.g.e.u(); // Update sensors
       $.g.x.u(); // Update explosions
+      _.h.u(); // Update HUD
 
       // Update camera. Always at the end of all updates
       $.c.u();

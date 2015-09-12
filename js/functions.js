@@ -9,6 +9,8 @@ var duz = function(v, d, cb) {
       v = 0;
       if (cb !== undefined) cb();
     }
+  } else {
+    if (cb !== undefined) cb();
   }
   return v;
 };

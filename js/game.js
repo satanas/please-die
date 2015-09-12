@@ -61,7 +61,7 @@ var MenuScene = function() {
     $.x.ct('Press Enter to play', 20, 440, "firebrick");
     $.x.r();
 
-    if ($.i.p(13) && _.c > _.d) {
+    if ($.i.p(13) && _.c >= _.d) {
       $.s.p('s');
       $.ingame = 1;
       return $.game.start();
@@ -274,7 +274,7 @@ var GameScene = function() {
 
     if ($.i.p(13)) {
       $.ingame = 0;
-      $.i.c();
+      //$.i.c();
       $.s.p('s');
       $.menu.loop();
     }

@@ -71,7 +71,7 @@ var GameScene = function() {
 
   // Globals
   $.rbe = 0; // Rainbow effect?
-  $.lvl = 1; // Current level
+  $.lvl = 4; // Current level
 
   _.init = function() {
     _.dd = 1000; // Delay after death
@@ -89,6 +89,7 @@ var GameScene = function() {
     $.g.p = new Group(); // Pills
     $.g.r = new Group(); // Rainbows
     $.g.e = new Group(); // Sensors
+    $.g.x = new Group(); // Explosions
 
     var x, y, cx, cy;
     for (y=0; y<_.m.h; y++) {
@@ -141,6 +142,7 @@ var GameScene = function() {
       $.g.z.u(); // Update triggers
       $.g.p.u(); // Update pills
       $.g.e.u(); // Update sensors
+      $.g.x.u(); // Update explosions
 
       // Update camera. Always at the end of all updates
       $.c.u();
@@ -153,6 +155,7 @@ var GameScene = function() {
       $.c.r(_.p); // Render player
       $.g.r.r(); // Render rainbows
       $.g.e.r(); // Render sensors
+      $.g.x.r(); // Render explosions
 
       // Check time to show warnings
       _.cw();

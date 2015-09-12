@@ -43,11 +43,11 @@ var MenuScene = function() {
   var _ = this;
 
   _.loop = function() {
-    $.x.clr('#fff');
+    $.x.clr('ivory');
 
     $.x.s();
     $.x.ct('Please, Die', 75, 200, 0, 0, "small-caps bold");
-    $.x.ct('Press Enter to play', 20, 440);
+    $.x.ct('Press Enter to play', 20, 440, "firebrick");
     $.x.r();
 
     if ($.i.r(13)) {
@@ -221,7 +221,7 @@ var GameScene = function() {
     $.x.s();
     _.mo();
     $.x.ct('Rest In Peace', 70, 130, c, 0, "small-caps");
-    $.x.ct(_.vmsg.split('–')[0], 25, 200, c, 0, 'italic');
+    $.x.ct(_.vmsg.split('–')[0], 25, 200, "firebrick", 0, 'italic');
     a = _.vmsg.split('–')[1];
     if (a) {
       x = 500 - $.x.mt(_.vmsg.split('–')[1]).width;
@@ -234,6 +234,26 @@ var GameScene = function() {
       $.s.p('s');
       $.lvl += 1;
       return _.init();
+    }
+  };
+
+  _.end = function() {
+    if (!_.ssp) {
+      _.ssp = 1
+      $.s.p('ad');
+    }
+    var c = '#fff';
+    $.x.s();
+    _.mo();
+    $.x.ct("The End", 90, 130, "firebrick", 0, "small-caps");
+    $.x.ct("Thanks for playing!", 30, 200, c);
+    $.x.ct('Press Enter to exit', 20, 440, c);
+    $.x.ct("Created by @satanas82 for the js13k compo 2015", 18, 470, "gray");
+    $.x.r();
+
+    if ($.i.p(13)) {
+      $.s.p('s');
+      $.menu.loop();
     }
   };
 

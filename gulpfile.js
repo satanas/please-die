@@ -22,7 +22,6 @@ gulp.task('minify_js', function() {
     "js/rainbows.js",
     "js/collisions.js",
     "js/explosions.js",
-    "js/medikit.js",
     "js/camera.js",
     "js/particles.js",
     "js/traps.js",

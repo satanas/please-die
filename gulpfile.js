@@ -9,7 +9,7 @@ var minifyHTML = require('gulp-minify-html');
 var clean = require('gulp-clean');
 var zip = require('gulp-zip');
 
-var appName = 'die-fast-js13k-2015';
+var appName = 'please-die-js13k-2015';
 
 gulp.task('minify_js', function() {
   return gulp.src([

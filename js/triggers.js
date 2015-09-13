@@ -1,7 +1,7 @@
 var Water = function(x, y) {
   var _ = this;
   _.x = x;
-  _.y = y;
+  _.y = y + 8;
   _.w = 32; // Width
   _.h = 24; // Height
   //_.dt = 5000; // Discharge cooldown time

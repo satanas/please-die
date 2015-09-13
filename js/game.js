@@ -116,7 +116,7 @@ var GameScene = function() {
 
   // Globals
   $.rbe = 0; // Rainbow effect?
-  $.lvl = 6; // Current level
+  $.lvl = 1; // Current level
 
   _.init = function() {
     $.rbe = 0;

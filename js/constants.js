@@ -3,7 +3,7 @@ $.BL = {v: 1, t: 300, d: 0.8, ds: 0.3}; // Bleeding
 $.BU = {v: 2, t: 3000, d: 15, ds: 6}; // Burning
 $.EL = {v: 4, t: 4800, d: 3, ds: 5}; // Electrocuting
 $.PO = {v: 8, t: 3000, d: 2.5}; // Poisoning/Radiation
-$.SH = {v: 16, t: 600, ds: 10}; // Shock
+$.SH = {v: 16, t: 2600, ds: 30}; // Shock
 // Rainbow
 $.RB = {
   v: 32,

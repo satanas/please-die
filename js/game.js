@@ -114,7 +114,7 @@ var GameScene = function() {
 
   // Globals
   $.rbe = 0; // Rainbow effect?
-  $.lvl = 1; // Current level
+  $.lvl = 6; // Current level
 
   _.init = function() {
     $.rbe = 0;
@@ -152,6 +152,7 @@ var GameScene = function() {
         if (_.m.m[x][y] === "r") $.g.r.a(new Rainbow(cx, cy, 48));
         if (_.m.m[x][y] === "=") $.g.r.a(new RainbowBlock(cx, cy));
         if (_.m.m[x][y] === "P") $.g.p.a(new Pill(cx, cy));
+        if (_.m.m[x][y] === "W") $.g.z.a(new Water(cx, cy));
       }
     }
 
@@ -164,8 +165,6 @@ var GameScene = function() {
     _.lv.l[$.lvl].e.forEach(function(e) {
       $.g.e.a(new MessageSensor(e.x * 32, e.y * 32, e.w * 32, e.h * 32, e.t, e.d))
     });
-
-    //$.g.z.a(new Water(440, 576));
 
     $.c.st(_.p);
   };

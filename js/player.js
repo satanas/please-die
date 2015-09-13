@@ -61,8 +61,8 @@ var Player = function(x, y, hl) {
 
       // If electrocuting, recover
       _.elc = _.cdr(_.elc, ($.e * $.EL.ds) / 1000, $.EL.v, function() {
-        $.s.p('el');
-        _.e.e(_.x, _.y + (_.h / 2), 3, 3);
+        $.s.p('sp');
+        _.e.e(_.x, _.y + (_.h / 2), 2, 3);
       });
 
       // If shocking, recover
@@ -222,8 +222,6 @@ var Player = function(x, y, hl) {
           o.hu -= $.EL.v;
           o.hu += $.SH.v;
           o.shc = $.SH.t;
-          $.g.x.a(new Explosion(_.x, _.y));
-          $.s.p('xp');
           _.elc = 0;
         // If collide with TNT and burning
         } else if (w.t === $.TN.v && o.hu & $.BU.v) {

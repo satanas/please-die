@@ -14,26 +14,24 @@ var Rainbow = function(x, y, r) {
   };
 
   _.r = function(r) {
-    if (!$.rbe) {
-      var ra = _.ra;
-      $.x.s();
-      $.RB.c.forEach(function(c) {
-        $.x.ga(0.8);
-        $.x.ss(c);
-        $.x.lineWidth = 5;
-        $.x.bp();
-        $.x.arc(r.x + (_.w / 2), r.y + _.h, ra, PI, 0, 0);
-        $.x.stroke();
-        ra -= 5;
-        $.x.lineWidth = 1;
-      });
+    var ra = _.ra;
+    $.x.s();
+    $.RB.c.forEach(function(c) {
+      $.x.ga(0.8);
+      $.x.ss(c);
+      $.x.lineWidth = 5;
+      $.x.bp();
+      $.x.arc(r.x + (_.w / 2), r.y + _.h, ra, PI, 0, 0);
+      $.x.stroke();
+      ra -= 5;
+      $.x.lineWidth = 1;
+    });
 
-      if (dbg) {
-        $.x.ss("red");
-        $.x.sr(r.x + 4 , r.y + (_.h * 0.25), _.w - 8, _.h);
-      }
-      $.x.r();
+    if (dbg) {
+      $.x.ss("red");
+      $.x.sr(r.x + 4 , r.y + (_.h * 0.25), _.w - 8, _.h);
     }
+    $.x.r();
   };
 };
 
@@ -52,21 +50,19 @@ var RainbowBlock = function(x, y) {
   };
 
   _.r = function(r) {
-    if (!$.rbe) {
-      var y = r.y + 2;
-      $.x.s();
-      $.RB.c.forEach(function(c) {
-        $.x.ga(0.8);
-        $.x.fs(c);
-        $.x.fr(r.x, y, _.w, 5);
-        y += 5;
-      });
+    var y = r.y + 2;
+    $.x.s();
+    $.RB.c.forEach(function(c) {
+      $.x.ga(0.8);
+      $.x.fs(c);
+      $.x.fr(r.x, y, _.w, 5);
+      y += 5;
+    });
 
-      if (dbg) {
-        $.x.ss("red");
-        $.x.sr(r.x, r.y, _.w, _.h);
-      }
-      $.x.r();
+    if (dbg) {
+      $.x.ss("red");
+      $.x.sr(r.x, r.y, _.w, _.h);
     }
+    $.x.r();
   };
 };

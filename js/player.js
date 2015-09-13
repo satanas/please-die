@@ -125,7 +125,8 @@ var Player = function(x, y, hl) {
       _.dy += 19.8 * ($.e / 1000);
       _.dy = iir(_.dy, -mys, mys);
 
-      //console.log('1 : dx', _.dx, 'dy', _.dy);
+      //console.log('1 : dx', _.dx, 'dy', _.dy, 'x', _.x, 'y', _.y);
+      // Position adjustments
       _.x += _.dx;
       _.y += _.dy;
 
@@ -139,27 +140,51 @@ var Player = function(x, y, hl) {
     // Recalculate bounds after movement
     _.rb();
 
+    var col = [], val;
     // Check collisions with blocks
     $.g.b.c(_, function(o, w) {
-      //console.log('x, y', o.x, o.y);
-      if ($.o.top(o, w)) {
-        //console.log('tttttttttttttttttttttttttttttttttttttttttttttttttt');
-        o.dy = 0.1;
-      } if ($.o.right(o, w)) {
-        //console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
-        o.x = w.b.l - o.w;
-      } if ($.o.left(o, w)) {
-        //console.log('llllllllllllllllllllllllllllllllllllllllllllllllll');
-        o.x = w.b.r;
-      } if ($.o.bottom(o, w)){
-        //console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
-        _.y = w.b.t - o.h;
-        _.dy = o.j = 0;
-        o.j = 0;
+      val = 0;
+      // Moving faster in X
+      if (abs(_.dx) > abs(_.dy)) {
+        if ($.o.top(o, w) || $.o.bottom(o, w)) val = abs(_.dx);
+      // Moving faster in Y
+      } else {
+        if ($.o.left(o, w) || $.o.right(o, w)) val = abs(_.dy);
       }
+      col.push({w: w, v: val});
+      //console.log('t1', o.b.t, 'l1', o.b.l, 'r1', o.b.r, 'b1', o.b.b, 't2', w.b.t, 'l2', w.b.l, 'r2', w.b.r, 'b2', w.b.b);
     });
 
-    //console.log('2 : dx', _.dx, 'dy', _.dy);
+    // Sorting collisions (according http://gamedev.stackexchange.com/questions/60054/separate-axis-theorem-applied-to-aabb-misunderstood)
+    col.sort(function(a, b) {
+      if (a.v - b.v > 0) return 0;
+      if (a.v - b.v < 0) return 1;
+      return 0;
+    });
+
+    col.forEach(function(e) {
+      var w = e.w;
+      if ($.o.right(_, w)) {
+        //console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+        _.x = w.b.l - _.w;
+      } else if ($.o.left(_, w)) {
+        //console.log('llllllllllllllllllllllllllllllllllllllllllllllllll');
+        _.x = w.b.r;
+      }
+      if ($.o.top(_, w)) {
+        //console.log('tttttttttttttttttttttttttttttttttttttttttttttttttt');
+        _.dy = 0.1;
+      } else if ($.o.bottom(_, w)){
+        //console.log('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
+        _.y = w.b.t - _.h;
+        _.dy = _.j = 0;
+        //_.j = 0;
+      }
+      _.rb();
+    });
+    //console.log('2 : dx', _.dx, 'dy', _.dy, 'x', _.x, 'y', _.y);
+
+
     // Recalculate bounds after collisions
     _.rb();
 

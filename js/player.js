@@ -228,6 +228,7 @@ var Player = function(x, y, hl) {
           _.fo.y = -4;
           _.fo.d = 25;
           $.g.x.a(new Explosion(_.x, _.y));
+          $.s.p('xp');
         }
       });
     }

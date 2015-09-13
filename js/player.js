@@ -87,7 +87,7 @@ var Player = function(x, y, hl) {
       if (_.hu & $.BL.v) mxs = _.mxs / 1.4;
       if (_.hu & $.BU.v) mxs = _.mxs * 1.12;
       if (_.hu & $.WA.v) mxs = _.mxs / 1.5;
-      //if (_.hu & $.SH.v) { mxs = 0; mys = 0; }
+      if (_.hu & $.SH.v) { mxs = 0.8; mys = 0.8; }
 
       // Side movement
       if ($.i.p(37)) {
@@ -216,10 +216,14 @@ var Player = function(x, y, hl) {
       // Check for collisions with triggers
       $.g.z.c(_, function(o, w) {
         // If collide with water and shocking
-        if (w.t === $.WA.v && o.hu & $.EL.v) {
+        if (w.t === $.WA.v) {
+          if (o.hu & $.BU.v) o.hu -= $.BU.v;
+          if (!(o.hu & $.EL.v)) return;
           o.hu -= $.EL.v;
           o.hu += $.SH.v;
           o.shc = $.SH.t;
+          $.g.x.a(new Explosion(_.x, _.y));
+          $.s.p('xp');
           _.elc = 0;
         // If collide with TNT and burning
         } else if (w.t === $.TN.v && o.hu & $.BU.v) {

@@ -77,7 +77,8 @@ var MenuScene = function() {
 
     $.x.s();
     $.x.ct('Please, Die', 75, 200, 0, 0, "small-caps bold");
-    $.x.ct('Press Enter to play', 20, 440, "firebrick");
+    $.x.ct('Press Enter to play', 20, 420, "firebrick");
+    $.x.ct("Created by @satanas82 for the js13k compo 2015", 14, 470, "gray");
     $.x.r();
 
     if ($.i.p(13) && _.c >= _.d) {

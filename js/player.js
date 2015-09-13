@@ -133,6 +133,7 @@ var Player = function(x, y, hl) {
       // Check for world limits
       if (_.x + _.w > $.c.ww) _.x = $.c.ww - _.w;
       if (_.x < 0) _.x = 0;
+      if (_.y < 0) _.y = 0;
 
       // Update dialog
       _.dia.u();

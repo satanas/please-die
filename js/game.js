@@ -218,7 +218,13 @@ var GameScene = function() {
         _.h.r();
       } else {
         // Decrement the death delay or show the finish screen
-        _.dd > 0 ? _.dd -= $.e : (_.p.a === 0) ? _.next() : _.game_over();
+        if (_.dd > 0) {
+          _.dd -= $.e;
+        } else {
+          if (_.p.a === 0 && $.lvl >= 7) _.end();
+          if (_.p.a === 0 && $.lvl < 7) _.next();
+          if (_.p.a !== 0) _.game_over()
+        }
       }
       $.i.u();
     }
@@ -297,8 +303,9 @@ var GameScene = function() {
     $.x.r();
 
     if ($.i.p(13)) {
+      $.lvl = 1;
       $.ingame = 0;
-      //$.i.c();
+      $.i.c();
       $.s.p('s');
       $.menu.loop();
     }

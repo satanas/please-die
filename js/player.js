@@ -36,6 +36,8 @@ var Player = function(x, y, hl) {
 
   // Message-related variables
   _.frw = 0; // First time touching a rainbow
+  _.ftw = 0; // First TNT warning
+  _.fsw = 0; // First shock warning
 
   _.u = function() {
     //console.log('hu', _.hu, 'blc', _.blc, 'buc', _.buc, 'elc', _.elc, 'shc', _.shc, 'ic', _.ic);
@@ -223,6 +225,11 @@ var Player = function(x, y, hl) {
           o.hu += $.SH.v;
           o.shc = $.SH.t;
           _.elc = 0;
+          if (!_.fsw && $.lvl === 5) {
+            _.fsw = 1;
+            _.say(["Ta-ta-ta-ta-taaa-ta"], 2500, 2200);
+            _.say(["Smoke in the water"], 2500);
+          }
         // If collide with TNT and burning
         } else if (w.t === $.TN.v && o.hu & $.BU.v) {
           w.a = 0;
@@ -232,6 +239,10 @@ var Player = function(x, y, hl) {
           _.fo.d = 25;
           $.g.x.a(new Explosion(_.x, _.y));
           $.s.p('xp');
+          if (!_.ftw && $.lvl === 4) {
+            _.ftw = 1;
+            _.say(["Ouch"], 2500, 2000);
+          }
         }
       });
     }
